@@ -100,15 +100,39 @@ const Careers = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="bg-accent-dark text-white py-20">
-        <Container>
-          <div className="max-w-3xl">
+      <section className="relative bg-accent-dark text-white py-24 md:py-40 lg:py-48 overflow-hidden">
+        {/* Background Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-accent-dark/98 to-accent-dark/90 z-10" />
+        
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-40" 
+          style={{
+            backgroundImage: `url('/careers-hero.jpg')`,
+          }}
+        />
+        
+        <Container variant="wide" className="relative z-20">
+          <div className="max-w-4xl">
             <h1 className="font-heading font-bold uppercase text-4xl md:text-5xl mb-6">
               Join a Team That Builds for Life
             </h1>
             <p className="text-xl text-gray-300 leading-relaxed">
               At Perry Electrical, we invest in our people. Build your career with a company that values your growth, supports your development, and rewards your dedication.
             </p>
+          </div>
+        </Container>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-8 bg-accent-dark text-white">
+        <Container>
+          <div className="text-center">
+            <a href="#open-positions">
+              <Button variant="secondary" size="lg">
+                View Open Positions
+              </Button>
+            </a>
           </div>
         </Container>
       </section>
@@ -172,7 +196,7 @@ const Careers = () => {
       </section>
 
       {/* Open Positions */}
-      <section className="section-padding bg-white">
+      <section id="open-positions" className="section-padding bg-white">
         <Container>
           <SectionHeader
             subtitle="Join Our Team"
