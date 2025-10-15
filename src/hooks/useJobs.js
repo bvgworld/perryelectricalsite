@@ -23,11 +23,8 @@ export const useJobs = (statusFilter = null) => {
     let q;
     
     if (statusFilter) {
-      q = query(
-        jobsRef, 
-        where('status', '==', statusFilter), 
-        orderBy('createdAt', 'desc')
-      );
+      // Use simple where query to avoid composite index requirement
+      q = query(jobsRef, where('status', '==', statusFilter));
     } else {
       q = query(jobsRef, orderBy('createdAt', 'desc'));
     }
@@ -38,11 +35,22 @@ export const useJobs = (statusFilter = null) => {
           id: doc.id,
           ...doc.data()
         }));
+        
+        // If we used a where filter, sort manually since we can't use orderBy with where
+        if (statusFilter) {
+          jobsData.sort((a, b) => {
+            const aTime = a.createdAt?.toDate?.() || new Date(0);
+            const bTime = b.createdAt?.toDate?.() || new Date(0);
+            return bTime - aTime; // Most recent first
+          });
+        }
+        
         setJobs(jobsData);
         setLoading(false);
         setError(null);
       },
       (err) => {
+        console.error('Firestore query error:', err);
         setError(err.message);
         setLoading(false);
       }
@@ -55,7 +63,7 @@ export const useJobs = (statusFilter = null) => {
     try {
       const docRef = await addDoc(collection(db, 'jobs'), {
         ...jobData,
-        status: 'open',
+        status: jobData.status || 'open', // Use provided status or default to 'open'
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
         createdBy: userId

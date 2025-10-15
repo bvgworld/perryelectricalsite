@@ -19,6 +19,9 @@ const Careers = () => {
 
   const { jobs, loading: jobsLoading, error: jobsError } = useJobs('open');
 
+  // Debug logging
+  console.log('Careers page - Jobs data:', { jobs, jobsLoading, jobsError });
+
   const hiringProcess = [
     {
       icon: FileText,
