@@ -1,179 +1,133 @@
-import { Link } from 'react-router-dom'
-import './Services.css'
+import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import { Zap, Car, Lightbulb, Power, AlertCircle, Plug } from 'lucide-react';
+import Container from '../components/ui/Container';
+import SectionHeader from '../components/ui/SectionHeader';
+import Card from '../components/ui/Card';
+import Button from '../components/ui/Button';
 
 const Services = () => {
+  const services = [
+    {
+      icon: Zap,
+      title: 'Panel Upgrades',
+      description: 'Upgrade your electrical panel to meet modern power demands safely and efficiently.',
+      link: '/services/panel-upgrades',
+    },
+    {
+      icon: Car,
+      title: 'EV Chargers',
+      description: 'Professional installation of electric vehicle charging stations for home and commercial use.',
+      link: '/services/ev-chargers',
+    },
+    {
+      icon: Lightbulb,
+      title: 'Lighting',
+      description: 'Energy-efficient lighting solutions for indoor and outdoor applications.',
+      link: '/services/lighting',
+    },
+    {
+      icon: Power,
+      title: 'Generators',
+      description: 'Backup power systems to keep your home or business running during outages.',
+      link: '/services/generators',
+    },
+    {
+      icon: AlertCircle,
+      title: 'Tripping Breaker',
+      description: 'Expert diagnosis and repair of circuit breaker issues to ensure electrical safety.',
+      link: '/services/tripping-breaker',
+    },
+    {
+      icon: Plug,
+      title: 'Outlets',
+      description: 'Installation and repair of electrical outlets, including GFCI and USB outlets.',
+      link: '/services/outlets',
+    },
+  ];
+
   return (
-    <div className="services">
+    <>
+      <Helmet>
+        <title>Electrical Services | Perry Electrical</title>
+        <meta 
+          name="description" 
+          content="Perry Electrical offers comprehensive electrical services including panel upgrades, EV chargers, lighting, generators, and more. Serving Kansas with excellence." 
+        />
+      </Helmet>
+
       {/* Hero Section */}
-      <section className="hero">
-        <div className="container">
-          <div className="hero-content">
-            <h1>Our Services</h1>
-            <p>Comprehensive electrical solutions for residential and commercial properties</p>
+      <section className="bg-accent-dark text-white py-20">
+        <Container variant="wide">
+          <div className="max-w-4xl">
+            <h1 className="font-heading font-bold uppercase text-4xl md:text-5xl mb-6">
+              Our Services
+            </h1>
+            <p className="text-xl text-gray-300 mb-6">
+              From residential repairs to commercial installations, we provide comprehensive electrical services backed by expertise and integrity.
+            </p>
+            <Button variant="secondary" size="lg">
+              Call Now for Free Estimate
+            </Button>
           </div>
-        </div>
+        </Container>
       </section>
 
-      {/* Services Overview */}
-      <section className="section">
-        <div className="container">
-          <div className="services-grid">
-            <div className="service-category">
-              <div className="category-header">
-                <div className="category-icon">⚡</div>
-                <h2>Electrical Service & Repair</h2>
-                <p>Fast, reliable electrical services for your home or business</p>
-              </div>
-              <div className="service-list">
-                <div className="service-item">
-                  <h3>Panel Upgrades</h3>
-                  <p>Modernize your electrical panel for increased capacity and safety</p>
-                </div>
-                <div className="service-item">
-                  <h3>Lighting Installation</h3>
-                  <p>Professional lighting solutions for indoor and outdoor spaces</p>
-                </div>
-                <div className="service-item">
-                  <h3>EV Charger Installation</h3>
-                  <p>Level 2 charging stations for electric vehicles</p>
-                </div>
-                <div className="service-item">
-                  <h3>Electrical Repairs</h3>
-                  <p>Quick fixes for outlets, switches, and electrical issues</p>
-                </div>
-                <div className="service-item">
-                  <h3>Generator Installation</h3>
-                  <p>Backup power solutions for your home or business</p>
-                </div>
-                <div className="service-item">
-                  <h3>Home Inspections</h3>
-                  <p>Electrical safety inspections for home buyers and sellers</p>
-                </div>
-              </div>
-              <Link to="/service" className="btn btn-primary">Learn More</Link>
-            </div>
-
-            <div className="service-category">
-              <div className="category-header">
-                <div className="category-icon">🏗️</div>
-                <h2>Construction Services</h2>
-                <p>Professional electrical contracting for new construction and renovations</p>
-              </div>
-              <div className="service-list">
-                <div className="service-item">
-                  <h3>New Construction</h3>
-                  <p>Complete electrical systems for new buildings</p>
-                </div>
-                <div className="service-item">
-                  <h3>Commercial Construction</h3>
-                  <p>Electrical systems for offices, retail, and industrial facilities</p>
-                </div>
-                <div className="service-item">
-                  <h3>Residential Construction</h3>
-                  <p>Custom electrical systems for new homes</p>
-                </div>
-                <div className="service-item">
-                  <h3>Renovations</h3>
-                  <p>Electrical upgrades for existing buildings</p>
-                </div>
-                <div className="service-item">
-                  <h3>Smart Home Systems</h3>
-                  <p>Modern home automation and smart technology</p>
-                </div>
-                <div className="service-item">
-                  <h3>Outdoor Electrical</h3>
-                  <p>Landscape lighting and outdoor electrical systems</p>
-                </div>
-              </div>
-              <div className="category-cta">
-                <Link to="/commercial-construction" className="btn btn-primary">Commercial</Link>
-                <Link to="/residential-construction" className="btn btn-secondary">Residential</Link>
-              </div>
-            </div>
+      {/* Services Grid */}
+      <section className="section-padding bg-white">
+        <Container>
+          <SectionHeader
+            subtitle="What We Do"
+            title="Comprehensive Electrical Solutions"
+          />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              return (
+                <Card key={index} className="group cursor-pointer">
+                  <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-primary-blue/10 rounded-full group-hover:bg-primary-blue transition-colors duration-300">
+                    <Icon className="text-primary-blue group-hover:text-white transition-colors duration-300" size={32} />
+                  </div>
+                  <h3 className="text-2xl font-heading font-bold mb-3 text-text-dark">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed mb-4">
+                    {service.description}
+                  </p>
+                  <Link 
+                    to={service.link}
+                    className="inline-flex items-center text-primary-blue font-semibold hover:text-accent-dark transition-colors"
+                  >
+                    Learn More →
+                  </Link>
+                </Card>
+              );
+            })}
           </div>
-        </div>
+        </Container>
       </section>
 
-      {/* Emergency Service */}
-      <section className="section section-light">
-        <div className="container">
-          <div className="emergency-content">
-            <div className="emergency-text">
-              <h2>⚡ 24/7 Emergency Service</h2>
-              <p>Electrical emergencies don't wait for business hours. We're available around the clock for urgent repairs and safety issues.</p>
-              <div className="emergency-features">
-                <div className="emergency-feature">
-                  <span className="icon">📞</span>
-                  <span>24/7 Emergency Line</span>
-                </div>
-                <div className="emergency-feature">
-                  <span className="icon">⚡</span>
-                  <span>Fast Response Time</span>
-                </div>
-                <div className="emergency-feature">
-                  <span className="icon">🛡️</span>
-                  <span>Safety First</span>
-                </div>
-              </div>
-            </div>
-            <div className="emergency-cta">
-              <a href="tel:7855550123" className="btn btn-primary btn-large">Call (785) 555-0123</a>
-            </div>
+      {/* Service Area */}
+      <section className="section-padding bg-tertiary-light">
+        <Container>
+          <div className="max-w-3xl mx-auto text-center">
+            <SectionHeader
+              subtitle="Where We Serve"
+              title="Proudly Serving Kansas"
+            />
+            <p className="text-lg text-gray-600 mb-8">
+              We provide electrical services throughout Kansas, bringing our commitment to quality and customer satisfaction to every community we serve.
+            </p>
+            <Button variant="primary" size="lg">
+              Contact Us Today
+            </Button>
           </div>
-        </div>
+        </Container>
       </section>
+    </>
+  );
+};
 
-      {/* Service Areas */}
-      <section className="section">
-        <div className="container">
-          <div className="section-header">
-            <h2>Service Areas</h2>
-            <p>We proudly serve Northeast Kansas</p>
-          </div>
-          <div className="areas-grid">
-            <div className="area-card">
-              <h3>Topeka</h3>
-              <p>Full electrical services for residential and commercial properties</p>
-            </div>
-            <div className="area-card">
-              <h3>Lawrence</h3>
-              <p>Emergency service and construction projects</p>
-            </div>
-            <div className="area-card">
-              <h3>Manhattan</h3>
-              <p>Industrial and commercial electrical work</p>
-            </div>
-            <div className="area-card">
-              <h3>Junction City</h3>
-              <p>Residential construction and service work</p>
-            </div>
-            <div className="area-card">
-              <h3>Emporia</h3>
-              <p>Panel upgrades and electrical repairs</p>
-            </div>
-            <div className="area-card">
-              <h3>Surrounding Areas</h3>
-              <p>Call to confirm service availability</p>
-            </div>
-          </div>
-        </div>
-      </section>
+export default Services;
 
-      {/* CTA Section */}
-      <section className="cta-band">
-        <div className="container">
-          <div className="cta-content">
-            <h2>Need Electrical Service?</h2>
-            <p>Contact us today for fast, reliable electrical service</p>
-            <div className="cta-buttons">
-              <Link to="/contact" className="btn btn-primary btn-large">Request Service</Link>
-              <a href="tel:7855550123" className="btn btn-secondary btn-large">Call (785) 555-0123</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
-}
-
-export default Services

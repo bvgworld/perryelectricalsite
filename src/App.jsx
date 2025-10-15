@@ -1,41 +1,51 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Home from './pages/Home'
-import ServiceHome from './pages/ServiceHome'
-import CommercialConstruction from './pages/CommercialConstruction'
-import ResidentialConstruction from './pages/ResidentialConstruction'
-import Projects from './pages/Projects'
-import Employment from './pages/Employment'
-import Services from './pages/Services'
-import TermsAndConditions from './pages/TermsAndConditions'
-import AboutUs from './pages/AboutUs'
-import Contact from './pages/Contact'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
 
-function App() {
+// Pages
+import Home from './pages/index';
+import Services from './pages/services';
+import Projects from './pages/projects';
+import About from './pages/about';
+import Careers from './pages/careers';
+
+// Service Detail Pages
+import PanelUpgrades from './pages/services/panel-upgrades';
+import EVChargers from './pages/services/ev-chargers';
+import Lighting from './pages/services/lighting';
+import Generators from './pages/services/generators';
+import TrippingBreaker from './pages/services/tripping-breaker';
+import Outlets from './pages/services/outlets';
+
+const App = () => {
   return (
-    <Router>
-      <div className="App">
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/service" element={<ServiceHome />} />
-            <Route path="/commercial-construction" element={<CommercialConstruction />} />
-            <Route path="/residential-construction" element={<ResidentialConstruction />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/employment" element={<Employment />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/terms" element={<TermsAndConditions />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
-  )
-}
+    <HelmetProvider>
+      <Router>
+        <div className="flex flex-col min-h-screen">
+          <Header />
+          <main className="flex-grow pt-12">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/careers" element={<Careers />} />
+              
+              {/* Service Detail Routes */}
+              <Route path="/services/panel-upgrades" element={<PanelUpgrades />} />
+              <Route path="/services/ev-chargers" element={<EVChargers />} />
+              <Route path="/services/lighting" element={<Lighting />} />
+              <Route path="/services/generators" element={<Generators />} />
+              <Route path="/services/tripping-breaker" element={<TrippingBreaker />} />
+              <Route path="/services/outlets" element={<Outlets />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </HelmetProvider>
+  );
+};
 
-export default App
+export default App;

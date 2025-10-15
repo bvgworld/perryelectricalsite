@@ -1,258 +1,148 @@
-import { Link } from 'react-router-dom'
-import './Projects.css'
+import { Helmet } from 'react-helmet-async';
+import { Building2, Factory, School, ArrowRight } from 'lucide-react';
+import Container from '../components/ui/Container';
+import SectionHeader from '../components/ui/SectionHeader';
+import Card from '../components/ui/Card';
+import Button from '../components/ui/Button';
 
 const Projects = () => {
+  const projects = [
+    {
+      title: 'Downtown Medical Center',
+      type: 'Commercial',
+      size: '50,000 sq ft',
+      timeline: '6 months',
+      description: 'Complete electrical installation for state-of-the-art medical facility including emergency backup power systems, surgical suite wiring, and specialized medical equipment connections.',
+      icon: Building2,
+    },
+    {
+      title: 'Industrial Manufacturing Plant',
+      type: 'Industrial',
+      size: '100,000 sq ft',
+      timeline: '9 months',
+      description: 'High-voltage distribution and control systems for automated manufacturing operations, including 480V three-phase power distribution and PLC control integration.',
+      icon: Factory,
+    },
+    {
+      title: 'University Research Building',
+      type: 'Institutional',
+      size: '75,000 sq ft',
+      timeline: '8 months',
+      description: 'Advanced electrical infrastructure supporting cutting-edge research laboratories with specialized power requirements and redundant backup systems.',
+      icon: School,
+    },
+    {
+      title: 'Corporate Office Complex',
+      type: 'Commercial',
+      size: '40,000 sq ft',
+      timeline: '5 months',
+      description: 'Modern office electrical systems with energy-efficient LED lighting, smart building controls, and structured cabling infrastructure.',
+      icon: Building2,
+    },
+    {
+      title: 'Food Processing Facility',
+      type: 'Industrial',
+      size: '80,000 sq ft',
+      timeline: '7 months',
+      description: 'Specialized electrical installation meeting food safety standards, including stainless steel conduit, wash-down rated fixtures, and process control systems.',
+      icon: Factory,
+    },
+    {
+      title: 'Community College Expansion',
+      type: 'Institutional',
+      size: '60,000 sq ft',
+      timeline: '7 months',
+      description: 'Comprehensive electrical systems for new classroom buildings, including audiovisual infrastructure, emergency lighting, and energy management systems.',
+      icon: School,
+    },
+  ];
+
   return (
-    <div className="projects">
+    <>
+      <Helmet>
+        <title>Past Projects | Perry Electrical</title>
+        <meta 
+          name="description" 
+          content="Explore Perry Electrical's portfolio of completed commercial, industrial, and institutional projects across Kansas." 
+        />
+      </Helmet>
+
       {/* Hero Section */}
-      <section className="hero">
-        <div className="container">
-          <div className="hero-content">
-            <h1>Our Projects</h1>
-            <p>Showcasing our electrical construction and service work across Northeast Kansas</p>
+      <section className="bg-accent-dark text-white py-20">
+        <Container variant="wide">
+          <div className="max-w-4xl">
+            <h1 className="font-heading font-bold uppercase text-4xl md:text-5xl mb-6">
+              Past Projects
+            </h1>
+            <p className="text-xl text-gray-300">
+              A showcase of our expertise in commercial, industrial, and institutional electrical construction. Each project reflects our commitment to quality, safety, and client satisfaction.
+            </p>
           </div>
-        </div>
+        </Container>
       </section>
 
-      {/* Project Categories */}
-      <section className="section">
-        <div className="container">
-          <div className="section-header">
-            <h2>Featured Projects</h2>
-            <p>Recent electrical construction and service projects</p>
-          </div>
+      {/* Projects Grid */}
+      <section className="section-padding bg-white">
+        <Container>
+          <SectionHeader
+            subtitle="Our Work"
+            title="Project Showcase"
+          />
           
-          <div className="project-categories">
-            <div className="category-tabs">
-              <button className="tab active">All Projects</button>
-              <button className="tab">Commercial</button>
-              <button className="tab">Residential</button>
-              <button className="tab">Service Work</button>
-            </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+            {projects.map((project, index) => {
+              const Icon = project.icon;
+              return (
+                <Card key={index}>
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="inline-flex items-center justify-center w-14 h-14 bg-primary-blue/10 rounded-full flex-shrink-0">
+                      <Icon className="text-primary-blue" size={28} />
+                    </div>
+                    <div>
+                      <span className="inline-block px-3 py-1 text-xs font-semibold bg-secondary-green/10 text-secondary-green rounded-full mb-2">
+                        {project.type}
+                      </span>
+                      <h3 className="text-2xl font-heading font-bold text-text-dark">
+                        {project.title}
+                      </h3>
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-4 mb-4 text-sm text-gray-600">
+                    <span>📐 {project.size}</span>
+                    <span>⏱️ {project.timeline}</span>
+                  </div>
+                  
+                  <p className="text-gray-600 leading-relaxed">
+                    {project.description}
+                  </p>
+                </Card>
+              );
+            })}
           </div>
-
-          <div className="projects-grid">
-            <div className="project-card featured">
-              <div className="project-image">
-                <div className="image-placeholder">🏢</div>
-                <div className="project-badge">Featured</div>
-              </div>
-              <div className="project-content">
-                <div className="project-category">Commercial</div>
-                <h3>Office Building Complex</h3>
-                <p>Complete electrical system for 50,000 sq ft office building including power distribution, lighting, and data infrastructure.</p>
-                <div className="project-details">
-                  <span className="detail">📍 Topeka, KS</span>
-                  <span className="detail">📅 2024</span>
-                  <span className="detail">⚡ 400A Service</span>
-                </div>
-                <div className="project-features">
-                  <span className="feature">Power Distribution</span>
-                  <span className="feature">LED Lighting</span>
-                  <span className="feature">Data Infrastructure</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="project-card">
-              <div className="project-image">
-                <div className="image-placeholder">🏠</div>
-              </div>
-              <div className="project-content">
-                <div className="project-category">Residential</div>
-                <h3>Custom Smart Home</h3>
-                <p>Complete electrical system for 3,500 sq ft custom home with smart home automation and EV charging.</p>
-                <div className="project-details">
-                  <span className="detail">📍 Topeka, KS</span>
-                  <span className="detail">📅 2024</span>
-                  <span className="detail">⚡ 200A Service</span>
-                </div>
-                <div className="project-features">
-                  <span className="feature">Smart Home</span>
-                  <span className="feature">EV Charging</span>
-                  <span className="feature">LED Lighting</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="project-card">
-              <div className="project-image">
-                <div className="image-placeholder">🏪</div>
-              </div>
-              <div className="project-content">
-                <div className="project-category">Commercial</div>
-                <h3>Retail Shopping Center</h3>
-                <p>Electrical installation for multi-tenant retail space with individual metering and modern lighting systems.</p>
-                <div className="project-details">
-                  <span className="detail">📍 Lawrence, KS</span>
-                  <span className="detail">📅 2024</span>
-                  <span className="detail">⚡ 200A Service</span>
-                </div>
-                <div className="project-features">
-                  <span className="feature">Multi-Tenant</span>
-                  <span className="feature">Individual Metering</span>
-                  <span className="feature">Modern Lighting</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="project-card">
-              <div className="project-image">
-                <div className="image-placeholder">🏭</div>
-              </div>
-              <div className="project-content">
-                <div className="project-category">Commercial</div>
-                <h3>Manufacturing Facility</h3>
-                <p>High-capacity electrical system for industrial facility with specialized equipment and safety systems.</p>
-                <div className="project-details">
-                  <span className="detail">📍 Manhattan, KS</span>
-                  <span className="detail">📅 2023</span>
-                  <span className="detail">⚡ 800A Service</span>
-                </div>
-                <div className="project-features">
-                  <span className="feature">High-Capacity</span>
-                  <span className="feature">Industrial Equipment</span>
-                  <span className="feature">Safety Systems</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="project-card">
-              <div className="project-image">
-                <div className="image-placeholder">🏡</div>
-              </div>
-              <div className="project-content">
-                <div className="project-category">Residential</div>
-                <h3>Kitchen Renovation</h3>
-                <p>Complete kitchen electrical upgrade with modern outlets, lighting, and smart home integration.</p>
-                <div className="project-details">
-                  <span className="detail">📍 Lawrence, KS</span>
-                  <span className="detail">📅 2024</span>
-                  <span className="detail">💡 LED Lighting</span>
-                </div>
-                <div className="project-features">
-                  <span className="feature">Kitchen Upgrade</span>
-                  <span className="feature">Smart Integration</span>
-                  <span className="feature">Modern Outlets</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="project-card">
-              <div className="project-image">
-                <div className="image-placeholder">🏘️</div>
-              </div>
-              <div className="project-content">
-                <div className="project-category">Residential</div>
-                <h3>Subdivision Development</h3>
-                <p>Electrical installation for 25 new homes in residential subdivision with modern electrical standards.</p>
-                <div className="project-details">
-                  <span className="detail">📍 Manhattan, KS</span>
-                  <span className="detail">📅 2023</span>
-                  <span className="detail">🏗️ 25 Homes</span>
-                </div>
-                <div className="project-features">
-                  <span className="feature">New Construction</span>
-                  <span className="feature">Subdivision</span>
-                  <span className="feature">Modern Standards</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Project Stats */}
-      <section className="section section-light">
-        <div className="container">
-          <div className="section-header">
-            <h2>Project Statistics</h2>
-            <p>Our track record of successful electrical projects</p>
-          </div>
-          <div className="stats-grid">
-            <div className="stat-card">
-              <div className="stat-number">500+</div>
-              <div className="stat-label">Projects Completed</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">15</div>
-              <div className="stat-label">Years Experience</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">100%</div>
-              <div className="stat-label">On-Time Delivery</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">4.9</div>
-              <div className="stat-label">Customer Rating</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="section">
-        <div className="container">
-          <div className="section-header">
-            <h2>Client Testimonials</h2>
-            <p>What our clients say about our work</p>
-          </div>
-          <div className="testimonials-grid">
-            <div className="testimonial">
-              <div className="testimonial-content">
-                <p>"Perry Electrical exceeded our expectations on our office building project. Professional, on-time, and within budget. Highly recommended!"</p>
-              </div>
-              <div className="testimonial-author">
-                <div className="author-info">
-                  <h4>Sarah Johnson</h4>
-                  <span>Property Manager, Topeka</span>
-                </div>
-                <div className="rating">⭐⭐⭐⭐⭐</div>
-              </div>
-            </div>
-            <div className="testimonial">
-              <div className="testimonial-content">
-                <p>"They handled our entire home renovation electrical work. Great communication throughout the project and everything was completed perfectly."</p>
-              </div>
-              <div className="testimonial-author">
-                <div className="author-info">
-                  <h4>Mike Chen</h4>
-                  <span>Homeowner, Lawrence</span>
-                </div>
-                <div className="rating">⭐⭐⭐⭐⭐</div>
-              </div>
-            </div>
-            <div className="testimonial">
-              <div className="testimonial-content">
-                <p>"Outstanding work on our manufacturing facility. The electrical system has been running flawlessly for over a year now."</p>
-              </div>
-              <div className="testimonial-author">
-                <div className="author-info">
-                  <h4>Jennifer Davis</h4>
-                  <span>Facility Manager, Manhattan</span>
-                </div>
-                <div className="rating">⭐⭐⭐⭐⭐</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </Container>
       </section>
 
       {/* CTA Section */}
-      <section className="cta-band">
-        <div className="container">
-          <div className="cta-content">
-            <h2>Ready to Start Your Project?</h2>
-            <p>Let us bring the same quality and professionalism to your electrical project</p>
-            <div className="cta-buttons">
-              <Link to="/contact" className="btn btn-primary btn-large">Get Project Quote</Link>
-              <Link to="/contact" className="btn btn-secondary btn-large">Schedule Consultation</Link>
-            </div>
+      <section className="section-padding bg-accent-dark text-white">
+        <Container>
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold uppercase mb-6">
+              Partner With Us on Your Next Project
+            </h2>
+            <p className="text-xl text-gray-300 mb-8">
+              Let's discuss how our proven process and expertise can bring your vision to life.
+            </p>
+            <Button variant="secondary" size="lg" className="group">
+              Request a Project Bid
+              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+            </Button>
           </div>
-        </div>
+        </Container>
       </section>
-    </div>
-  )
-}
+    </>
+  );
+};
 
-export default Projects
+export default Projects;
+

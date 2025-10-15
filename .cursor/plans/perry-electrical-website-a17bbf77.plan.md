@@ -1,0 +1,260 @@
+<!-- a17bbf77-0e47-4bc4-a821-c5a230a04b35 1a09805a-b4e9-426c-b6be-66e1e4e89ee2 -->
+# Refactor to Atomic Design Structure
+
+## Overview
+
+Reorganize the current component structure from feature-based folders to atomic design principles for improved maintainability, reusability, and scalability.
+
+## Current Structure
+
+```
+src/
+├── components/
+│   ├── layout/          # Header, Footer
+│   ├── home/            # Home page sections
+│   ├── services/        # Services page sections
+│   ├── projects/        # Projects page sections
+│   ├── about/           # About page sections
+│   ├── employment/      # Employment page sections
+│   └── shared/          # Button, Card, Icon, Section
+└── pages/               # Page components
+```
+
+## Target Atomic Design Structure
+
+```
+src/
+├── components/
+│   ├── atoms/           # Smallest building blocks
+│   │   ├── Button.jsx
+│   │   ├── Icon.jsx
+│   │   ├── Input.jsx
+│   │   ├── TextArea.jsx
+│   │   ├── Select.jsx
+│   │   ├── Label.jsx
+│   │   └── Badge.jsx
+│   ├── molecules/       # Combinations of atoms
+│   │   ├── Card.jsx
+│   │   ├── FormField.jsx
+│   │   ├── ProjectCard.jsx
+│   │   ├── ServiceCard.jsx
+│   │   ├── TeamMemberCard.jsx
+│   │   ├── TestimonialCard.jsx
+│   │   ├── JobListingCard.jsx
+│   │   ├── NavLink.jsx
+│   │   └── SocialLinks.jsx
+│   ├── organisms/       # Complex components (sections)
+│   │   ├── Header.jsx
+│   │   ├── Footer.jsx
+│   │   ├── HeroSection.jsx
+│   │   ├── ServicesGrid.jsx
+│   │   ├── ProjectGrid.jsx
+│   │   ├── TeamGrid.jsx
+│   │   ├── ProcessTimeline.jsx
+│   │   ├── TestimonialsSection.jsx
+│   │   ├── ApplicationForm.jsx
+│   │   ├── ContactForm.jsx
+│   │   └── ValuesList.jsx
+│   └── templates/       # Page layouts (optional)
+│       └── MainLayout.jsx
+└── pages/               # Page components (compose organisms)
+    ├── Home.jsx
+    ├── Services.jsx
+    ├── ServiceDetail.jsx
+    ├── Projects.jsx
+    ├── About.jsx
+    └── Employment.jsx
+```
+
+## Refactoring Steps
+
+### Phase 1: Create Atomic Structure
+
+1. Create new folder structure: `atoms/`, `molecules/`, `organisms/`, `templates/`
+2. Move existing shared components to appropriate levels
+3. Update import paths in all components
+
+### Phase 2: Refactor Atoms
+
+Current atoms in `shared/`:
+
+- **Button.jsx** → `atoms/Button.jsx` ✅ Already atomic
+- **Icon.jsx** → `atoms/Icon.jsx` ✅ Already atomic
+
+New atoms to extract:
+
+- **Input.jsx** - Extract from forms (text input)
+- **TextArea.jsx** - Extract from forms (textarea)
+- **Select.jsx** - Extract from forms (select dropdown)
+- **Label.jsx** - Extract from forms (form labels)
+- **Badge.jsx** - Create for tags/labels (e.g., "Featured", "New")
+
+### Phase 3: Refactor Molecules
+
+Current molecules:
+
+- **Card.jsx** → `molecules/Card.jsx` ✅ Already molecule
+- **Section.jsx** → Remove (this is a layout wrapper, integrate into organisms)
+
+New molecules to create by extracting repeated patterns:
+
+- **ProjectCard.jsx** - Extract from FeaturedProjects and ProjectGrid
+- **ServiceCard.jsx** - Extract from ServiceCards
+- **TeamMemberCard.jsx** - Extract from TeamGrid
+- **TestimonialCard.jsx** - Extract from Testimonials
+- **JobListingCard.jsx** - Extract from OpenPositions
+- **FormField.jsx** - Combination of Label + Input/TextArea/Select
+- **NavLink.jsx** - Extract from Header navigation
+- **SocialLinks.jsx** - Extract from Footer (if social icons added)
+
+### Phase 4: Refactor Organisms
+
+Move all section-level components to organisms:
+
+**From layout/**
+
+- Header.jsx → `organisms/Header.jsx`
+- Footer.jsx → `organisms/Footer.jsx`
+
+**From home/**
+
+- HeroSection.jsx → `organisms/HeroSection.jsx`
+- Differentiators.jsx → `organisms/DifferentiatorsSection.jsx`
+- ProvenProcess.jsx → `organisms/ProcessTimeline.jsx`
+- FeaturedProjects.jsx → `organisms/FeaturedProjectsSection.jsx`
+- CoreValues.jsx → `organisms/CoreValuesSection.jsx`
+
+**From services/**
+
+- ServicesHero.jsx → `organisms/ServicesHeroSection.jsx`
+- ServiceCards.jsx → `organisms/ServicesGrid.jsx`
+- ServiceAreaMap.jsx → `organisms/ServiceAreaSection.jsx`
+- ServiceProcess.jsx → `organisms/ServiceProcessSection.jsx`
+- Testimonials.jsx → `organisms/TestimonialsSection.jsx`
+- ValuesGuarantee.jsx → `organisms/ValuesGuaranteeSection.jsx`
+
+**From projects/**
+
+- ProjectHeroCarousel.jsx → `organisms/ProjectHeroCarousel.jsx`
+- ProjectGrid.jsx → `organisms/ProjectGrid.jsx`
+- ContractorLogos.jsx → `organisms/ContractorLogosSection.jsx`
+- SuccessStory.jsx → `organisms/SuccessStorySection.jsx`
+- ProjectCTA.jsx → `organisms/ProjectCTA.jsx`
+
+**From about/**
+
+- AboutHero.jsx → `organisms/AboutHeroSection.jsx`
+- OurStory.jsx → `organisms/OurStorySection.jsx`
+- CoreValuesList.jsx → `organisms/CoreValuesList.jsx`
+- TeamGrid.jsx → `organisms/TeamGrid.jsx`
+- GuaranteeSection.jsx → `organisms/GuaranteeSection.jsx`
+- AboutCTA.jsx → `organisms/AboutCTA.jsx`
+
+**From employment/**
+
+- EmploymentHero.jsx → `organisms/EmploymentHeroSection.jsx`
+- HiringProcess.jsx → `organisms/HiringProcessSection.jsx`
+- BenefitsOverview.jsx → `organisms/BenefitsSection.jsx`
+- OpenPositions.jsx → `organisms/JobListingsSection.jsx`
+- ApplicationForm.jsx → `organisms/ApplicationForm.jsx`
+
+### Phase 5: Update Pages
+
+Update all page files to import from new atomic structure:
+
+- Update Home.jsx
+- Update Services.jsx
+- Update ServiceDetail.jsx
+- Update Projects.jsx
+- Update About.jsx
+- Update Employment.jsx
+
+### Phase 6: Cleanup
+
+1. Delete old folder structure (`layout/`, `home/`, `services/`, etc.)
+2. Update any remaining import paths
+3. Test all pages to ensure no broken imports
+4. Run linter and fix any issues
+
+## Benefits of Atomic Design
+
+1. **Reusability** - Atoms and molecules can be used across multiple pages
+2. **Maintainability** - Clear hierarchy makes finding components easier
+3. **Scalability** - Easy to add new pages by composing existing organisms
+4. **Testing** - Easier to test individual atoms and molecules
+5. **Design System** - Aligns with design system principles
+6. **Onboarding** - New developers can understand structure quickly
+
+## File Movement Summary
+
+### Atoms (7 files)
+
+- Button.jsx ✓ (existing)
+- Icon.jsx ✓ (existing)
+- Input.jsx (new)
+- TextArea.jsx (new)
+- Select.jsx (new)
+- Label.jsx (new)
+- Badge.jsx (new)
+
+### Molecules (8 files)
+
+- Card.jsx ✓ (existing)
+- ProjectCard.jsx (extract)
+- ServiceCard.jsx (extract)
+- TeamMemberCard.jsx (extract)
+- TestimonialCard.jsx (extract)
+- JobListingCard.jsx (extract)
+- FormField.jsx (new)
+- NavLink.jsx (extract)
+
+### Organisms (~30 files)
+
+- All section-level components from layout/, home/, services/, projects/, about/, employment/
+- Header.jsx, Footer.jsx
+- All hero sections, grids, forms, CTAs
+
+### Pages (6 files)
+
+- No changes to page files, only import path updates
+
+## Implementation Notes
+
+- Keep all existing functionality intact
+- Only reorganize, don't rewrite logic
+- Maintain all props and prop types
+- Update all import statements
+- Keep the same component names (just new locations)
+- Test each page after refactoring
+- Ensure dev server runs without errors
+
+## Success Criteria
+
+✅ All components follow atomic design hierarchy
+
+✅ Clear separation between atoms, molecules, and organisms
+
+✅ No duplicate code across components
+
+✅ All pages render correctly
+
+✅ No linter errors
+
+✅ Dev server runs successfully
+
+✅ Import paths are clean and logical
+
+### To-dos
+
+- [ ] Install and configure Tailwind CSS with custom design system (colors, fonts, spacing)
+- [ ] Install Framer Motion for animations and configure Firebase for Firestore
+- [ ] Build Header and Footer components with navigation and sticky behavior
+- [ ] Configure React Router with all page routes and navigation structure
+- [ ] Create reusable components (Button, Card, Icon, Section) with Tailwind styling
+- [ ] Build Home page with all 5 sections (Hero, Differentiators, Process, Projects, Values)
+- [ ] Build Services page and ServiceDetail template with 6 service cards
+- [ ] Build Projects page with carousel, grid, and project showcase components
+- [ ] Build About page with story, team grid, and values sections
+- [ ] Build Employment page with hiring process and application form
+- [ ] Integrate Firestore for contact and employment form submissions
+- [ ] Add scroll animations, polish interactions, and test responsiveness
