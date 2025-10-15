@@ -1,61 +1,42 @@
 import { Helmet } from 'react-helmet-async';
-import { Building2, Factory, School, ArrowRight } from 'lucide-react';
+import { Building2, Factory, School, ArrowRight, Image as ImageIcon } from 'lucide-react';
 import Container from '../components/ui/Container';
 import SectionHeader from '../components/ui/SectionHeader';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
+import { useProjects } from '../hooks/useProjects';
 
 const Projects = () => {
-  const projects = [
-    {
-      title: 'Downtown Medical Center',
-      type: 'Commercial',
-      size: '50,000 sq ft',
-      timeline: '6 months',
-      description: 'Complete electrical installation for state-of-the-art medical facility including emergency backup power systems, surgical suite wiring, and specialized medical equipment connections.',
-      icon: Building2,
-    },
-    {
-      title: 'Industrial Manufacturing Plant',
-      type: 'Industrial',
-      size: '100,000 sq ft',
-      timeline: '9 months',
-      description: 'High-voltage distribution and control systems for automated manufacturing operations, including 480V three-phase power distribution and PLC control integration.',
-      icon: Factory,
-    },
-    {
-      title: 'University Research Building',
-      type: 'Institutional',
-      size: '75,000 sq ft',
-      timeline: '8 months',
-      description: 'Advanced electrical infrastructure supporting cutting-edge research laboratories with specialized power requirements and redundant backup systems.',
-      icon: School,
-    },
-    {
-      title: 'Corporate Office Complex',
-      type: 'Commercial',
-      size: '40,000 sq ft',
-      timeline: '5 months',
-      description: 'Modern office electrical systems with energy-efficient LED lighting, smart building controls, and structured cabling infrastructure.',
-      icon: Building2,
-    },
-    {
-      title: 'Food Processing Facility',
-      type: 'Industrial',
-      size: '80,000 sq ft',
-      timeline: '7 months',
-      description: 'Specialized electrical installation meeting food safety standards, including stainless steel conduit, wash-down rated fixtures, and process control systems.',
-      icon: Factory,
-    },
-    {
-      title: 'Community College Expansion',
-      type: 'Institutional',
-      size: '60,000 sq ft',
-      timeline: '7 months',
-      description: 'Comprehensive electrical systems for new classroom buildings, including audiovisual infrastructure, emergency lighting, and energy management systems.',
-      icon: School,
-    },
-  ];
+  const { projects, loading: projectsLoading, error: projectsError } = useProjects();
+
+  // Format projects for display
+  const formatProjectForDisplay = (project) => {
+    const getIcon = (type) => {
+      switch (type) {
+        case 'Commercial':
+          return Building2;
+        case 'Industrial':
+          return Factory;
+        case 'Institutional':
+          return School;
+        default:
+          return Building2;
+      }
+    };
+
+    return {
+      title: project.description?.substring(0, 50) + '...' || 'Project',
+      type: project.projectType,
+      size: project.projectSize,
+      timeline: project.projectLength,
+      description: project.description,
+      image: project.projectImage,
+      icon: getIcon(project.projectType),
+      id: project.id
+    };
+  };
+
+  const displayProjects = projects.map(formatProjectForDisplay);
 
   return (
     <>
@@ -89,37 +70,67 @@ const Projects = () => {
             title="Project Showcase"
           />
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-            {projects.map((project, index) => {
-              const Icon = project.icon;
-              return (
-                <Card key={index}>
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="inline-flex items-center justify-center w-14 h-14 bg-primary-blue/10 rounded-full flex-shrink-0">
-                      <Icon className="text-primary-blue" size={28} />
+          {projectsLoading ? (
+            <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-blue mx-auto"></div>
+              <p className="mt-4 text-gray-600">Loading projects...</p>
+            </div>
+          ) : projectsError ? (
+            <div className="text-center py-12">
+              <p className="text-red-600">Error loading projects. Please try again later.</p>
+            </div>
+          ) : displayProjects.length > 0 ? (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+              {displayProjects.map((project, index) => {
+                const Icon = project.icon;
+                return (
+                  <Card key={project.id || index}>
+                    {project.image && (
+                      <div className="mb-4">
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-48 object-cover rounded-lg"
+                        />
+                      </div>
+                    )}
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="inline-flex items-center justify-center w-14 h-14 bg-primary-blue/10 rounded-full flex-shrink-0">
+                        <Icon className="text-primary-blue" size={28} />
+                      </div>
+                      <div>
+                        <span className="inline-block px-3 py-1 text-xs font-semibold bg-secondary-green/10 text-secondary-green rounded-full mb-2">
+                          {project.type}
+                        </span>
+                        <h3 className="text-2xl font-heading font-bold text-text-dark">
+                          {project.title}
+                        </h3>
+                      </div>
                     </div>
-                    <div>
-                      <span className="inline-block px-3 py-1 text-xs font-semibold bg-secondary-green/10 text-secondary-green rounded-full mb-2">
-                        {project.type}
-                      </span>
-                      <h3 className="text-2xl font-heading font-bold text-text-dark">
-                        {project.title}
-                      </h3>
+                    
+                    <div className="flex gap-4 mb-4 text-sm text-gray-600">
+                      <span>📐 {project.size}</span>
+                      <span>⏱️ {project.timeline}</span>
                     </div>
-                  </div>
-                  
-                  <div className="flex gap-4 mb-4 text-sm text-gray-600">
-                    <span>📐 {project.size}</span>
-                    <span>⏱️ {project.timeline}</span>
-                  </div>
-                  
-                  <p className="text-gray-600 leading-relaxed">
-                    {project.description}
-                  </p>
-                </Card>
-              );
-            })}
-          </div>
+                    
+                    <p className="text-gray-600 leading-relaxed">
+                      {project.description}
+                    </p>
+                  </Card>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <ImageIcon className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-xl font-heading font-bold text-text-dark mb-2">
+                No Projects Yet
+              </h3>
+              <p className="text-gray-600">
+                We're working on adding our project portfolio. Check back soon!
+              </p>
+            </div>
+          )}
         </Container>
       </section>
 

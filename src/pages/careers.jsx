@@ -5,6 +5,7 @@ import Container from '../components/ui/Container';
 import SectionHeader from '../components/ui/SectionHeader';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
+import { useJobs } from '../hooks/useJobs';
 
 const Careers = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,8 @@ const Careers = () => {
     experience: '',
     message: '',
   });
+
+  const { jobs, loading: jobsLoading, error: jobsError } = useJobs('open');
 
   const hiringProcess = [
     {
@@ -57,26 +60,17 @@ const Careers = () => {
     },
   ];
 
-  const openPositions = [
-    {
-      title: 'Licensed Journeyman Electrician',
-      type: 'Full-Time',
-      location: 'Kansas',
-      description: 'Seeking experienced journeyman electricians for commercial and industrial projects.',
-    },
-    {
-      title: 'Electrical Apprentice',
-      type: 'Full-Time',
-      location: 'Kansas',
-      description: 'Learn from the best while gaining hands-on experience in diverse electrical projects.',
-    },
-    {
-      title: 'Project Manager',
-      type: 'Full-Time',
-      location: 'Kansas',
-      description: 'Lead electrical construction projects from planning through completion.',
-    },
-  ];
+  // Format jobs for display
+  const formatJobForDisplay = (job) => ({
+    title: job.jobName,
+    type: job.positionType,
+    location: job.location,
+    description: job.jobDescription,
+    payRange: job.payRange,
+    id: job.id
+  });
+
+  const openPositions = jobs.map(formatJobForDisplay);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -203,27 +197,53 @@ const Careers = () => {
             title="Open Positions"
           />
           
-          <div className="space-y-6 mb-12">
-            {openPositions.map((position, index) => (
-              <Card key={index} hover={false}>
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                  <div>
-                    <h3 className="text-2xl font-heading font-bold mb-2 text-text-dark">
-                      {position.title}
-                    </h3>
-                    <p className="text-gray-600 mb-2">{position.description}</p>
-                    <div className="flex gap-4 text-sm text-gray-500">
-                      <span>📍 {position.location}</span>
-                      <span>💼 {position.type}</span>
+          {jobsLoading ? (
+            <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-blue mx-auto"></div>
+              <p className="mt-4 text-gray-600">Loading positions...</p>
+            </div>
+          ) : jobsError ? (
+            <div className="text-center py-12">
+              <p className="text-red-600">Error loading positions. Please try again later.</p>
+            </div>
+          ) : openPositions.length > 0 ? (
+            <div className="space-y-6 mb-12">
+              {openPositions.map((position, index) => (
+                <Card key={position.id || index} hover={false}>
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-heading font-bold mb-2 text-text-dark">
+                        {position.title}
+                      </h3>
+                      <p className="text-gray-600 mb-2">{position.description}</p>
+                      <div className="flex gap-4 text-sm text-gray-500">
+                        <span>📍 {position.location}</span>
+                        <span>💼 {position.type}</span>
+                        {position.payRange && <span>💰 {position.payRange}</span>}
+                      </div>
                     </div>
+                    <Button variant="primary" size="md" className="whitespace-nowrap">
+                      Apply Now
+                    </Button>
                   </div>
-                  <Button variant="primary" size="md" className="whitespace-nowrap">
-                    Apply Now
-                  </Button>
-                </div>
-              </Card>
-            ))}
-          </div>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <Briefcase className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-xl font-heading font-bold text-text-dark mb-2">
+                No Open Positions
+              </h3>
+              <p className="text-gray-600 mb-6">
+                We're not currently hiring, but we'd love to hear from you. 
+                Send us your resume for future opportunities.
+              </p>
+              <Button variant="primary">
+                Submit Resume
+              </Button>
+            </div>
+          )}
         </Container>
       </section>
 

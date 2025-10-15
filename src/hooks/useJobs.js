@@ -1,38 +1,102 @@
 import { useState, useEffect } from 'react';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { 
+  collection, 
+  query, 
+  where, 
+  orderBy, 
+  onSnapshot, 
+  addDoc, 
+  updateDoc, 
+  deleteDoc, 
+  doc,
+  serverTimestamp 
+} from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
-const useJobs = () => {
+export const useJobs = (statusFilter = null) => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        const jobsRef = collection(db, 'jobs');
-        const q = query(jobsRef, where('status', '==', 'open'));
-        const querySnapshot = await getDocs(q);
-        
-        const jobsData = [];
-        querySnapshot.forEach((doc) => {
-          jobsData.push({ id: doc.id, ...doc.data() });
-        });
-        
+    const jobsRef = collection(db, 'jobs');
+    let q;
+    
+    if (statusFilter) {
+      q = query(
+        jobsRef, 
+        where('status', '==', statusFilter), 
+        orderBy('createdAt', 'desc')
+      );
+    } else {
+      q = query(jobsRef, orderBy('createdAt', 'desc'));
+    }
+
+    const unsubscribe = onSnapshot(q, 
+      (snapshot) => {
+        const jobsData = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
         setJobs(jobsData);
         setLoading(false);
-      } catch (err) {
-        console.error('Error fetching jobs:', err);
+        setError(null);
+      },
+      (err) => {
         setError(err.message);
         setLoading(false);
       }
-    };
+    );
 
-    fetchJobs();
-  }, []);
+    return () => unsubscribe();
+  }, [statusFilter]);
 
-  return { jobs, loading, error };
+  const addJob = async (jobData, userId) => {
+    try {
+      const docRef = await addDoc(collection(db, 'jobs'), {
+        ...jobData,
+        status: 'open',
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+        createdBy: userId
+      });
+      return { success: true, id: docRef.id };
+    } catch (error) {
+      console.error('Error adding job:', error);
+      return { success: false, error: error.message };
+    }
+  };
+
+  const updateJob = async (jobId, jobData, userId) => {
+    try {
+      await updateDoc(doc(db, 'jobs', jobId), {
+        ...jobData,
+        updatedAt: serverTimestamp(),
+        updatedBy: userId
+      });
+      return { success: true };
+    } catch (error) {
+      console.error('Error updating job:', error);
+      return { success: false, error: error.message };
+    }
+  };
+
+  const deleteJob = async (jobId) => {
+    try {
+      await deleteDoc(doc(db, 'jobs', jobId));
+      return { success: true };
+    } catch (error) {
+      console.error('Error deleting job:', error);
+      return { success: false, error: error.message };
+    }
+  };
+
+  return { 
+    jobs, 
+    loading, 
+    error, 
+    addJob, 
+    updateJob, 
+    deleteJob 
+  };
 };
-
-export default useJobs;
-
