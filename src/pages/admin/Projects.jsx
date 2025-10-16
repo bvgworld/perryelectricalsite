@@ -5,12 +5,16 @@ import { useProjects } from '../../hooks/useProjects';
 import { useAuth } from '../../contexts/AuthContext';
 import DataTable from '../../components/admin/DataTable';
 import ConfirmDialog from '../../components/admin/ConfirmDialog';
+import FeaturedProjectsSelector from '../../components/admin/FeaturedProjectsSelector';
 import Button from '../../components/ui/Button';
 import { formatDate, truncateText } from '../../utils/formatters';
 
 const Projects = () => {
   const { projects, loading, error, deleteProject } = useProjects();
   const { currentUser } = useAuth();
+  
+  // Debug logging
+  console.log('Projects admin page - Projects data:', { projects, loading, error });
   const [deleteDialog, setDeleteDialog] = useState({ isOpen: false, project: null });
 
   const handleDelete = async (project) => {
@@ -33,13 +37,16 @@ const Projects = () => {
       key: 'projectImage',
       label: 'Image',
       sortable: false,
-      render: (value) => (
+      render: (value, project) => (
         <div className="flex-shrink-0 h-12 w-12">
           {value ? (
             <img
               className="h-12 w-12 rounded-lg object-cover"
               src={value}
               alt="Project"
+                  style={{
+                    objectPosition: 'center'
+                  }}
             />
           ) : (
             <div className="h-12 w-12 rounded-lg bg-gray-200 flex items-center justify-center">
@@ -116,6 +123,11 @@ const Projects = () => {
             </Button>
           </Link>
         </div>
+      </div>
+
+      {/* Featured Projects Selector */}
+      <div className="mb-8">
+        <FeaturedProjectsSelector />
       </div>
 
       <DataTable

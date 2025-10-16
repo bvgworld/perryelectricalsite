@@ -4,6 +4,7 @@ import { db } from '../../lib/firebase';
 import { Briefcase, FolderOpen, Users, Clock } from 'lucide-react';
 import Card from '../../components/ui/Card';
 import Container from '../../components/ui/Container';
+import FeaturedProjectsSelector from '../../components/admin/FeaturedProjectsSelector';
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -147,6 +148,11 @@ const Dashboard = () => {
             </div>
           </div>
         </Card>
+      </div>
+
+      {/* Featured Projects Selector */}
+      <div className="mb-8">
+        <FeaturedProjectsSelector />
       </div>
 
       {/* Recent Activity */}

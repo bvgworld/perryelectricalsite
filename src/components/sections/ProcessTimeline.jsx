@@ -7,14 +7,14 @@ const ProcessTimeline = () => {
     {
       icon: Search,
       number: '01',
-      title: 'Discovery & Planning',
-      description: 'We start by understanding your vision, requirements, and timeline to create a comprehensive project roadmap.',
+      title: 'Discovery & Estimate',
+      description: 'We start by understanding the project and the customer needs to submit a competitive estimate.',
     },
     {
       icon: FileText,
       number: '02',
       title: 'Pre-Construction Coordination',
-      description: 'Detailed planning, material procurement, and team coordination ensure a smooth start and minimize delays.',
+      description: 'Detailed planning, material procurement, and team coordination ensure a smooth start and eliminate delays.',
     },
     {
       icon: Wrench,
@@ -42,19 +42,19 @@ const ProcessTimeline = () => {
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
-              <div key={index} className="relative">
+              <div key={index} className="relative flex flex-col">
                 {/* Connector Line */}
                 {index < steps.length - 1 && (
                   <div className="hidden lg:block absolute top-12 left-full w-full h-0.5 bg-primary-blue/30" />
                 )}
                 
-                <div className="relative bg-white p-6 rounded-md">
+                <div className="relative bg-white p-6 rounded-md flex flex-col h-full">
                   {/* Step Number */}
                   <div className="text-6xl font-heading font-bold text-primary-blue/10 absolute top-4 right-4">
                     {step.number}
                   </div>
                   
-                  <div className="relative">
+                  <div className="relative flex flex-col flex-grow">
                     <div className="inline-flex items-center justify-center w-14 h-14 mb-4 bg-primary-blue rounded-full">
                       <Icon className="text-white" size={28} />
                     </div>
@@ -63,7 +63,7 @@ const ProcessTimeline = () => {
                       {step.title}
                     </h3>
                     
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="text-gray-600 leading-relaxed flex-grow">
                       {step.description}
                     </p>
                   </div>

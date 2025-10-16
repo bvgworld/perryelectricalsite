@@ -5,6 +5,7 @@ import SectionHeader from '../components/ui/SectionHeader';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import { useProjects } from '../hooks/useProjects';
+import projectsImage from '../assets/projectsimage.jpeg';
 
 const Projects = () => {
   const { projects, loading: projectsLoading, error: projectsError } = useProjects();
@@ -49,15 +50,37 @@ const Projects = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="bg-accent-dark text-white py-20">
-        <Container variant="wide">
+      <section className="relative bg-accent-dark text-white py-24 md:py-40 lg:py-48 overflow-hidden">
+        {/* Background Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-accent-dark/98 to-accent-dark/90 z-10" />
+        
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-25" 
+          style={{
+            backgroundImage: `url(${projectsImage})`,
+          }}
+        />
+        
+        <Container variant="wide" className="relative z-20">
           <div className="max-w-4xl">
-            <h1 className="font-heading font-bold uppercase text-4xl md:text-5xl mb-6">
+            <h1 className="font-heading font-bold uppercase text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight">
               Past Projects
             </h1>
-            <p className="text-xl text-gray-300">
+            <p className="text-xl md:text-2xl text-gray-200 leading-relaxed">
               A showcase of our expertise in commercial, industrial, and institutional electrical construction. Each project reflects our commitment to quality, safety, and client satisfaction.
             </p>
+          </div>
+        </Container>
+      </section>
+
+      {/* CTA Banner */}
+      <section className="py-8 bg-accent-dark text-white">
+        <Container>
+          <div className="text-center">
+            <Button variant="secondary" size="lg">
+              Request a Project Bid
+            </Button>
           </div>
         </Container>
       </section>
@@ -90,7 +113,10 @@ const Projects = () => {
                         <img
                           src={project.image}
                           alt={project.title}
-                          className="w-full h-48 object-cover rounded-lg"
+                          className="w-full h-[32rem] object-cover rounded-lg"
+                  style={{
+                    objectPosition: 'center'
+                  }}
                         />
                       </div>
                     )}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, Edit, Trash2 } from 'lucide-react';
+import { Plus, Edit, Trash2, Briefcase } from 'lucide-react';
 import { useJobs } from '../../hooks/useJobs';
 import { useAuth } from '../../contexts/AuthContext';
 import DataTable from '../../components/admin/DataTable';

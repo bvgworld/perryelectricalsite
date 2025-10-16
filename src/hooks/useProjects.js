@@ -27,6 +27,7 @@ export const useProjects = () => {
           id: doc.id,
           ...doc.data()
         }));
+        
         setProjects(projectsData);
         setLoading(false);
         setError(null);
