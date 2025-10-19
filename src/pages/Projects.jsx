@@ -1,43 +1,56 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Building2, Factory, School, ArrowRight, Image as ImageIcon } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Container from '../components/ui/Container';
-import SectionHeader from '../components/ui/SectionHeader';
-import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
+import FeaturedProjectsCarousel from '../components/sections/FeaturedProjectsCarousel';
+import ProjectListItem from '../components/projects/ProjectListItem';
+import Differentiators from '../components/sections/Differentiators';
+import VendorsLogos from '../components/sections/VendorsLogos';
+import ProjectBidModal from '../components/modals/ProjectBidModal';
+import ProjectManagerModal from '../components/modals/ProjectManagerModal';
 import { useProjects } from '../hooks/useProjects';
-import projectsImage from '../assets/projectsimage.jpeg';
 
 const Projects = () => {
   const { projects, loading: projectsLoading, error: projectsError } = useProjects();
+  const [isBidModalOpen, setIsBidModalOpen] = useState(false);
+  const [isPMModalOpen, setIsPMModalOpen] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(4);
 
-  // Format projects for display
-  const formatProjectForDisplay = (project) => {
-    const getIcon = (type) => {
-      switch (type) {
-        case 'Commercial':
-          return Building2;
-        case 'Industrial':
-          return Factory;
-        case 'Institutional':
-          return School;
-        default:
-          return Building2;
-      }
-    };
+  // General Contractors data (same as CustomerLogos on home page)
+  const contractors = [
+    {
+      name: 'BHS Construction',
+      logo: 'https://via.placeholder.com/200x100/1e40af/ffffff?text=BHS+Construction',
+    },
+    {
+      name: 'Loyd Builders',
+      logo: 'https://via.placeholder.com/200x100/059669/ffffff?text=Loyd+Builders',
+    },
+    {
+      name: 'McCowan Gordon',
+      logo: 'https://via.placeholder.com/200x100/dc2626/ffffff?text=McCowan+Gordon',
+    },
+    {
+      name: 'Riley Construction',
+      logo: 'https://via.placeholder.com/200x100/7c3aed/ffffff?text=Riley+Construction',
+    },
+    {
+      name: 'Axiota',
+      logo: 'https://via.placeholder.com/200x100/ea580c/ffffff?text=Axiota',
+    },
+    {
+      name: 'USD 321',
+      logo: 'https://via.placeholder.com/200x100/0891b2/ffffff?text=USD+321',
+    }
+  ];
 
-    return {
-      title: project.description?.substring(0, 50) + '...' || 'Project',
-      type: project.projectType,
-      size: project.projectSize,
-      timeline: project.projectLength,
-      description: project.description,
-      image: project.projectImage,
-      icon: getIcon(project.projectType),
-      id: project.id
-    };
+  const displayedProjects = projects.slice(0, visibleCount);
+  const hasMore = visibleCount < projects.length;
+
+  const handleLoadMore = () => {
+    setVisibleCount(prev => prev + 4);
   };
-
-  const displayProjects = projects.map(formatProjectForDisplay);
 
   return (
     <>
@@ -49,50 +62,35 @@ const Projects = () => {
         />
       </Helmet>
 
-      {/* Hero Section */}
-      <section className="relative bg-accent-dark text-white py-24 md:py-40 lg:py-48 overflow-hidden">
-        {/* Background Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-accent-dark/98 to-accent-dark/90 z-10" />
-        
-        {/* Background Image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-25" 
-          style={{
-            backgroundImage: `url(${projectsImage})`,
-          }}
-        />
-        
-        <Container variant="wide" className="relative z-20">
-          <div className="max-w-4xl">
-            <h1 className="font-heading font-bold uppercase text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight">
-              Past Projects
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-200 leading-relaxed">
-              A showcase of our expertise in commercial, industrial, and institutional electrical construction. Each project reflects our commitment to quality, safety, and client satisfaction.
-            </p>
-          </div>
-        </Container>
-      </section>
+      {/* Featured Projects Carousel */}
+      <FeaturedProjectsCarousel />
 
-      {/* CTA Banner */}
-      <section className="py-8 bg-accent-dark text-white">
+      {/* CTA Banner: Talk to an Estimator */}
+      <section className="py-4 bg-primary-blue">
         <Container>
           <div className="text-center">
-            <Button variant="secondary" size="lg">
-              Request a Project Bid
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-white">
+              Ready to Start Your Next Project?
+            </h2>
+            <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-white opacity-90">
+              Get a competitive estimate for your commercial, industrial, or institutional build
+            </p>
+            <Button
+              variant="primary"
+              size="lg"
+              onClick={() => setIsBidModalOpen(true)}
+              className="shadow-lg hover:shadow-xl transition-all duration-200"
+            >
+              Talk to an Estimator
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
         </Container>
       </section>
 
-      {/* Projects Grid */}
-      <section className="section-padding bg-white">
+      {/* Projects List Section */}
+      <section className="py-16 bg-white">
         <Container>
-          <SectionHeader
-            subtitle="Our Work"
-            title="Project Showcase"
-          />
-          
           {projectsLoading ? (
             <div className="text-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-blue mx-auto"></div>
@@ -102,53 +100,28 @@ const Projects = () => {
             <div className="text-center py-12">
               <p className="text-red-600">Error loading projects. Please try again later.</p>
             </div>
-          ) : displayProjects.length > 0 ? (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-              {displayProjects.map((project, index) => {
-                const Icon = project.icon;
-                return (
-                  <Card key={project.id || index}>
-                    {project.image && (
-                      <div className="mb-4">
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-[32rem] object-cover rounded-lg"
-                  style={{
-                    objectPosition: 'center'
-                  }}
-                        />
-                      </div>
-                    )}
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className="inline-flex items-center justify-center w-14 h-14 bg-primary-blue/10 rounded-full flex-shrink-0">
-                        <Icon className="text-primary-blue" size={28} />
-                      </div>
-                      <div>
-                        <span className="inline-block px-3 py-1 text-xs font-semibold bg-secondary-green/10 text-secondary-green rounded-full mb-2">
-                          {project.type}
-                        </span>
-                        <h3 className="text-2xl font-heading font-bold text-text-dark">
-                          {project.title}
-                        </h3>
-                      </div>
-                    </div>
-                    
-                    <div className="flex gap-4 mb-4 text-sm text-gray-600">
-                      <span>📐 {project.size}</span>
-                      <span>⏱️ {project.timeline}</span>
-                    </div>
-                    
-                    <p className="text-gray-600 leading-relaxed">
-                      {project.description}
-                    </p>
-                  </Card>
-                );
-              })}
-            </div>
+          ) : displayedProjects.length > 0 ? (
+            <>
+              <div className="space-y-0">
+                {displayedProjects.map((project) => (
+                  <ProjectListItem key={project.id} project={project} />
+                ))}
+              </div>
+              
+              {hasMore && (
+                <div className="text-center mt-12">
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    onClick={handleLoadMore}
+                  >
+                    Load More Projects
+                  </Button>
+                </div>
+              )}
+            </>
           ) : (
             <div className="text-center py-12">
-              <ImageIcon className="h-16 w-16 text-gray-400 mx-auto mb-4" />
               <h3 className="text-xl font-heading font-bold text-text-dark mb-2">
                 No Projects Yet
               </h3>
@@ -160,26 +133,103 @@ const Projects = () => {
         </Container>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-padding bg-accent-dark text-white">
+      {/* CTA Banner: Talk to a Project Manager */}
+      <section className="py-4 bg-primary-blue">
         <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold uppercase mb-6">
-              Partner With Us on Your Next Project
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-white">
+              Have Questions About a Project?
             </h2>
-            <p className="text-xl text-gray-300 mb-8">
-              Let's discuss how our proven process and expertise can bring your vision to life.
+            <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-white opacity-90">
+              Connect with our project management team to discuss your specific needs
             </p>
-            <Button variant="secondary" size="lg" className="group">
-              Request a Project Bid
-              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+            <Button
+              variant="primary"
+              size="lg"
+              onClick={() => setIsPMModalOpen(true)}
+              className="shadow-lg hover:shadow-xl transition-all duration-200"
+            >
+              Talk to a Project Manager
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
         </Container>
       </section>
+
+      {/* Partners Section: Contractors & Vendors */}
+      <section className="py-16 bg-gray-50">
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+            {/* General Contractors */}
+            <div>
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-text-dark mb-8">
+                General Contractors We Work With
+              </h2>
+              <div className="grid grid-cols-2 gap-6 items-center">
+                {contractors.map((contractor, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
+                  >
+                    <img
+                      src={contractor.logo}
+                      alt={`${contractor.name} logo`}
+                      className="max-h-16 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Vendors */}
+            <div>
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-text-dark mb-8">
+                Vendors We Work With
+              </h2>
+              <VendorsLogos />
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Differentiators Section */}
+      <Differentiators />
+
+      {/* Bottom CTA Banner: Talk to an Estimator */}
+      <section className="py-4 bg-accent-dark text-white">
+        <Container>
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+              Let's Build Something Great Together
+            </h2>
+            <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-gray-300">
+              Partner with Perry Electrical for your next commercial, industrial, or institutional project
+            </p>
+            <Button
+              variant="primary"
+              size="lg"
+              onClick={() => setIsBidModalOpen(true)}
+              className="shadow-lg hover:shadow-xl transition-all duration-200"
+            >
+              Talk to an Estimator
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </div>
+        </Container>
+      </section>
+
+      {/* Modals */}
+      <ProjectBidModal 
+        isOpen={isBidModalOpen} 
+        onClose={() => setIsBidModalOpen(false)} 
+      />
+      <ProjectManagerModal 
+        isOpen={isPMModalOpen} 
+        onClose={() => setIsPMModalOpen(false)} 
+      />
     </>
   );
 };
 
 export default Projects;
-

@@ -9,11 +9,11 @@ const SectionHeader = ({
   return (
     <div className={`mb-12 ${alignClass} ${className}`}>
       {subtitle && (
-        <p className="text-primary-blue font-semibold uppercase tracking-wider text-sm mb-2">
+        <p className="text-primary-blue font-semibold tracking-wider text-sm mb-2">
           {subtitle}
         </p>
       )}
-      <h2 className="text-text-dark font-heading font-bold uppercase">
+      <h2 className="text-text-dark font-heading font-bold">
         {title}
       </h2>
     </div>

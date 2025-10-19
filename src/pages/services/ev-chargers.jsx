@@ -44,7 +44,7 @@ const EVChargers = () => {
               <Car className="text-white" size={40} />
             </div>
             <div>
-              <h1 className="font-heading font-bold uppercase text-4xl md:text-5xl mb-4">
+              <h1 className="font-heading font-bold text-4xl md:text-5xl mb-4">
                 EV Charger Installation
               </h1>
               <p className="text-xl text-gray-300 leading-relaxed">

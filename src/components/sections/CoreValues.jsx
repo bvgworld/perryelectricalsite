@@ -15,7 +15,7 @@ const CoreValues = () => {
           </div>
           
           <div>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold uppercase mb-6">
+            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">
               We Build More Than Wires
             </h2>
             <p className="text-xl text-gray-300 mb-6 leading-relaxed">

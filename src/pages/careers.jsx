@@ -111,8 +111,8 @@ const Careers = () => {
         
         <Container variant="wide" className="relative z-20">
           <div className="max-w-4xl">
-            <h1 className="font-heading font-bold uppercase text-4xl md:text-5xl mb-6">
-              Join a Team That Builds for Life
+            <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">
+              Join A Team That Builds For Life
             </h1>
             <p className="text-xl text-gray-300 leading-relaxed">
               At Perry Electrical, we invest in our people. Build your career with a company that values your growth, supports your development, and rewards your dedication.

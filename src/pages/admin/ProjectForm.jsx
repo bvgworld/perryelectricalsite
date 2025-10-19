@@ -35,10 +35,15 @@ const ProjectForm = () => {
     watch
   } = useForm({
         defaultValues: {
+          projectName: '',
           description: '',
           projectSize: '',
           projectType: '',
-          projectLength: ''
+          projectLength: '',
+          dollarAmount: '',
+          squareFootage: '',
+          scope: '',
+          location: ''
         }
   });
 
@@ -46,10 +51,15 @@ const ProjectForm = () => {
 
       useEffect(() => {
         if (isEdit && currentProject) {
+          setValue('projectName', currentProject.projectName || '');
           setValue('description', currentProject.description || '');
           setValue('projectSize', currentProject.projectSize || '');
           setValue('projectType', currentProject.projectType || '');
           setValue('projectLength', currentProject.projectLength || '');
+          setValue('dollarAmount', currentProject.dollarAmount || '');
+          setValue('squareFootage', currentProject.squareFootage || '');
+          setValue('scope', currentProject.scope || '');
+          setValue('location', currentProject.location || '');
           setImageUrl(currentProject.projectImage || '');
         }
       }, [isEdit, currentProject, setValue]);
@@ -195,8 +205,23 @@ const ProjectForm = () => {
               )}
 
           <div>
+            <label htmlFor="projectName" className="block text-sm font-medium text-gray-700 mb-2">
+              Project Name *
+            </label>
+            <input
+              {...register('projectName', { required: 'Project name is required' })}
+              type="text"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+              placeholder="e.g., Kaw Valley State Bank Renovation"
+            />
+            {errors.projectName && (
+              <p className="mt-1 text-sm text-red-600">{errors.projectName.message}</p>
+            )}
+          </div>
+
+          <div>
             <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
-              Description *
+              Project Debrief *
             </label>
             <textarea
               {...register('description')}
@@ -217,26 +242,75 @@ const ProjectForm = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="projectSize" className="block text-sm font-medium text-gray-700 mb-2">
-                Project Size *
+              <label htmlFor="dollarAmount" className="block text-sm font-medium text-gray-700 mb-2">
+                Dollar Amount
               </label>
               <input
-                {...register('projectSize')}
+                {...register('dollarAmount')}
+                type="text"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+                placeholder="e.g., $2.5M, $500K"
+              />
+              {errors.dollarAmount && (
+                <p className="mt-1 text-sm text-red-600">{errors.dollarAmount.message}</p>
+              )}
+            </div>
+
+            <div>
+              <label htmlFor="squareFootage" className="block text-sm font-medium text-gray-700 mb-2">
+                Square Footage
+              </label>
+              <input
+                {...register('squareFootage')}
                 type="text"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
                 placeholder="e.g., 50,000 sq ft"
               />
-              {errors.projectSize && (
-                <p className="mt-1 text-sm text-red-600">{errors.projectSize}</p>
+              {errors.squareFootage && (
+                <p className="mt-1 text-sm text-red-600">{errors.squareFootage.message}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label htmlFor="scope" className="block text-sm font-medium text-gray-700 mb-2">
+                Scope
+              </label>
+              <input
+                {...register('scope')}
+                type="text"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+                placeholder="e.g., Full electrical installation"
+              />
+              {errors.scope && (
+                <p className="mt-1 text-sm text-red-600">{errors.scope.message}</p>
               )}
             </div>
 
+            <div>
+              <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-2">
+                Location *
+              </label>
+              <input
+                {...register('location', { required: 'Location is required' })}
+                type="text"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+                placeholder="e.g., Topeka, KS"
+              />
+              {errors.location && (
+                <p className="mt-1 text-sm text-red-600">{errors.location.message}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label htmlFor="projectType" className="block text-sm font-medium text-gray-700 mb-2">
                 Project Type *
               </label>
               <select
-                {...register('projectType')}
+                {...register('projectType', { required: 'Project type is required' })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
               >
                 <option value="">Select project type</option>
@@ -247,24 +321,24 @@ const ProjectForm = () => {
                 ))}
               </select>
               {errors.projectType && (
-                <p className="mt-1 text-sm text-red-600">{errors.projectType}</p>
+                <p className="mt-1 text-sm text-red-600">{errors.projectType.message}</p>
               )}
             </div>
-          </div>
 
-          <div>
-            <label htmlFor="projectLength" className="block text-sm font-medium text-gray-700 mb-2">
-              Project Duration *
-            </label>
-            <input
-              {...register('projectLength')}
-              type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
-              placeholder="e.g., 6 months, 1 year, 18 weeks"
-            />
-            {errors.projectLength && (
-              <p className="mt-1 text-sm text-red-600">{errors.projectLength}</p>
-            )}
+            <div>
+              <label htmlFor="projectLength" className="block text-sm font-medium text-gray-700 mb-2">
+                Project Duration
+              </label>
+              <input
+                {...register('projectLength')}
+                type="text"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+                placeholder="e.g., 6 months, 1 year"
+              />
+              {errors.projectLength && (
+                <p className="mt-1 text-sm text-red-600">{errors.projectLength.message}</p>
+              )}
+            </div>
           </div>
 
 

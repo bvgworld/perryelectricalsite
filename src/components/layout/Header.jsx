@@ -60,16 +60,12 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Call Now Button */}
+          {/* Phone CTA - Desktop shows number, Mobile shows click-to-call */}
           <div className="hidden lg:block">
-            <Button 
-              variant="secondary" 
-              size="md"
-              className="flex items-center gap-2"
-            >
+            <div className="flex items-center gap-2 text-primary-blue font-semibold">
               <Phone size={18} />
-              Call Now
-            </Button>
+              <span>(785) 539-4723</span>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -100,14 +96,13 @@ const Header = () => {
               </Link>
             ))}
             <div className="mt-4">
-              <Button 
-                variant="secondary" 
-                size="md"
-                className="w-full flex items-center justify-center gap-2"
+              <a
+                href="tel:785-539-4723"
+                className="w-full flex items-center justify-center gap-2 bg-primary-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-blue/90 transition-colors"
               >
                 <Phone size={18} />
                 Call Now
-              </Button>
+              </a>
             </div>
           </nav>
         )}

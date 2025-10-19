@@ -19,6 +19,11 @@ export default {
           green: '#3BA676',
           DEFAULT: '#3BA676',
         },
+        cta: {
+          gray: '#D0D2D4',
+          'gray-hover': '#BFC3C7',
+          DEFAULT: '#D0D2D4',
+        },
         tertiary: {
           light: '#E5E5E5',
           DEFAULT: '#E5E5E5',

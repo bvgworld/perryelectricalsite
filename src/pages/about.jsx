@@ -1,11 +1,16 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Heart, Shield, Users, Target, Award, Clock } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Heart, Shield, Users, Target, Award, Clock, ArrowRight } from 'lucide-react';
 import Container from '../components/ui/Container';
 import SectionHeader from '../components/ui/SectionHeader';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
+import ProjectBidModal from '../components/modals/ProjectBidModal';
 
 const About = () => {
+  const [isBidModalOpen, setIsBidModalOpen] = useState(false);
+
   const coreValues = [
     {
       icon: Heart,
@@ -54,7 +59,7 @@ const About = () => {
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h1 className="font-heading font-bold uppercase text-4xl md:text-5xl mb-6">
+              <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">
                 About Perry Electrical
               </h1>
               <p className="text-xl text-gray-300 leading-relaxed">
@@ -128,18 +133,43 @@ const About = () => {
             <div className="inline-flex items-center justify-center w-20 h-20 mb-6 bg-secondary-green rounded-full">
               <Shield size={40} />
             </div>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold uppercase mb-6">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
               Our Lifetime Guarantee
             </h2>
             <p className="text-xl text-gray-300 mb-8 leading-relaxed">
               We stand behind every project with a lifetime guarantee on workmanship. If something isn't right, we'll make it right—no questions asked. That's our commitment to you.
             </p>
-            <Button variant="secondary" size="lg">
-              Work With Us
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                variant="secondary" 
+                size="lg"
+                onClick={() => setIsBidModalOpen(true)}
+                className="group"
+              >
+                Work With Us
+                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                size="lg"
+                as={Link}
+                to="/careers"
+                className="border-white text-white hover:bg-white hover:text-accent-dark group"
+              >
+                Join Our Team
+                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+              </Button>
+            </div>
           </div>
         </Container>
       </section>
+
+      {/* Project Bid Modal */}
+      <ProjectBidModal 
+        isOpen={isBidModalOpen} 
+        onClose={() => setIsBidModalOpen(false)} 
+      />
     </>
   );
 };

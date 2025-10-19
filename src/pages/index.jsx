@@ -1,13 +1,18 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Hero from '../components/sections/Hero';
 import Differentiators from '../components/sections/Differentiators';
 import ProcessTimeline from '../components/sections/ProcessTimeline';
 import FeaturedProjects from '../components/sections/FeaturedProjects';
 import CoreValues from '../components/sections/CoreValues';
+import CustomerLogos from '../components/sections/CustomerLogos';
+import CTABanner from '../components/sections/CTABanner';
+import ProjectBidModal from '../components/modals/ProjectBidModal';
 import { generateLocalBusinessSchema, injectSchema } from '../lib/seoHelpers';
 
 const Home = () => {
+  const [isBidModalOpen, setIsBidModalOpen] = useState(false);
+
   useEffect(() => {
     const schema = generateLocalBusinessSchema();
     const cleanup = injectSchema(schema);
@@ -34,9 +39,29 @@ const Home = () => {
 
       <Hero />
       <Differentiators />
+      
+      {/* CTA Banner 1: Between Who We Are and How We Work */}
+      <CTABanner 
+        title="Ready to Start Your Project?"
+        subtitle="Request a competitive estimate for your commercial, industrial, or institutional build"
+        buttonText="Talk to an Estimator"
+        variant="blue"
+        onButtonClick={() => setIsBidModalOpen(true)}
+      />
+      
       <ProcessTimeline />
+      
+      {/* Customer Logos Section */}
+      <CustomerLogos />
+      
       <FeaturedProjects />
       <CoreValues />
+      
+      {/* Project Bid Modal */}
+      <ProjectBidModal 
+        isOpen={isBidModalOpen} 
+        onClose={() => setIsBidModalOpen(false)} 
+      />
     </>
   );
 };

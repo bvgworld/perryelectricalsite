@@ -8,8 +8,8 @@ const Button = ({
   const baseStyles = 'inline-flex items-center justify-center font-semibold rounded transition-all duration-300 cursor-pointer';
   
   const variants = {
-    primary: 'bg-primary-blue text-white hover:bg-accent-dark',
-    secondary: 'bg-secondary-green text-white hover:bg-green-600',
+    primary: 'bg-secondary-green text-white hover:bg-green-700',
+    secondary: 'bg-cta-gray text-accent-dark hover:bg-cta-gray-hover',
     outline: 'bg-transparent border-2 border-primary-blue text-primary-blue hover:bg-primary-blue hover:text-white',
     dark: 'bg-accent-dark text-white hover:bg-primary-blue',
   };
