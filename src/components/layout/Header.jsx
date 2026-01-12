@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone } from 'lucide-react';
 import Button from '../ui/Button';
 import Container from '../ui/Container';
+import logo from '../../assets/PE LOGO Cropped (1).png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -37,10 +38,12 @@ const Header = () => {
       <Container>
         <div className="flex items-center justify-between h-12">
           {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <span className="font-heading font-bold text-2xl text-primary-blue">
-              PERRY ELECTRICAL
-            </span>
+          <Link to="/" className="flex items-center h-10">
+            <img 
+              src={logo} 
+              alt="Perry Electrical" 
+              className="h-full w-auto object-contain scale-[1.2] origin-left"
+            />
           </Link>
 
           {/* Desktop Navigation */}

@@ -37,7 +37,7 @@ const TrippingBreaker = () => {
       {/* Hero Section */}
       <section className="bg-accent-dark text-white py-20">
         <Container>
-          <Link to="/services" className="inline-flex items-center text-secondary-green hover:text-white transition-colors mb-6">
+          <Link to="/services" className="inline-flex items-center text-accent-red hover:text-white transition-colors mb-6">
             <ArrowLeft size={20} className="mr-2" />
             Back to Services
           </Link>
@@ -80,13 +80,13 @@ const TrippingBreaker = () => {
             {/* Solutions */}
             <div>
               <h2 className="text-3xl font-heading font-bold mb-6 text-text-dark flex items-center gap-3">
-                <Wrench className="text-secondary-green" size={32} />
+                <Wrench className="text-accent-red" size={32} />
                 Our Solutions
               </h2>
               <ul className="space-y-4">
                 {solutions.map((solution, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <CheckCircle className="text-secondary-green flex-shrink-0 mt-1" size={20} />
+                    <CheckCircle className="text-accent-red flex-shrink-0 mt-1" size={20} />
                     <span className="text-gray-600">{solution}</span>
                   </li>
                 ))}

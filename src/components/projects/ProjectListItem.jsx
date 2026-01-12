@@ -30,7 +30,7 @@ const ProjectListItem = ({ project }) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
           {project.dollarAmount && (
             <div className="flex items-center gap-2 text-gray-600">
-              <DollarSign size={18} className="text-secondary-green flex-shrink-0" />
+              <DollarSign size={18} className="text-accent-red flex-shrink-0" />
               <span className="text-sm font-medium">{project.dollarAmount}</span>
             </div>
           )}
@@ -60,7 +60,7 @@ const ProjectListItem = ({ project }) => {
         {/* Project Type Badge */}
         {project.projectType && (
           <div className="inline-block">
-            <span className="px-3 py-1 text-xs font-semibold bg-secondary-green/10 text-secondary-green rounded-full">
+            <span className="px-3 py-1 text-xs font-semibold bg-accent-red/10 text-accent-red rounded-full">
               {project.projectType}
             </span>
           </div>
@@ -71,4 +71,5 @@ const ProjectListItem = ({ project }) => {
 };
 
 export default ProjectListItem;
+
 

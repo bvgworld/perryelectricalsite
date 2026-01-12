@@ -249,13 +249,13 @@ const Services = () => {
       </section>
 
       {/* Emergency Service CTA */}
-      <section className="bg-red-600 text-white py-12">
+      <section className="bg-red-600 text-white py-3">
         <Container>
           <div className="text-center">
             <h2 className="text-3xl font-heading font-bold mb-4">
               Electrical Emergency?
             </h2>
-            <p className="text-xl mb-6 text-red-100">
+            <p className="text-xl mb-5 text-red-100">
               Don't wait - electrical issues can be dangerous. Call us now for immediate assistance.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -321,13 +321,13 @@ const Services = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="bg-primary-blue text-white py-16">
+      <section className="bg-accent-red text-white py-4">
         <Container>
           <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
               Ready to Get Started?
             </h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-blue-100 mb-6 max-w-2xl mx-auto">
               Don't let electrical problems disrupt your day. Schedule service now or call for immediate assistance.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

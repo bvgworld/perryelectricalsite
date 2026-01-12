@@ -1,37 +1,49 @@
 import Container from '../ui/Container';
 import SectionHeader from '../ui/SectionHeader';
+import axiotaLogo from '../../assets/Axiota.png';
+import bhsLogo from '../../assets/BHS.png';
+import iconStructuresLogo from '../../assets/Icon Structures.png';
+import kawValleyLogo from '../../assets/Kaw Valley USD.png';
+import loydBuildersLogo from '../../assets/Loyd Builders.png';
+import mccowanGordonLogo from '../../assets/McCowan Gordon.png';
+import rileyConstructionsLogo from '../../assets/Riley Constructions.png';
 
 const CustomerLogos = () => {
   const customers = [
     {
+      name: 'Axiota',
+      logo: axiotaLogo,
+      website: 'https://axiota.com'
+    },
+    {
       name: 'BHS Construction',
-      logo: 'https://via.placeholder.com/200x100/1e40af/ffffff?text=BHS+Construction',
+      logo: bhsLogo,
       website: 'https://bhsconstruction.com'
     },
     {
+      name: 'Icon Structures',
+      logo: iconStructuresLogo,
+      website: '#'
+    },
+    {
+      name: 'Kaw Valley USD',
+      logo: kawValleyLogo,
+      website: 'https://kawvalleyusd.org'
+    },
+    {
       name: 'Loyd Builders',
-      logo: 'https://via.placeholder.com/200x100/059669/ffffff?text=Loyd+Builders',
+      logo: loydBuildersLogo,
       website: 'https://loydbuilders.com'
     },
     {
       name: 'McCowan Gordon',
-      logo: 'https://via.placeholder.com/200x100/dc2626/ffffff?text=McCowan+Gordon',
+      logo: mccowanGordonLogo,
       website: 'https://mccowangordon.com'
     },
     {
-      name: 'Riley Construction',
-      logo: 'https://via.placeholder.com/200x100/7c3aed/ffffff?text=Riley+Construction',
+      name: 'Riley Constructions',
+      logo: rileyConstructionsLogo,
       website: 'https://rileyconstruction.com'
-    },
-    {
-      name: 'Axiota',
-      logo: 'https://via.placeholder.com/200x100/ea580c/ffffff?text=Axiota',
-      website: 'https://axiota.com'
-    },
-    {
-      name: 'USD 321',
-      logo: 'https://via.placeholder.com/200x100/0891b2/ffffff?text=USD+321',
-      website: 'https://usd321.org'
     }
   ];
 
@@ -44,7 +56,7 @@ const CustomerLogos = () => {
           className="text-center mb-12"
         />
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-8 items-center">
           {customers.map((customer, index) => (
             <div
               key={index}
@@ -71,4 +83,5 @@ const CustomerLogos = () => {
 };
 
 export default CustomerLogos;
+
 

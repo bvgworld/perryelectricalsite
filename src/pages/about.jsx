@@ -68,7 +68,7 @@ const About = () => {
             </div>
             <div className="h-80 bg-gray-600 rounded-md overflow-hidden">
               {/* Placeholder for team image */}
-              <div className="w-full h-full bg-gradient-to-br from-primary-blue to-secondary-green opacity-30" />
+              <div className="w-full h-full bg-gradient-to-br from-primary-blue to-accent-red opacity-30" />
             </div>
           </div>
         </Container>
@@ -130,7 +130,7 @@ const About = () => {
       <section className="section-padding bg-accent-dark text-white">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center justify-center w-20 h-20 mb-6 bg-secondary-green rounded-full">
+            <div className="inline-flex items-center justify-center w-20 h-20 mb-6 bg-accent-red rounded-full">
               <Shield size={40} />
             </div>
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">

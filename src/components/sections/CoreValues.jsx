@@ -10,7 +10,7 @@ const CoreValues = () => {
           <div>
             <div className="h-96 lg:h-[500px] xl:h-[600px] bg-gray-600 rounded-md overflow-hidden">
               {/* Placeholder for team image */}
-              <div className="w-full h-full bg-gradient-to-br from-primary-blue to-secondary-green opacity-30" />
+              <div className="w-full h-full bg-gradient-to-br from-primary-blue to-accent-red opacity-30" />
             </div>
           </div>
           

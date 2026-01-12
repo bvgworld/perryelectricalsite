@@ -1,4 +1,45 @@
-<!-- a17bbf77-0e47-4bc4-a821-c5a230a04b35 1a09805a-b4e9-426c-b6be-66e1e4e89ee2 -->
+---
+name: Refactor to Atomic Design Structure
+overview: ""
+todos:
+  - id: f594d561-0330-4548-8cc7-5e3b94e5fe05
+    content: Install and configure Tailwind CSS with custom design system (colors, fonts, spacing)
+    status: pending
+  - id: 458cdaa7-3008-4284-bd4f-b28181ff16b0
+    content: Install Framer Motion for animations and configure Firebase for Firestore
+    status: pending
+  - id: 6b4e6db3-af99-47ee-aab5-8ff4c1cb3e11
+    content: Build Header and Footer components with navigation and sticky behavior
+    status: pending
+  - id: 703e3afb-31bc-461a-879c-5d9a46d7c5f0
+    content: Configure React Router with all page routes and navigation structure
+    status: pending
+  - id: fd08e673-f767-4ebd-a15a-b6adb033afff
+    content: Create reusable components (Button, Card, Icon, Section) with Tailwind styling
+    status: pending
+  - id: a13c62c3-5347-40ed-86af-a70eda09ee9b
+    content: Build Home page with all 5 sections (Hero, Differentiators, Process, Projects, Values)
+    status: pending
+  - id: f1efa9fa-daac-41be-ab07-df994d7ddaae
+    content: Build Services page and ServiceDetail template with 6 service cards
+    status: pending
+  - id: 28e381f8-d66d-4219-bfb0-eed961944bcc
+    content: Build Projects page with carousel, grid, and project showcase components
+    status: pending
+  - id: 3ade4925-1564-4403-92d5-0c5df8fc7118
+    content: Build About page with story, team grid, and values sections
+    status: pending
+  - id: 216ceca4-3099-4c4c-937e-d5bd2cf0c871
+    content: Build Employment page with hiring process and application form
+    status: pending
+  - id: e736cc82-10d5-4d5f-b6e0-015ee879c1a8
+    content: Integrate Firestore for contact and employment form submissions
+    status: pending
+  - id: ca2c32fd-7bbf-4556-b3fa-828118ed0b46
+    content: Add scroll animations, polish interactions, and test responsiveness
+    status: pending
+---
+
 # Refactor to Atomic Design Structure
 
 ## Overview
@@ -243,18 +284,3 @@ Update all page files to import from new atomic structure:
 ✅ Dev server runs successfully
 
 ✅ Import paths are clean and logical
-
-### To-dos
-
-- [ ] Install and configure Tailwind CSS with custom design system (colors, fonts, spacing)
-- [ ] Install Framer Motion for animations and configure Firebase for Firestore
-- [ ] Build Header and Footer components with navigation and sticky behavior
-- [ ] Configure React Router with all page routes and navigation structure
-- [ ] Create reusable components (Button, Card, Icon, Section) with Tailwind styling
-- [ ] Build Home page with all 5 sections (Hero, Differentiators, Process, Projects, Values)
-- [ ] Build Services page and ServiceDetail template with 6 service cards
-- [ ] Build Projects page with carousel, grid, and project showcase components
-- [ ] Build About page with story, team grid, and values sections
-- [ ] Build Employment page with hiring process and application form
-- [ ] Integrate Firestore for contact and employment form submissions
-- [ ] Add scroll animations, polish interactions, and test responsiveness

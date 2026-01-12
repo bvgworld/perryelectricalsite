@@ -17,7 +17,7 @@ const CTABanner = ({
     dark: {
       container: "bg-accent-dark",
       text: "text-white", 
-      button: "bg-secondary-green text-white hover:bg-green-700"
+      button: "bg-accent-red text-white hover:bg-red-800"
     }
   };
 
@@ -31,7 +31,7 @@ const CTABanner = ({
             {title}
           </h2>
           {subtitle && (
-            <p className={`text-lg md:text-xl mb-8 max-w-3xl mx-auto ${currentVariant.text} opacity-90`}>
+            <p className={`text-lg md:text-xl mb-6 max-w-3xl mx-auto ${currentVariant.text} opacity-90`}>
               {subtitle}
             </p>
           )}

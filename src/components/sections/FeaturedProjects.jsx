@@ -58,7 +58,7 @@ const FeaturedProjects = () => {
                   )}
                 </div>
                 <div className="p-6">
-                  <span className="inline-block px-3 py-1 text-xs font-semibold bg-secondary-green/10 text-secondary-green rounded-full mb-3">
+                  <span className="inline-block px-3 py-1 text-xs font-semibold bg-accent-red/10 text-accent-red rounded-full mb-3">
                     {project.projectType}
                   </span>
                   <h3 className="text-xl font-heading font-bold mb-2 text-text-dark">

@@ -176,8 +176,8 @@ const Careers = () => {
               const Icon = benefit.icon;
               return (
                 <Card key={index} className="text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-secondary-green/10 rounded-full">
-                    <Icon className="text-secondary-green" size={32} />
+                  <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-accent-red/10 rounded-full">
+                    <Icon className="text-accent-red" size={32} />
                   </div>
                   <h3 className="text-xl font-heading font-bold mb-3 text-text-dark">
                     {benefit.title}
@@ -270,7 +270,7 @@ const Careers = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded bg-white text-text-dark focus:outline-none focus:ring-2 focus:ring-secondary-green"
+                    className="w-full px-4 py-3 rounded bg-white text-text-dark focus:outline-none focus:ring-2 focus:ring-accent-red"
                   />
                 </div>
                 <div>
@@ -281,7 +281,7 @@ const Careers = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded bg-white text-text-dark focus:outline-none focus:ring-2 focus:ring-secondary-green"
+                    className="w-full px-4 py-3 rounded bg-white text-text-dark focus:outline-none focus:ring-2 focus:ring-accent-red"
                   />
                 </div>
               </div>
@@ -295,7 +295,7 @@ const Careers = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded bg-white text-text-dark focus:outline-none focus:ring-2 focus:ring-secondary-green"
+                    className="w-full px-4 py-3 rounded bg-white text-text-dark focus:outline-none focus:ring-2 focus:ring-accent-red"
                   />
                 </div>
                 <div>
@@ -305,7 +305,7 @@ const Careers = () => {
                     value={formData.position}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded bg-white text-text-dark focus:outline-none focus:ring-2 focus:ring-secondary-green"
+                    className="w-full px-4 py-3 rounded bg-white text-text-dark focus:outline-none focus:ring-2 focus:ring-accent-red"
                   >
                     <option value="">Select a position</option>
                     <option value="journeyman">Licensed Journeyman Electrician</option>
@@ -323,7 +323,7 @@ const Careers = () => {
                   name="experience"
                   value={formData.experience}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded bg-white text-text-dark focus:outline-none focus:ring-2 focus:ring-secondary-green"
+                  className="w-full px-4 py-3 rounded bg-white text-text-dark focus:outline-none focus:ring-2 focus:ring-accent-red"
                 />
               </div>
 
@@ -335,7 +335,7 @@ const Careers = () => {
                   onChange={handleChange}
                   required
                   rows="5"
-                  className="w-full px-4 py-3 rounded bg-white text-text-dark focus:outline-none focus:ring-2 focus:ring-secondary-green"
+                  className="w-full px-4 py-3 rounded bg-white text-text-dark focus:outline-none focus:ring-2 focus:ring-accent-red"
                 />
               </div>
 

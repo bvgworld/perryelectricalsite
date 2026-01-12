@@ -114,7 +114,7 @@ const Dashboard = () => {
         <Card>
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <FolderOpen className="h-8 w-8 text-secondary-green" />
+              <FolderOpen className="h-8 w-8 text-accent-red" />
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-500">Total Projects</p>
@@ -167,7 +167,7 @@ const Dashboard = () => {
                     {item.type === 'job' ? (
                       <Briefcase className="h-5 w-5 text-primary-blue" />
                     ) : (
-                      <FolderOpen className="h-5 w-5 text-secondary-green" />
+                      <FolderOpen className="h-5 w-5 text-accent-red" />
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -197,7 +197,7 @@ const Dashboard = () => {
             </a>
             <a
               href="/admin/projects/new"
-              className="block w-full px-4 py-2 text-left text-sm font-medium text-secondary-green bg-secondary-green/10 rounded-md hover:bg-secondary-green/20 transition-colors"
+              className="block w-full px-4 py-2 text-left text-sm font-medium text-accent-red bg-accent-red/10 rounded-md hover:bg-accent-red/20 transition-colors"
             >
               Add New Project
             </a>

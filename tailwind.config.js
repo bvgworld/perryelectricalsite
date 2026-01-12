@@ -8,12 +8,15 @@ export default {
     extend: {
       colors: {
         primary: {
-          blue: '#1A73AA',
-          DEFAULT: '#1A73AA',
+          blue: '#2C64F2',
+          DEFAULT: '#2C64F2',
         },
         accent: {
-          dark: '#0F2D40',
-          DEFAULT: '#0F2D40',
+          dark: '#141E2C',
+          light: '#F6F7FC',
+          medium: '#C5CBD8',
+          red: '#A01825',
+          DEFAULT: '#141E2C',
         },
         secondary: {
           green: '#3BA676',
@@ -29,14 +32,14 @@ export default {
           DEFAULT: '#E5E5E5',
         },
         text: {
-          dark: '#333333',
-          DEFAULT: '#333333',
+          dark: '#141E2C',
+          DEFAULT: '#141E2C',
         },
       },
       fontFamily: {
-        sans: ['Source Sans 3', 'system-ui', 'sans-serif'],
-        heading: ['Inter', 'system-ui', 'sans-serif'],
-        accent: ['Oswald', 'system-ui', 'sans-serif'],
+        sans: ['Poppins', 'system-ui', 'sans-serif'],
+        heading: ['Anton', 'system-ui', 'sans-serif'],
+        accent: ['Anton', 'system-ui', 'sans-serif'],
       },
       spacing: {
         // 8pt spacing system
