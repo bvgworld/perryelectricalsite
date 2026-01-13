@@ -7,10 +7,12 @@ import {
   addDoc, 
   updateDoc, 
   deleteDoc, 
+  getDoc,
   doc,
   serverTimestamp 
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import { deleteImage } from '../utils/imageUpload';
 
 export const useProjects = () => {
   const [projects, setProjects] = useState([]);
@@ -72,7 +74,28 @@ export const useProjects = () => {
 
   const deleteProject = async (projectId) => {
     try {
-      await deleteDoc(doc(db, 'projects', projectId));
+      // Get the project to check if it has an image
+      const projectRef = doc(db, 'projects', projectId);
+      const projectDoc = await getDoc(projectRef);
+      
+      if (!projectDoc.exists()) {
+        return { success: false, error: 'Project not found' };
+      }
+      
+      const projectData = projectDoc.data();
+      
+      // Delete the project image from storage if it exists
+      if (projectData.projectImage) {
+        try {
+          await deleteImage(projectData.projectImage);
+        } catch (imageError) {
+          console.error('Error deleting project image:', imageError);
+          // Continue with project deletion even if image deletion fails
+        }
+      }
+      
+      // Delete the project document
+      await deleteDoc(projectRef);
       return { success: true };
     } catch (error) {
       console.error('Error deleting project:', error);

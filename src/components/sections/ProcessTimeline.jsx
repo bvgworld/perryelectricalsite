@@ -31,7 +31,7 @@ const ProcessTimeline = () => {
   ];
 
   return (
-    <section className="section-padding bg-tertiary-light">
+    <section className="section-padding bg-accent-medium">
       <Container>
         <SectionHeader
           subtitle="How We Work"

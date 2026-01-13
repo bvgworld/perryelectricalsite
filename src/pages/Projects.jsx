@@ -185,7 +185,7 @@ const Projects = () => {
                     <img
                       src={contractor.logo}
                       alt={`${contractor.name} logo`}
-                      className="max-h-16 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                      className="max-h-24 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
                       loading="lazy"
                     />
                   </div>

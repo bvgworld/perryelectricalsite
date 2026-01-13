@@ -52,7 +52,7 @@ const CustomerLogos = () => {
       <Container>
         <SectionHeader
           subtitle="Trusted Partners"
-          title="Customers We've Worked With"
+          title="Customers We Work With"
           className="text-center mb-12"
         />
         
@@ -60,12 +60,12 @@ const CustomerLogos = () => {
           {customers.map((customer, index) => (
             <div
               key={index}
-              className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
+              className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
             >
               <img
                 src={customer.logo}
                 alt={`${customer.name} logo`}
-                className="max-h-16 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                className="max-h-16 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300 scale-[1.5]"
                 loading="lazy"
               />
             </div>

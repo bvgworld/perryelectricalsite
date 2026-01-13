@@ -17,6 +17,11 @@ const FeaturedProjectsSelector = () => {
   }, [featuredProjectIds]);
 
   const handleProjectToggle = (projectId) => {
+    if (!projectId) {
+      console.error('Cannot toggle project: missing ID');
+      return;
+    }
+    
     setSelectedIds(prev => {
       if (prev.includes(projectId)) {
         // Remove project
@@ -94,22 +99,38 @@ const FeaturedProjectsSelector = () => {
       )}
 
       <div className="space-y-3 mb-6">
-        {projects.map((project) => {
-          const isSelected = selectedIds.includes(project.id);
-          const canSelect = !isSelected && selectedIds.length < 3;
-          
-          return (
-            <div
-              key={project.id}
-              className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                isSelected
-                  ? 'border-primary-blue bg-blue-50'
-                  : canSelect
-                  ? 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
-                  : 'border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed'
-              }`}
-              onClick={() => handleProjectToggle(project.id)}
-            >
+        {projects.length === 0 ? (
+          <div className="text-center py-8 text-gray-500">
+            <p>No projects available. Create some projects first.</p>
+          </div>
+        ) : (
+          projects.map((project, index) => {
+            if (!project.id) {
+              console.warn('Project missing ID:', project);
+              return null;
+            }
+            
+            const isSelected = selectedIds.includes(project.id);
+            const canSelect = !isSelected && selectedIds.length < 3;
+            
+            return (
+              <div
+                key={project.id || index}
+                className={`p-4 border-2 rounded-lg transition-all ${
+                  isSelected
+                    ? 'border-primary-blue bg-blue-50'
+                    : canSelect
+                    ? 'border-gray-200 hover:border-gray-300 hover:bg-gray-50 cursor-pointer'
+                    : 'border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed'
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (canSelect || isSelected) {
+                    handleProjectToggle(project.id);
+                  }
+                }}
+              >
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
@@ -123,14 +144,17 @@ const FeaturedProjectsSelector = () => {
                   <div className="flex-1">
                     <div className="flex items-center space-x-2">
                       <h4 className="font-medium text-gray-900">
-                        {project.description?.substring(0, 50)}...
+                        {project.projectName || project.description?.substring(0, 50) || 'Unnamed Project'}
+                        {!project.projectName && project.description && project.description.length > 50 && '...'}
                       </h4>
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                        {project.projectType}
-                      </span>
+                      {project.projectType && (
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                          {project.projectType}
+                        </span>
+                      )}
                     </div>
                     <p className="text-sm text-gray-600 mt-1">
-                      {project.projectSize} • {project.projectLength}
+                      {[project.location, project.projectSize, project.projectLength].filter(Boolean).join(' • ') || 'No details'}
                     </p>
                   </div>
                 </div>
@@ -143,15 +167,10 @@ const FeaturedProjectsSelector = () => {
                 )}
               </div>
             </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
-
-      {projects.length === 0 && (
-        <div className="text-center py-8 text-gray-500">
-          <p>No projects available. Create some projects first.</p>
-        </div>
-      )}
 
       <div className="flex items-center justify-between pt-4 border-t">
         <Button

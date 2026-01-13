@@ -32,6 +32,7 @@ const ProjectForm = () => {
     formState: { errors },
     reset,
     setValue,
+    setError: setFormError,
     watch
   } = useForm({
         defaultValues: {
@@ -97,7 +98,15 @@ const ProjectForm = () => {
     try {
       const validation = validateProjectForm(data);
       if (!validation.isValid) {
-        setError('Please fix the validation errors below.');
+        // Set individual field errors using react-hook-form's setError
+        Object.entries(validation.errors).forEach(([field, message]) => {
+          setFormError(field, { type: 'manual', message });
+        });
+        // Show validation errors in a more user-friendly way
+        const errorList = Object.values(validation.errors)
+          .map((message) => `• ${message}`)
+          .join('\n');
+        setError(`Please fix the following validation errors:\n${errorList}`);
         setLoading(false);
         return;
       }
@@ -178,7 +187,7 @@ const ProjectForm = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-md p-4">
-              <p className="text-red-700 text-sm">{error}</p>
+              <p className="text-red-700 text-sm whitespace-pre-line">{error}</p>
             </div>
           )}
 
@@ -224,7 +233,10 @@ const ProjectForm = () => {
               Project Debrief *
             </label>
             <textarea
-              {...register('description')}
+              {...register('description', { 
+                required: 'Project debrief is required',
+                maxLength: { value: 500, message: 'Project debrief must be less than 500 characters' }
+              })}
               rows={4}
               maxLength={500}
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
@@ -232,7 +244,7 @@ const ProjectForm = () => {
             />
             <div className="flex justify-between mt-1">
               {errors.description && (
-                <p className="text-sm text-red-600">{errors.description}</p>
+                <p className="text-sm text-red-600">{errors.description.message || errors.description}</p>
               )}
               <p className="text-sm text-gray-500 ml-auto">
                 {description?.length || 0}/500 characters

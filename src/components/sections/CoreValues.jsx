@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import Container from '../ui/Container';
 import Button from '../ui/Button';
+import teamImage from '../../assets/tight team picture.jpg';
 
 const CoreValues = () => {
   return (
@@ -8,9 +9,12 @@ const CoreValues = () => {
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center">
           <div>
-            <div className="h-96 lg:h-[500px] xl:h-[600px] bg-gray-600 rounded-md overflow-hidden">
-              {/* Placeholder for team image */}
-              <div className="w-full h-full bg-gradient-to-br from-primary-blue to-accent-red opacity-30" />
+            <div className="h-96 lg:h-[500px] xl:h-[600px] rounded-md overflow-hidden">
+              <img
+                src={teamImage}
+                alt="Perry Electrical Team"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
           

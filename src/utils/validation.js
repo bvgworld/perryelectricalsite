@@ -60,22 +60,26 @@ export const validateJobForm = (data) => {
 export const validateProjectForm = (data) => {
   const errors = {};
 
-  if (!data.description || data.description.trim().length === 0) {
-    errors.description = 'Description is required';
-  } else if (data.description.length > 500) {
-    errors.description = 'Description must be less than 500 characters';
+  if (!data.projectName || data.projectName.trim().length === 0) {
+    errors.projectName = 'Project name is required';
+  } else if (data.projectName.length > 100) {
+    errors.projectName = 'Project name must be less than 100 characters';
   }
 
-  if (!data.projectSize || data.projectSize.trim().length === 0) {
-    errors.projectSize = 'Project size is required';
+  if (!data.description || data.description.trim().length === 0) {
+    errors.description = 'Project debrief is required';
+  } else if (data.description.length > 500) {
+    errors.description = 'Project debrief must be less than 500 characters';
   }
 
   if (!data.projectType) {
     errors.projectType = 'Project type is required';
   }
 
-  if (!data.projectLength || data.projectLength.trim().length === 0) {
-    errors.projectLength = 'Project length is required';
+  if (!data.location || data.location.trim().length === 0) {
+    errors.location = 'Location is required';
+  } else if (data.location.length > 100) {
+    errors.location = 'Location must be less than 100 characters';
   }
 
   return {
