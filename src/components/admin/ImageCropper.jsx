@@ -5,9 +5,10 @@ const ImageCropper = ({
   imageUrl, 
   onCropComplete, 
   aspectRatio = 16/9, // Default aspect ratio for project images
-  className = "" 
+  className = "",
+  initialCrop = null // Optional initial crop coordinates
 }) => {
-  const [crop, setCrop] = useState({ x: 0, y: 0, width: 100, height: 100 });
+  const [crop, setCrop] = useState(initialCrop || { x: 0, y: 0, width: 100, height: 100 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -15,22 +16,65 @@ const ImageCropper = ({
   const [outputResolution, setOutputResolution] = useState({ width: 0, height: 0 });
   const containerRef = useRef(null);
   const imageRef = useRef(null);
+  const hasInitialized = useRef(false);
 
   useEffect(() => {
     if (imageUrl) {
       setImageLoaded(false);
       setImageError(false);
+      hasInitialized.current = false;
+      // Reset crop if no initial crop provided
+      if (!initialCrop) {
+        setCrop({ x: 0, y: 0, width: 100, height: 100 });
+      }
     }
-  }, [imageUrl]);
+  }, [imageUrl, initialCrop]);
 
   const handleImageLoad = () => {
     console.log('Image loaded successfully');
-    if (imageRef.current && containerRef.current) {
-      // Wait a bit for the image to be fully rendered
-      setTimeout(() => {
-        const containerWidth = containerRef.current.clientWidth;
-        const containerHeight = containerRef.current.clientHeight;
+    if (!imageRef.current || !containerRef.current) {
+      console.log('Image or container ref not available');
+      return;
+    }
+
+    // Check if already initialized for this image URL
+    if (hasInitialized.current) {
+      console.log('Already initialized, skipping');
+      return;
+    }
+
+    // Wait a bit for the image to be fully rendered
+    setTimeout(() => {
+      // Double-check refs are still available
+      if (!imageRef.current || !containerRef.current) {
+        console.log('Refs no longer available after timeout');
+        return;
+      }
+
+      // Check again if initialized (in case of race condition)
+      if (hasInitialized.current) {
+        console.log('Already initialized during timeout, skipping');
+        return;
+      }
+
+      const containerWidth = containerRef.current.clientWidth;
+      const containerHeight = containerRef.current.clientHeight;
+      
+      // If initial crop is provided, use it; otherwise initialize to center
+      if (initialCrop && initialCrop.width > 0 && initialCrop.height > 0) {
+        // Validate and adjust initial crop to fit within container
+        const cropWidth = Math.min(initialCrop.width, containerWidth);
+        const cropHeight = Math.min(initialCrop.height, containerHeight);
+        const x = Math.max(0, Math.min(initialCrop.x, containerWidth - cropWidth));
+        const y = Math.max(0, Math.min(initialCrop.y, containerHeight - cropHeight));
         
+        setCrop({
+          x,
+          y,
+          width: cropWidth,
+          height: cropHeight
+        });
+      } else {
         // Initialize crop to center with proper aspect ratio
         const cropWidth = Math.min(containerWidth * 0.8, containerWidth);
         const cropHeight = cropWidth / aspectRatio;
@@ -44,19 +88,27 @@ const ImageCropper = ({
           width: cropWidth,
           height: cropHeight
         });
-        
-        // Calculate output resolution
-        const scaleX = imageRef.current.naturalWidth / containerWidth;
-        const scaleY = imageRef.current.naturalHeight / containerHeight;
-        setOutputResolution({
-          width: Math.round(cropWidth * scaleX),
-          height: Math.round(cropHeight * scaleY)
-        });
-        
-        setImageLoaded(true);
-        console.log('Crop initialized:', { x, y, width: cropWidth, height: cropHeight });
-      }, 100);
-    }
+      }
+      
+      // Calculate output resolution
+      const currentCrop = crop.width > 0 && crop.height > 0 ? crop : {
+        x: (containerWidth - Math.min(containerWidth * 0.8, containerWidth)) / 2,
+        y: (containerHeight - (Math.min(containerWidth * 0.8, containerWidth) / aspectRatio)) / 2,
+        width: Math.min(containerWidth * 0.8, containerWidth),
+        height: Math.min(containerWidth * 0.8, containerWidth) / aspectRatio
+      };
+      
+      const scaleX = imageRef.current.naturalWidth / containerWidth;
+      const scaleY = imageRef.current.naturalHeight / containerHeight;
+      setOutputResolution({
+        width: Math.round(currentCrop.width * scaleX),
+        height: Math.round(currentCrop.height * scaleY)
+      });
+      
+      setImageLoaded(true);
+      hasInitialized.current = true;
+      console.log('Crop initialized:', currentCrop);
+    }, 100);
   };
 
   const handleImageError = () => {

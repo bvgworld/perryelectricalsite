@@ -1,33 +1,30 @@
+import bigMuddyLogo from '../../assets/Big Muddy.png';
+import borderStatesLogo from '../../assets/Border States.png';
+import marmicLogo from '../../assets/Marmic.png';
+import techElectronicsLogo from '../../assets/Tech Electronics.png';
+
 const VendorsLogos = () => {
   const vendors = [
     {
+      name: 'Big Muddy Protection Group',
+      logo: bigMuddyLogo,
+    },
+    {
       name: 'Border States',
-      logo: 'https://via.placeholder.com/200x100/1e40af/ffffff?text=Border+States',
+      logo: borderStatesLogo,
+    },
+    {
+      name: 'Marmic Fire & Safety',
+      logo: marmicLogo,
     },
     {
       name: 'Tech Electronics',
-      logo: 'https://via.placeholder.com/200x100/059669/ffffff?text=Tech+Electronics',
-    },
-    {
-      name: 'Big Muddy Fire Alarms',
-      logo: 'https://via.placeholder.com/200x100/dc2626/ffffff?text=Big+Muddy',
-    },
-    {
-      name: 'Marmic Fire Alarms',
-      logo: 'https://via.placeholder.com/200x100/7c3aed/ffffff?text=Marmic',
-    },
-    {
-      name: 'Data-Tel',
-      logo: 'https://via.placeholder.com/200x100/ea580c/ffffff?text=Data-Tel',
-    },
-    {
-      name: 'American Electric',
-      logo: 'https://via.placeholder.com/200x100/0891b2/ffffff?text=American+Electric',
+      logo: techElectronicsLogo,
     }
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 items-center">
+    <div className="grid grid-cols-2 gap-6 items-center">
       {vendors.map((vendor, index) => (
         <div
           key={index}
@@ -36,7 +33,7 @@ const VendorsLogos = () => {
           <img
             src={vendor.logo}
             alt={`${vendor.name} logo`}
-            className="max-h-16 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+            className="max-h-24 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
             loading="lazy"
           />
         </div>

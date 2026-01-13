@@ -12,7 +12,7 @@ const CTABanner = ({
     blue: {
       container: "bg-primary-blue",
       text: "text-white",
-      button: "bg-cta-gray text-accent-dark hover:bg-cta-gray-hover"
+      button: "bg-accent-red text-white hover:bg-red-800"
     },
     dark: {
       container: "bg-accent-dark",

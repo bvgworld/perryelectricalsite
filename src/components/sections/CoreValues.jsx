@@ -28,7 +28,7 @@ const CoreValues = () => {
             <p className="text-lg text-gray-300 mb-8 leading-relaxed">
               From our first conversation to final inspection, we're committed to transparency, quality, and your complete satisfaction. That's why we back every job with our lifetime guarantee.
             </p>
-            <Button variant="secondary" size="lg" className="group">
+            <Button variant="primary" size="lg" className="group">
               Contact Our Estimating Team
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
             </Button>

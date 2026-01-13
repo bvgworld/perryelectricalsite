@@ -3,6 +3,7 @@ const Button = ({
   variant = 'primary', 
   size = 'md', 
   className = '', 
+  as,
   ...props 
 }) => {
   const baseStyles = 'inline-flex items-center justify-center font-semibold rounded transition-all duration-300 cursor-pointer';
@@ -20,13 +21,15 @@ const Button = ({
     lg: 'px-8 py-2.5 text-lg',
   };
   
+  const Component = as || 'button';
+  
   return (
-    <button
+    <Component
       className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
       {...props}
     >
       {children}
-    </button>
+    </Component>
   );
 };
 

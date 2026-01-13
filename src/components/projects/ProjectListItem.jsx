@@ -2,13 +2,13 @@ import { MapPin, DollarSign, Maximize2, Briefcase } from 'lucide-react';
 
 const ProjectListItem = ({ project }) => {
   return (
-    <div className="flex flex-col md:flex-row gap-6 py-8 border-b border-gray-200 last:border-b-0">
+    <div className="flex flex-col gap-6 p-6 border border-gray-200 rounded-lg hover:shadow-lg transition-shadow">
       {/* Thumbnail */}
-      <div className="md:w-80 flex-shrink-0">
+      <div className="w-full">
         <img
           src={project.projectImage || 'https://via.placeholder.com/400x300/1A73AA/ffffff?text=No+Image'}
           alt={project.projectName || 'Project'}
-          className="w-full h-64 md:h-52 object-cover rounded-lg shadow-md"
+          className="w-full h-64 object-cover rounded-lg shadow-md"
         />
       </div>
 

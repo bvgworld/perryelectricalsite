@@ -86,13 +86,53 @@ export const generateServiceSchema = (serviceName, description) => {
   };
 };
 
+export const generateReviewsSchema = (reviews, aggregateRating) => {
+  if (!reviews || reviews.length === 0) {
+    return null;
+  }
+
+  const reviewSchema = reviews.map((review) => ({
+    "@type": "Review",
+    "author": {
+      "@type": "Person",
+      "name": review.author || "Anonymous"
+    },
+    "datePublished": review.date || new Date().toISOString(),
+    "reviewBody": review.text || "",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": review.rating || 5,
+      "bestRating": 5,
+      "worstRating": 1
+    }
+  }));
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Perry Electrical",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": aggregateRating.ratingValue || 5.0,
+      "reviewCount": aggregateRating.reviewCount || reviews.length,
+      "bestRating": 5,
+      "worstRating": 1
+    },
+    "review": reviewSchema
+  };
+};
+
 export const injectSchema = (schema) => {
   const script = document.createElement('script');
   script.type = 'application/ld+json';
   script.innerHTML = JSON.stringify(schema);
+  script.id = `schema-${Date.now()}`;
   document.head.appendChild(script);
   return () => {
-    document.head.removeChild(script);
+    const scriptElement = document.getElementById(script.id);
+    if (scriptElement) {
+      document.head.removeChild(scriptElement);
+    }
   };
 };
 

@@ -10,10 +10,8 @@ import VendorsLogos from '../components/sections/VendorsLogos';
 import ProjectBidModal from '../components/modals/ProjectBidModal';
 import ProjectManagerModal from '../components/modals/ProjectManagerModal';
 import { useProjects } from '../hooks/useProjects';
-import axiotaLogo from '../assets/Axiota.png';
 import bhsLogo from '../assets/BHS.png';
 import iconStructuresLogo from '../assets/Icon Structures.png';
-import kawValleyLogo from '../assets/Kaw Valley USD.png';
 import loydBuildersLogo from '../assets/Loyd Builders.png';
 import mccowanGordonLogo from '../assets/McCowan Gordon.png';
 import rileyConstructionsLogo from '../assets/Riley Constructions.png';
@@ -27,20 +25,12 @@ const Projects = () => {
   // General Contractors data (same as CustomerLogos on home page)
   const contractors = [
     {
-      name: 'Axiota',
-      logo: axiotaLogo,
-    },
-    {
       name: 'BHS Construction',
       logo: bhsLogo,
     },
     {
       name: 'Icon Structures',
       logo: iconStructuresLogo,
-    },
-    {
-      name: 'Kaw Valley USD',
-      logo: kawValleyLogo,
     },
     {
       name: 'Loyd Builders',
@@ -77,13 +67,13 @@ const Projects = () => {
       <FeaturedProjectsCarousel />
 
       {/* CTA Banner: Talk to an Estimator */}
-      <section className="py-4 bg-accent-red">
+      <section className="py-4 bg-accent-medium">
         <Container>
           <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-white">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-accent-dark">
               Ready to Start Your Next Project?
             </h2>
-            <p className="text-lg md:text-xl mb-6 max-w-3xl mx-auto text-white opacity-90">
+            <p className="text-lg md:text-xl mb-6 max-w-3xl mx-auto text-accent-dark opacity-90">
               Get a competitive estimate for your commercial, industrial, or institutional build
             </p>
             <Button
@@ -113,7 +103,7 @@ const Projects = () => {
             </div>
           ) : displayedProjects.length > 0 ? (
             <>
-              <div className="space-y-0">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {displayedProjects.map((project) => (
                   <ProjectListItem key={project.id} project={project} />
                 ))}
@@ -145,13 +135,13 @@ const Projects = () => {
       </section>
 
       {/* CTA Banner: Talk to a Project Manager */}
-      <section className="py-4 bg-accent-red">
+      <section className="py-4 bg-accent-medium">
         <Container>
           <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-white">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-accent-dark">
               Have Questions About a Project?
             </h2>
-            <p className="text-lg md:text-xl mb-6 max-w-3xl mx-auto text-white opacity-90">
+            <p className="text-lg md:text-xl mb-6 max-w-3xl mx-auto text-accent-dark opacity-90">
               Connect with our project management team to discuss your specific needs
             </p>
             <Button

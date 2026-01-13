@@ -4,6 +4,7 @@ import { Zap, CheckCircle, AlertTriangle, ArrowLeft } from 'lucide-react';
 import Container from '../../components/ui/Container';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
+import panelUpgradesImage from '../../assets/breaker box.jpeg';
 
 const PanelUpgrades = () => {
   const benefits = [
@@ -33,24 +34,30 @@ const PanelUpgrades = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="bg-accent-dark text-white py-20">
-        <Container>
-          <Link to="/services" className="inline-flex items-center text-accent-red hover:text-white transition-colors mb-6">
+      <section className="relative text-white py-20 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src={panelUpgradesImage}
+            alt="Electrical Panel"
+            className="w-full h-full object-cover"
+          />
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-black/70"></div>
+        </div>
+        
+        <Container className="relative z-10">
+          <Link to="/services" className="inline-flex items-center text-white hover:text-accent-red transition-colors mb-6">
             <ArrowLeft size={20} className="mr-2" />
             Back to Services
           </Link>
-          <div className="flex items-start gap-6">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-primary-blue rounded-full flex-shrink-0">
-              <Zap className="text-white" size={40} />
-            </div>
-            <div>
-              <h1 className="font-heading font-bold text-4xl md:text-5xl mb-4">
-                Panel Upgrades
-              </h1>
-              <p className="text-xl text-gray-300 leading-relaxed">
-                Upgrade your electrical panel to safely handle modern power demands and ensure your home or business is ready for the future.
-              </p>
-            </div>
+          <div>
+            <h1 className="font-heading font-bold text-4xl md:text-5xl mb-4">
+              Panel Upgrades
+            </h1>
+            <p className="text-xl text-gray-200 leading-relaxed">
+              Upgrade your electrical panel to meet modern power demands safely and efficiently.
+            </p>
           </div>
         </Container>
       </section>
