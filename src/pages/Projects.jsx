@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, CheckCircle } from 'lucide-react';
 import Container from '../components/ui/Container';
 import Button from '../components/ui/Button';
-import FeaturedProjectsCarousel from '../components/sections/FeaturedProjectsCarousel';
-import ProjectListItem from '../components/projects/ProjectListItem';
+import ProjectsHeroCarousel from '../components/sections/ProjectsHeroCarousel';
+import ProjectShowcase from '../components/projects/ProjectShowcase';
 import Differentiators from '../components/sections/Differentiators';
 import VendorsLogos from '../components/sections/VendorsLogos';
 import ProjectBidModal from '../components/modals/ProjectBidModal';
 import ProjectManagerModal from '../components/modals/ProjectManagerModal';
-import { useProjects } from '../hooks/useProjects';
+// TODO: Replace with actual project images once uploaded
+import projectsImage from '../assets/projectsimage.jpeg';
 import bhsLogo from '../assets/BHS.png';
 import iconStructuresLogo from '../assets/Icon Structures.png';
 import loydBuildersLogo from '../assets/Loyd Builders.png';
@@ -17,10 +18,74 @@ import mccowanGordonLogo from '../assets/McCowan Gordon.png';
 import rileyConstructionsLogo from '../assets/Riley Constructions.png';
 
 const Projects = () => {
-  const { projects, loading: projectsLoading, error: projectsError } = useProjects();
   const [isBidModalOpen, setIsBidModalOpen] = useState(false);
   const [isPMModalOpen, setIsPMModalOpen] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(4);
+
+  // Capabilities list
+  const capabilities = [
+    'Design & Build',
+    'Estimation',
+    'Fire Alarm Installation',
+    'Data / Telecom Cabling',
+    'Project Management',
+    'Dedicated Office Staff',
+    'In-House Training'
+  ];
+
+  // Hardcoded project showcases
+  // TODO: Replace image imports with actual uploaded project images
+  const showcaseProjects = [
+    {
+      id: 1,
+      name: 'Indian Hills Elementary',
+      location: 'Manhattan, KS',
+      description: 'Complete electrical installation for new elementary school facility, including lighting, power distribution, and fire alarm systems.',
+      image: projectsImage, // Replace with actual Indian Hills Elementary image
+      dollarAmount: '$2.5M',
+      squareFootage: '85,000 sq ft',
+      scope: 'Full electrical build-out'
+    },
+    {
+      id: 2,
+      name: 'Modern Apartment Complex',
+      location: 'Topeka, KS',
+      description: 'Comprehensive electrical systems for multi-story residential complex, including unit wiring, common area lighting, and security systems.',
+      image: projectsImage, // Replace with actual Apartment Complex image
+      dollarAmount: '$3.2M',
+      squareFootage: '120,000 sq ft',
+      scope: 'Complete electrical installation'
+    },
+    {
+      id: 3,
+      name: 'Urban Plaza Development',
+      location: 'Kansas City, KS',
+      description: 'Landscape and architectural lighting installation for public plaza, including fountain lighting, pathway illumination, and decorative fixtures.',
+      image: projectsImage, // Replace with actual Urban Plaza image
+      dollarAmount: '$850K',
+      squareFootage: '45,000 sq ft',
+      scope: 'Outdoor lighting and electrical'
+    },
+    {
+      id: 4,
+      name: 'Riley County Grade School',
+      location: 'Riley County, KS',
+      description: 'Electrical renovation and upgrade project for existing grade school, including panel upgrades, new lighting systems, and fire alarm modernization.',
+      image: projectsImage, // Replace with actual Riley County Grade School image
+      dollarAmount: '$1.8M',
+      squareFootage: '95,000 sq ft',
+      scope: 'Electrical renovation and upgrades'
+    },
+    {
+      id: 5,
+      name: 'Harbor Freight Tools',
+      location: 'Wichita, KS',
+      description: 'Commercial electrical installation for retail store, including service entrance, distribution panels, and store lighting systems.',
+      image: projectsImage, // Replace with actual Harbor Freight Tools image
+      dollarAmount: '$650K',
+      squareFootage: '25,000 sq ft',
+      scope: 'Commercial electrical installation'
+    }
+  ];
 
   // General Contractors data (same as CustomerLogos on home page)
   const contractors = [
@@ -46,13 +111,6 @@ const Projects = () => {
     }
   ];
 
-  const displayedProjects = projects.slice(0, visibleCount);
-  const hasMore = visibleCount < projects.length;
-
-  const handleLoadMore = () => {
-    setVisibleCount(prev => prev + 4);
-  };
-
   return (
     <>
       <Helmet>
@@ -63,8 +121,8 @@ const Projects = () => {
         />
       </Helmet>
 
-      {/* Featured Projects Carousel */}
-      <FeaturedProjectsCarousel />
+      {/* Hero Carousel */}
+      <ProjectsHeroCarousel />
 
       {/* CTA Banner: Talk to an Estimator */}
       <section className="py-4 bg-accent-medium">
@@ -89,50 +147,36 @@ const Projects = () => {
         </Container>
       </section>
 
-      {/* Projects List Section */}
+      {/* Capabilities Section */}
       <section className="py-16 bg-white">
         <Container>
-          {projectsLoading ? (
-            <div className="text-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-blue mx-auto"></div>
-              <p className="mt-4 text-gray-600">Loading projects...</p>
-            </div>
-          ) : projectsError ? (
-            <div className="text-center py-12">
-              <p className="text-red-600">Error loading projects. Please try again later.</p>
-            </div>
-          ) : displayedProjects.length > 0 ? (
-            <>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {displayedProjects.map((project) => (
-                  <ProjectListItem key={project.id} project={project} />
-                ))}
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-center text-text-dark mb-12">
+            Our Capabilities
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {capabilities.map((capability, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-3 p-4 bg-accent-light rounded-lg hover:shadow-md transition-shadow duration-300"
+              >
+                <CheckCircle className="h-6 w-6 text-primary-blue flex-shrink-0" />
+                <span className="text-lg text-text-dark font-medium">{capability}</span>
               </div>
-              
-              {hasMore && (
-                <div className="text-center mt-12">
-                  <Button
-                    variant="secondary"
-                    size="lg"
-                    onClick={handleLoadMore}
-                  >
-                    Load More Projects
-                  </Button>
-                </div>
-              )}
-            </>
-          ) : (
-            <div className="text-center py-12">
-              <h3 className="text-xl font-heading font-bold text-text-dark mb-2">
-                No Projects Yet
-              </h3>
-              <p className="text-gray-600">
-                We're working on adding our project portfolio. Check back soon!
-              </p>
-            </div>
-          )}
+            ))}
+          </div>
         </Container>
       </section>
+
+      {/* Project Showcases */}
+      <div className="bg-white">
+        {showcaseProjects.map((project, index) => (
+          <ProjectShowcase
+            key={project.id}
+            project={project}
+            imageOnLeft={index % 2 === 0}
+          />
+        ))}
+      </div>
 
       {/* CTA Banner: Talk to a Project Manager */}
       <section className="py-4 bg-accent-medium">

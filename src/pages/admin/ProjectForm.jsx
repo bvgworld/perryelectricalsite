@@ -7,7 +7,6 @@ import { useAuth } from '../../contexts/AuthContext';
 import { validateProjectForm } from '../../utils/validation';
 import { uploadImage, deleteImage } from '../../utils/imageUpload';
 import ImageUploader from '../../components/admin/ImageUploader';
-import ImageCropper from '../../components/admin/ImageCropper';
 import Button from '../../components/ui/Button';
 import Container from '../../components/ui/Container';
 
@@ -21,9 +20,6 @@ const ProjectForm = () => {
   const [error, setError] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState('');
-  const [croppedImage, setCroppedImage] = useState(null);
-  const [originalImageUrl, setOriginalImageUrl] = useState(''); // Store original image URL for editing
-  const [showCropper, setShowCropper] = useState(false); // Only show cropper for new images
 
   const isEdit = Boolean(id);
   const currentProject = isEdit ? projects.find(project => project.id === id) : null;
@@ -63,26 +59,21 @@ const ProjectForm = () => {
           setValue('squareFootage', currentProject.squareFootage || '');
           setValue('scope', currentProject.scope || '');
           setValue('location', currentProject.location || '');
-          const existingImage = currentProject.projectImage || '';
-          setImageUrl(existingImage);
-          setOriginalImageUrl(existingImage); // Store original for reference
-          setShowCropper(false); // Don't show cropper for existing images
+          setImageUrl(currentProject.projectImage || '');
         }
       }, [isEdit, currentProject, setValue]);
 
   const handleImageSelect = (file) => {
     setSelectedImage(file);
-    setCroppedImage(null); // Reset cropped image when new file is selected
     setError('');
     
-    // Create a preview URL for the image cropper
+    // Create a preview URL for the image
     if (file) {
       console.log('Image selected:', file.name, file.size, file.type);
       const reader = new FileReader();
       reader.onload = (e) => {
         console.log('Image preview URL created:', e.target.result.substring(0, 50) + '...');
         setImageUrl(e.target.result);
-        setShowCropper(true); // Show cropper for new images
       };
       reader.onerror = (e) => {
         console.error('Error reading file:', e);
@@ -91,19 +82,7 @@ const ProjectForm = () => {
       reader.readAsDataURL(file);
     } else {
       setImageUrl('');
-      setShowCropper(false);
     }
-  };
-
-  const handleCropComplete = (croppedBlob) => {
-    setCroppedImage(croppedBlob);
-    // Create a preview of the cropped image
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setImageUrl(e.target.result);
-      setShowCropper(false); // Hide cropper after crop is applied
-    };
-    reader.readAsDataURL(croppedBlob);
   };
 
   const onSubmit = async (data) => {
@@ -128,11 +107,10 @@ const ProjectForm = () => {
 
       let finalImageUrl = imageUrl;
 
-      // Handle image upload if new image selected or cropped
-      if (selectedImage || croppedImage) {
+      // Handle image upload if new image selected
+      if (selectedImage) {
         setUploading(true);
-        const imageToUpload = croppedImage || selectedImage;
-        const uploadResult = await uploadImage(imageToUpload, 'projects');
+        const uploadResult = await uploadImage(selectedImage, 'projects');
         if (!uploadResult.success) {
           setError(uploadResult.error || 'Failed to upload image');
           setLoading(false);
@@ -216,18 +194,9 @@ const ProjectForm = () => {
               disabled={uploading}
             />
             <p className="mt-2 text-sm text-gray-500">
-              Upload a high-quality image that showcases your project (max 5MB)
+              Upload a high-quality image that showcases your project (max 5MB). The full image will be used.
             </p>
           </div>
-
-              {imageUrl && showCropper && (
-                <ImageCropper
-                  imageUrl={imageUrl}
-                  onCropComplete={handleCropComplete}
-                  aspectRatio={16/9}
-                  key={imageUrl} // Force remount when image changes to reset crop state
-                />
-              )}
 
           <div>
             <label htmlFor="projectName" className="block text-sm font-medium text-gray-700 mb-2">
