@@ -1,33 +1,34 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-// TODO: Replace with actual project images once uploaded
-import projectsImage from '../../assets/projectsimage.jpeg';
+import meadowlarkImage from '../../assets/Meadowlark Monarch 1.avif';
+import plazaImage from '../../assets/Plaza Of The Flint Hills 2.avif';
+import rileyCountyImage from '../../assets/riley county grade school.png';
+import indianHillsImage from '../../assets/Indian Hills Topeka.avif';
 
 const ProjectsHeroCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Hardcoded project images for hero carousel
-  // TODO: Replace with actual project images once uploaded
   const heroImages = [
     {
       id: 1,
-      image: projectsImage, // Indian Hills Elementary - replace with actual image
-      alt: 'Indian Hills Elementary Project'
+      image: meadowlarkImage,
+      alt: 'Meadowlark MHK Project'
     },
     {
       id: 2,
-      image: projectsImage, // Apartment Complex - replace with actual image
-      alt: 'Modern Apartment Complex Project'
+      image: plazaImage,
+      alt: 'Plaza of the Flint Hills Project'
     },
     {
       id: 3,
-      image: projectsImage, // Urban Plaza - replace with actual image
-      alt: 'Urban Plaza Project'
+      image: rileyCountyImage,
+      alt: 'Riley County Grade School Project'
     },
     {
       id: 4,
-      image: projectsImage, // Riley County Grade School - replace with actual image
-      alt: 'Riley County Grade School Project'
+      image: indianHillsImage,
+      alt: 'Indian Hills Topeka Project'
     }
   ];
 

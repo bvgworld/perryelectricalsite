@@ -9,8 +9,12 @@ import Differentiators from '../components/sections/Differentiators';
 import VendorsLogos from '../components/sections/VendorsLogos';
 import ProjectBidModal from '../components/modals/ProjectBidModal';
 import ProjectManagerModal from '../components/modals/ProjectManagerModal';
-// TODO: Replace with actual project images once uploaded
-import projectsImage from '../assets/projectsimage.jpeg';
+import indianHillsImage from '../assets/Indian Hills Topeka.avif';
+import meadowlarkImage from '../assets/Meadowlark Monarch 1.avif';
+import plazaImage from '../assets/Plaza Of The Flint Hills 2.avif';
+import ptmwImage from '../assets/PTMW Topeka.avif';
+import rileyCountyImage from '../assets/riley county grade school.png';
+import ultaImage from '../assets/Ulta Manhattan.JPG';
 import bhsLogo from '../assets/BHS.png';
 import iconStructuresLogo from '../assets/Icon Structures.png';
 import loydBuildersLogo from '../assets/Loyd Builders.png';
@@ -23,67 +27,69 @@ const Projects = () => {
 
   // Capabilities list
   const capabilities = [
-    'Design & Build',
-    'Estimation',
-    'Fire Alarm Installation',
-    'Data / Telecom Cabling',
-    'Project Management',
-    'Dedicated Office Staff',
-    'In-House Training'
+    'Design-Build Electrical',
+    'Full-Service Contracting',
+    'Detailed Estimating',
+    'Bondable + Insured',
+    'Schedule-Driven Execution',
+    'Office Support + Admin Systems'
   ];
 
   // Hardcoded project showcases
-  // TODO: Replace image imports with actual uploaded project images
   const showcaseProjects = [
     {
       id: 1,
       name: 'Indian Hills Elementary',
-      location: 'Manhattan, KS',
-      description: 'Complete electrical installation for new elementary school facility, including lighting, power distribution, and fire alarm systems.',
-      image: projectsImage, // Replace with actual Indian Hills Elementary image
-      dollarAmount: '$2.5M',
-      squareFootage: '85,000 sq ft',
-      scope: 'Full electrical build-out'
+      location: 'Topeka, KS',
+      buildingType: 'Education',
+      description: 'Electrical and fire alarm renovation and addition project for elementary school facility.',
+      image: indianHillsImage,
+      scope: 'Electrical & Fire Alarm Renovation and Addition'
     },
     {
       id: 2,
-      name: 'Modern Apartment Complex',
-      location: 'Topeka, KS',
-      description: 'Comprehensive electrical systems for multi-story residential complex, including unit wiring, common area lighting, and security systems.',
-      image: projectsImage, // Replace with actual Apartment Complex image
-      dollarAmount: '$3.2M',
-      squareFootage: '120,000 sq ft',
-      scope: 'Complete electrical installation'
+      name: 'Meadowlark',
+      location: 'Manhattan, KS',
+      buildingType: 'Senior Multi-Family',
+      description: 'Complete electrical and fire alarm systems for new senior multi-family residential construction.',
+      image: meadowlarkImage,
+      scope: 'Electrical & Fire Alarm New Construction'
     },
     {
       id: 3,
-      name: 'Urban Plaza Development',
-      location: 'Kansas City, KS',
-      description: 'Landscape and architectural lighting installation for public plaza, including fountain lighting, pathway illumination, and decorative fixtures.',
-      image: projectsImage, // Replace with actual Urban Plaza image
-      dollarAmount: '$850K',
-      squareFootage: '45,000 sq ft',
-      scope: 'Outdoor lighting and electrical'
+      name: 'Plaza of the Flint Hills',
+      location: 'Manhattan, KS',
+      buildingType: 'Entertainment',
+      description: 'Exterior lighting installation for public entertainment plaza, creating an inviting and safe environment.',
+      image: plazaImage,
+      scope: 'Exterior Lighting'
     },
     {
       id: 4,
-      name: 'Riley County Grade School',
-      location: 'Riley County, KS',
-      description: 'Electrical renovation and upgrade project for existing grade school, including panel upgrades, new lighting systems, and fire alarm modernization.',
-      image: projectsImage, // Replace with actual Riley County Grade School image
-      dollarAmount: '$1.8M',
-      squareFootage: '95,000 sq ft',
-      scope: 'Electrical renovation and upgrades'
+      name: 'PTMW Manhattan',
+      location: 'Manhattan, KS',
+      buildingType: 'Office / Manufacturing',
+      description: 'Comprehensive electrical and fire alarm systems for office and manufacturing facility.',
+      image: ptmwImage,
+      scope: 'Electrical & Fire Alarm'
     },
     {
       id: 5,
-      name: 'Harbor Freight Tools',
-      location: 'Wichita, KS',
-      description: 'Commercial electrical installation for retail store, including service entrance, distribution panels, and store lighting systems.',
-      image: projectsImage, // Replace with actual Harbor Freight Tools image
-      dollarAmount: '$650K',
-      squareFootage: '25,000 sq ft',
-      scope: 'Commercial electrical installation'
+      name: 'Riley County Grade School',
+      location: 'Manhattan, KS',
+      buildingType: 'Education',
+      description: 'Electrical and fire alarm installation for grade school facility, ensuring safety and modern functionality.',
+      image: rileyCountyImage,
+      scope: 'Electrical & Fire Alarm'
+    },
+    {
+      id: 6,
+      name: 'Ulta Manhattan',
+      location: 'Manhattan, KS',
+      buildingType: 'Retail',
+      description: 'Complete electrical and fire alarm systems for retail store, including lighting, power distribution, and safety systems.',
+      image: ultaImage,
+      scope: 'Electrical & Fire Alarm'
     }
   ];
 

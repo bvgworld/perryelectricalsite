@@ -28,9 +28,16 @@ const ProjectShowcase = ({ project, imageOnLeft = true }) => {
           </h2>
           
           {project.location && (
-            <div className="flex items-center gap-2 mb-6 text-gray-600">
+            <div className="flex items-center gap-2 mb-4 text-gray-600">
               <MapPin className="h-5 w-5 text-accent-red flex-shrink-0" />
               <span className="text-lg">{project.location}</span>
+            </div>
+          )}
+
+          {project.buildingType && (
+            <div className="mb-4">
+              <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Building Type</span>
+              <p className="text-xl font-bold text-text-dark">{project.buildingType}</p>
             </div>
           )}
           
@@ -38,20 +45,6 @@ const ProjectShowcase = ({ project, imageOnLeft = true }) => {
             <p className="text-gray-700 leading-relaxed text-lg mb-6">
               {project.description}
             </p>
-          )}
-
-          {project.dollarAmount && (
-            <div className="mb-4">
-              <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Project Value</span>
-              <p className="text-xl font-bold text-text-dark">{project.dollarAmount}</p>
-            </div>
-          )}
-
-          {project.squareFootage && (
-            <div className="mb-4">
-              <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Square Footage</span>
-              <p className="text-xl font-bold text-text-dark">{project.squareFootage}</p>
-            </div>
           )}
 
           {project.scope && (
