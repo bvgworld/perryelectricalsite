@@ -1,5 +1,7 @@
 # Perry Electrical Website
 
+New Branch
+
 A modern, professional website for Perry Electrical - an electrical contractor specializing in commercial, industrial, and institutional projects across Kansas.
 
 ## 🚀 Tech Stack
