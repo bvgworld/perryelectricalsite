@@ -5,6 +5,7 @@ import { Eye, EyeOff, AlertCircle, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import Container from '../../components/ui/Container';
 import Button from '../../components/ui/Button';
+import adminLogo from '../../assets/pe-logo-white-bg.png';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -45,9 +46,11 @@ const Login = () => {
       <div className="relative w-full max-w-md">
         {/* Logo Section */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full shadow-lg mb-4">
-            <span className="text-2xl font-heading font-bold text-primary-blue">PE</span>
-          </div>
+          <img
+            src={adminLogo}
+            alt="Perry Electrical"
+            className="h-12 w-auto mx-auto mb-4 object-contain"
+          />
           <h1 className="text-3xl font-heading font-bold text-white mb-2">
             Perry Electrical
           </h1>

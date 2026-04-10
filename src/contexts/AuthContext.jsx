@@ -21,10 +21,13 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(Boolean(auth));
 
   // Sign in with email and password
   const login = async (email, password) => {
+    if (!auth || !db) {
+      throw new Error('Admin authentication is unavailable. Check Firebase environment variables.');
+    }
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
@@ -59,6 +62,9 @@ export const AuthProvider = ({ children }) => {
 
   // Create new admin user
   const createAdminUser = async (email, password, displayName) => {
+    if (!auth || !db) {
+      throw new Error('Admin user creation is unavailable. Check Firebase environment variables.');
+    }
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
@@ -86,6 +92,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    if (!auth || !db) {
+      setCurrentUser(null);
+      setUserData(null);
+      setLoading(false);
+      return () => {};
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
@@ -124,7 +137,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 };

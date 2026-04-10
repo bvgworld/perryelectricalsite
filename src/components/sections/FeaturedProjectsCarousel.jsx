@@ -86,7 +86,7 @@ const FeaturedProjectsCarousel = () => {
                 <p className="text-sm font-semibold tracking-wider uppercase mb-3 text-gray-300">
                   Featured Projects
                 </p>
-                <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4">
+                <h2 className="text-2xl md:text-3xl font-heading mb-4 tracking-[0.02em]">
                   {project.projectName || 'Featured Project'}
                 </h2>
                 {project.location && (

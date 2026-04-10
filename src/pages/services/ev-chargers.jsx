@@ -2,8 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Car, CheckCircle, Zap, ArrowLeft } from 'lucide-react';
 import Container from '../../components/ui/Container';
-import Button from '../../components/ui/Button';
-import Card from '../../components/ui/Card';
+import ServiceDetailCTA from '../../components/sections/ServiceDetailCTA';
+import ServiceAreas from '../../components/sections/ServiceAreas';
 import evChargersImage from '../../assets/EV chargers.jpeg';
 
 const EVChargers = () => {
@@ -26,15 +26,15 @@ const EVChargers = () => {
   return (
     <>
       <Helmet>
-        <title>EV Charger Installation | Perry Electrical</title>
+        <title>EV Charger Installation in Manhattan & Topeka KS | Perry Electrical</title>
         <meta 
           name="description" 
-          content="Professional EV charger installation for home and commercial properties in Kansas. Fast, reliable electric vehicle charging solutions." 
+          content="Professional ev charger installation services in Manhattan, Topeka, St. Marys & across Kansas. Same-day service available. Licensed & insured. Call (785) 539-4723." 
         />
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative text-white py-20 overflow-hidden">
+      <section className="relative text-white pt-[72px] py-20 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
@@ -101,27 +101,8 @@ const EVChargers = () => {
         </Container>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-padding bg-tertiary-light">
-        <Container>
-          <Card className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl font-heading font-bold mb-4 text-text-dark">
-              Ready to Install Your EV Charger?
-            </h2>
-            <p className="text-lg text-gray-600 mb-6">
-              We'll help you choose the right charging solution and ensure a safe, code-compliant installation.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="primary" size="lg">
-                Get Free Estimate
-              </Button>
-              <Button variant="outline" size="lg">
-                Call Now
-              </Button>
-            </div>
-          </Card>
-        </Container>
-      </section>
+      <ServiceAreas serviceName="EV Charger Installation" />
+      <ServiceDetailCTA serviceName="EV Charger Installation" />
     </>
   );
 };

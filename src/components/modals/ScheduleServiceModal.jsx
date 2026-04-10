@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { CheckCircle, Loader2 } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -6,7 +6,10 @@ import { db } from '../../lib/firebase';
 import Modal from '../ui/Modal';
 import Button from '../ui/Button';
 
-const ScheduleServiceModal = ({ isOpen, onClose }) => {
+const fieldClass =
+  'w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-blue/20 focus:border-primary-blue transition-colors';
+
+const ScheduleServiceModal = ({ isOpen, onClose, preselectedService = '' }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -35,6 +38,16 @@ const ScheduleServiceModal = ({ isOpen, onClose }) => {
 
   const watchedServiceTypes = watch('serviceTypes') || [];
 
+  useEffect(() => {
+    if (isOpen && preselectedService) {
+      setValue(
+        'projectDescription',
+        `Interested in: ${preselectedService}\n\n`,
+        { shouldDirty: false }
+      );
+    }
+  }, [isOpen, preselectedService, setValue]);
+
   const handleServiceTypeChange = (serviceType, checked) => {
     const currentTypes = watchedServiceTypes;
     if (checked) {
@@ -49,7 +62,6 @@ const ScheduleServiceModal = ({ isOpen, onClose }) => {
     setError('');
 
     try {
-      // Submit to Firebase
       await addDoc(collection(db, 'leads', 'serviceRequests'), {
         name: data.name.trim(),
         phoneNumber: data.phoneNumber.trim(),
@@ -61,16 +73,13 @@ const ScheduleServiceModal = ({ isOpen, onClose }) => {
         status: 'new'
       });
 
-      // Show success state
       setIsSuccess(true);
-      
-      // Auto close after 2 seconds
+
       setTimeout(() => {
         setIsSuccess(false);
         reset();
         onClose();
       }, 2000);
-
     } catch (err) {
       console.error('Error submitting service request:', err);
       setError('There was an error submitting your request. Please try again.');
@@ -88,16 +97,20 @@ const ScheduleServiceModal = ({ isOpen, onClose }) => {
     }
   };
 
-  // Phone number validation
   const validatePhone = (value) => {
     const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
     return phoneRegex.test(value) || 'Please enter a valid phone number';
   };
 
-  // Service types validation
-  const validateServiceTypes = (value) => {
-    return value.length > 0 || 'Please select at least one service type';
-  };
+  const submitForm = handleSubmit((data) => {
+    const types = watchedServiceTypes;
+    if (!types.length) {
+      setError('Please select at least one service type');
+      return;
+    }
+    setError('');
+    onSubmit({ ...data, serviceTypes: types });
+  });
 
   if (isSuccess) {
     return (
@@ -108,7 +121,7 @@ const ScheduleServiceModal = ({ isOpen, onClose }) => {
             Thank You!
           </h3>
           <p className="text-gray-600">
-            We'll contact you soon to schedule your service.
+            We&apos;ll contact you soon to schedule your service.
           </p>
         </div>
       </Modal>
@@ -117,17 +130,16 @@ const ScheduleServiceModal = ({ isOpen, onClose }) => {
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose} title="Schedule Service" size="lg">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={submitForm} className="space-y-4">
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-md p-4">
             <p className="text-red-700 text-sm">{error}</p>
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Name */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
               Your Name *
             </label>
             <input
@@ -143,7 +155,7 @@ const ScheduleServiceModal = ({ isOpen, onClose }) => {
                 }
               })}
               type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+              className={fieldClass}
               placeholder="Your full name"
             />
             {errors.name && (
@@ -151,9 +163,8 @@ const ScheduleServiceModal = ({ isOpen, onClose }) => {
             )}
           </div>
 
-          {/* Phone Number */}
           <div>
-            <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1">
               Phone Number *
             </label>
             <input
@@ -162,7 +173,7 @@ const ScheduleServiceModal = ({ isOpen, onClose }) => {
                 validate: validatePhone
               })}
               type="tel"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+              className={fieldClass}
               placeholder="(785) 555-0123"
             />
             {errors.phoneNumber && (
@@ -171,9 +182,8 @@ const ScheduleServiceModal = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
             Email Address *
           </label>
           <input
@@ -185,7 +195,7 @@ const ScheduleServiceModal = ({ isOpen, onClose }) => {
               }
             })}
             type="email"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+            className={fieldClass}
             placeholder="your@email.com"
           />
           {errors.email && (
@@ -193,37 +203,32 @@ const ScheduleServiceModal = ({ isOpen, onClose }) => {
           )}
         </div>
 
-        {/* Service Types */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-3">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
             Service Type * (Select all that apply)
           </label>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 [grid-auto-rows:1fr]">
             {serviceTypes.map((serviceType) => (
               <label
                 key={serviceType}
-                className="flex items-center p-3 border border-gray-300 rounded-md hover:bg-gray-50 cursor-pointer transition-colors"
+                className="group flex min-h-[4.25rem] w-full min-w-0 cursor-pointer items-start gap-2.5 rounded-lg border border-gray-200 p-2.5 transition-colors hover:bg-gray-50"
               >
                 <input
                   type="checkbox"
-                  className="h-4 w-4 text-primary-blue focus:ring-primary-blue border-gray-300 rounded"
                   checked={watchedServiceTypes.includes(serviceType)}
                   onChange={(e) => handleServiceTypeChange(serviceType, e.target.checked)}
+                  className="mt-0.5 h-4 w-4 max-h-4 max-w-4 shrink-0 cursor-pointer rounded border-gray-300 text-primary-blue accent-primary-blue focus:ring-2 focus:ring-primary-blue/30 focus:ring-offset-0"
                 />
-                <span className="ml-3 text-sm font-medium text-gray-700">
+                <span className="min-w-0 flex-1 text-left text-xs font-medium leading-snug text-gray-700 sm:text-sm">
                   {serviceType}
                 </span>
               </label>
             ))}
           </div>
-          {errors.serviceTypes && (
-            <p className="mt-2 text-sm text-red-600">{errors.serviceTypes.message}</p>
-          )}
         </div>
 
-        {/* Project Description */}
         <div>
-          <label htmlFor="projectDescription" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="projectDescription" className="block text-sm font-medium text-gray-700 mb-1">
             Additional Details (Optional)
           </label>
           <textarea
@@ -234,24 +239,23 @@ const ScheduleServiceModal = ({ isOpen, onClose }) => {
               }
             })}
             rows={4}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+            className={fieldClass}
             placeholder="Please provide any additional details about your service needs..."
           />
           <div className="flex justify-between items-center mt-1">
             {errors.projectDescription && (
               <p className="text-sm text-red-600">{errors.projectDescription.message}</p>
             )}
-            <p className="text-sm text-gray-500 ml-auto">
+            <p className="text-xs text-gray-500 ml-auto">
               {watch('projectDescription')?.length || 0}/500 characters
             </p>
           </div>
         </div>
 
-        {/* Submit Button */}
-        <div className="flex justify-end space-x-4 pt-4">
+        <div className="flex justify-end gap-3 pt-3">
           <Button
             type="button"
-            variant="outline"
+            variant="ghost"
             onClick={handleClose}
             disabled={isSubmitting}
           >
@@ -261,18 +265,10 @@ const ScheduleServiceModal = ({ isOpen, onClose }) => {
             type="submit"
             variant="primary"
             disabled={isSubmitting}
-            onClick={handleSubmit((data) => {
-              // Validate service types before submission
-              if (watchedServiceTypes.length === 0) {
-                setError('Please select at least one service type');
-                return;
-              }
-              onSubmit(data);
-            })}
           >
             {isSubmitting ? (
               <>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                <Loader2 className="h-4 w-4 animate-spin" />
                 Submitting...
               </>
             ) : (
@@ -286,5 +282,3 @@ const ScheduleServiceModal = ({ isOpen, onClose }) => {
 };
 
 export default ScheduleServiceModal;
-
-

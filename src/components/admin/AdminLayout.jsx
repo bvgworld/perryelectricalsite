@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import Button from '../ui/Button';
+import adminLogo from '../../assets/pe-logo-white-bg.png';
 
 const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -49,9 +50,7 @@ const AdminLayout = () => {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={() => setSidebarOpen(false)} />
         <div className="fixed inset-y-0 left-0 flex w-64 flex-col bg-white">
           <div className="flex h-16 items-center justify-between px-4">
-            <h1 className="text-xl font-heading font-bold text-primary-blue">
-              Admin Portal
-            </h1>
+            <img src={adminLogo} alt="Perry Electrical" className="h-9 w-auto object-contain max-w-[70%]" />
             <button
               onClick={() => setSidebarOpen(false)}
               className="text-gray-400 hover:text-gray-600"
@@ -88,7 +87,7 @@ const AdminLayout = () => {
               </div>
             </div>
             <Button
-              variant="outline"
+              variant="outline-blue"
               size="sm"
               className="w-full mt-3"
               onClick={handleLogout}
@@ -103,10 +102,8 @@ const AdminLayout = () => {
       {/* Desktop sidebar */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
         <div className="flex flex-col flex-grow bg-white border-r border-gray-200">
-          <div className="flex h-16 items-center px-4">
-            <h1 className="text-xl font-heading font-bold text-primary-blue">
-              Admin Portal
-            </h1>
+          <div className="flex h-16 items-center px-4 border-b border-gray-100">
+            <img src={adminLogo} alt="Perry Electrical" className="h-9 w-auto object-contain" />
           </div>
           <nav className="flex-1 space-y-1 px-2 py-4">
             {navigation.map((item) => {
@@ -136,7 +133,7 @@ const AdminLayout = () => {
               </div>
             </div>
             <Button
-              variant="outline"
+              variant="outline-blue"
               size="sm"
               className="w-full mt-3"
               onClick={handleLogout}

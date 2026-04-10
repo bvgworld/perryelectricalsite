@@ -2,8 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { AlertCircle, CheckCircle, Wrench, ArrowLeft } from 'lucide-react';
 import Container from '../../components/ui/Container';
-import Button from '../../components/ui/Button';
-import Card from '../../components/ui/Card';
+import ServiceDetailCTA from '../../components/sections/ServiceDetailCTA';
+import ServiceAreas from '../../components/sections/ServiceAreas';
 import trippingBreakersImage from '../../assets/tripping breakers.jpeg';
 
 const TrippingBreaker = () => {
@@ -28,15 +28,15 @@ const TrippingBreaker = () => {
   return (
     <>
       <Helmet>
-        <title>Tripping Breaker Repair | Perry Electrical</title>
+        <title>Tripping Breaker Repair in Manhattan & Topeka KS | Perry Electrical</title>
         <meta 
           name="description" 
-          content="Expert diagnosis and repair of tripping circuit breakers in Kansas. Fast, reliable electrical troubleshooting and solutions." 
+          content="Professional tripping breaker repair services in Manhattan, Topeka, St. Marys & across Kansas. Same-day service available. Licensed & insured. Call (785) 539-4723." 
         />
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative text-white py-20 overflow-hidden">
+      <section className="relative text-white pt-[72px] py-20 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
@@ -115,27 +115,8 @@ const TrippingBreaker = () => {
         </Container>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-padding bg-tertiary-light">
-        <Container>
-          <Card className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl font-heading font-bold mb-4 text-text-dark">
-              Fix Your Tripping Breaker Today
-            </h2>
-            <p className="text-lg text-gray-600 mb-6">
-              Don't let electrical issues disrupt your life. Our licensed electricians will quickly diagnose and resolve the problem.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="primary" size="lg">
-                Schedule Service
-              </Button>
-              <Button variant="outline" size="lg">
-                Emergency Call
-              </Button>
-            </div>
-          </Card>
-        </Container>
-      </section>
+      <ServiceAreas serviceName="Tripping Breaker Repair" />
+      <ServiceDetailCTA serviceName="Tripping Breaker Repair" />
     </>
   );
 };

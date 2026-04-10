@@ -2,8 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Power, CheckCircle, Battery, ArrowLeft } from 'lucide-react';
 import Container from '../../components/ui/Container';
-import Button from '../../components/ui/Button';
-import Card from '../../components/ui/Card';
+import ServiceDetailCTA from '../../components/sections/ServiceDetailCTA';
+import ServiceAreas from '../../components/sections/ServiceAreas';
 import generatorsImage from '../../assets/generators.jpeg';
 
 const Generators = () => {
@@ -27,15 +27,15 @@ const Generators = () => {
   return (
     <>
       <Helmet>
-        <title>Generator Installation | Perry Electrical</title>
+        <title>Generators in Manhattan & Topeka KS | Perry Electrical</title>
         <meta 
           name="description" 
-          content="Professional backup generator installation and maintenance in Kansas. Keep your power on during outages." 
+          content="Professional generators services in Manhattan, Topeka, St. Marys & across Kansas. Same-day service available. Licensed & insured. Call (785) 539-4723." 
         />
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative text-white py-20 overflow-hidden">
+      <section className="relative text-white pt-[72px] py-20 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
@@ -102,27 +102,8 @@ const Generators = () => {
         </Container>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-padding bg-tertiary-light">
-        <Container>
-          <Card className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl font-heading font-bold mb-4 text-text-dark">
-              Never Lose Power Again
-            </h2>
-            <p className="text-lg text-gray-600 mb-6">
-              Our team will help you choose the right generator and ensure a professional installation.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="primary" size="lg">
-                Get Free Estimate
-              </Button>
-              <Button variant="outline" size="lg">
-                Call Now
-              </Button>
-            </div>
-          </Card>
-        </Container>
-      </section>
+      <ServiceAreas serviceName="Generators" />
+      <ServiceDetailCTA serviceName="Generators" />
     </>
   );
 };

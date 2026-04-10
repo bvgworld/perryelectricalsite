@@ -1,46 +1,37 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { Heart, Shield, Users, Target, Award, Clock, ArrowRight } from 'lucide-react';
+import { Users, Target, Award, ArrowRight } from 'lucide-react';
 import Container from '../components/ui/Container';
 import SectionHeader from '../components/ui/SectionHeader';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import ProjectBidModal from '../components/modals/ProjectBidModal';
+import teamImage from '../assets/team1.jpeg';
 
 const About = () => {
   const [isBidModalOpen, setIsBidModalOpen] = useState(false);
 
   const coreValues = [
     {
-      icon: Heart,
-      title: 'Integrity First',
-      description: 'We do what\'s right, even when no one is watching. Our reputation is built on honesty and ethical practices.',
-    },
-    {
-      icon: Shield,
-      title: 'Quality Craftsmanship',
-      description: 'Every project receives the same attention to detail and commitment to excellence, backed by our lifetime guarantee.',
-    },
-    {
-      icon: Users,
-      title: 'Collaborative Partnership',
-      description: 'We work alongside our clients, architects, and builders to create solutions that exceed expectations.',
+      icon: Award,
+      title: 'We Expect Excellence',
+      description: 'Excellence is our standard — in every wire pulled, every connection made, and every interaction with our team and clients.',
     },
     {
       icon: Target,
-      title: 'Precision & Safety',
-      description: 'From planning to execution, we prioritize accuracy and safety in every aspect of our work.',
+      title: 'We Work Hard, We Work Smart',
+      description: 'We combine relentless work ethic with strategic thinking. Efficiency and effort go hand-in-hand on every project.',
     },
     {
-      icon: Award,
-      title: 'Continuous Improvement',
-      description: 'We invest in training, technology, and techniques to stay at the forefront of the electrical industry.',
+      icon: Users,
+      title: 'We Are Always Learning',
+      description: 'The electrical industry evolves constantly. We invest in training, new techniques, and continuous improvement to stay ahead.',
     },
     {
-      icon: Clock,
-      title: 'Reliable Service',
-      description: 'We respect your time and deadlines, delivering projects on schedule without compromising quality.',
+      icon: Shield,
+      title: 'We Have Grit',
+      description: 'When projects get tough, we dig in. Persistence and determination define how we approach challenges and deliver results.',
     },
   ];
 
@@ -66,9 +57,13 @@ const About = () => {
                 For over two decades, Perry Electrical has been Kansas's trusted partner for commercial, industrial, and institutional electrical projects.
               </p>
             </div>
-            <div className="h-80 bg-gray-600 rounded-md overflow-hidden">
-              {/* Placeholder for team image */}
-              <div className="w-full h-full bg-gradient-to-br from-primary-blue to-accent-red opacity-30" />
+            <div className="h-80 rounded-md overflow-hidden">
+              <img
+                src={teamImage}
+                alt="The Perry Electrical team on a job site"
+                className="w-full h-full object-cover"
+                loading="eager"
+              />
             </div>
           </div>
         </Container>
@@ -84,13 +79,13 @@ const About = () => {
             />
             <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
               <p>
-                Perry Electrical was founded on a simple belief: electrical contracting should be about more than just wires and circuits. It's about building relationships, creating solutions, and shaping the future of our communities.
+                Perry Electrical was founded on a passion for building — not just electrical systems, but teams, relationships, careers, and solutions. That passion drives everything we do, from the way we estimate projects to the way we develop our people.
               </p>
               <p>
-                From our first small residential project to today's large-scale commercial and industrial installations, we've stayed true to our core values of integrity, quality, and service. Our team combines decades of experience with cutting-edge techniques to deliver exceptional results on every project.
+                What started as a commitment to quality electrical contracting has grown into a full-service operation with three divisions: Commercial Construction, Special Projects, and Service. We serve general contractors, developers, and property owners across Kansas with the same values we started with.
               </p>
               <p>
-                What sets us apart isn't just our technical expertise—it's our genuine care for the people we serve. We take pride in being likeable, ethical, and helpful partners who are invested in your success. That's why our clients keep coming back, project after project.
+                Our team combines decades of field experience with modern project management, technology, and a relentless focus on getting better every day. We&apos;re not the biggest electrical contractor in Kansas — but we aim to be the best partner you&apos;ll work with.
               </p>
             </div>
           </div>
@@ -105,13 +100,13 @@ const About = () => {
             title="Our Core Values"
           />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
             {coreValues.map((value, index) => {
               const Icon = value.icon;
               return (
                 <Card key={index}>
-                  <div className="inline-flex items-center justify-center w-14 h-14 mb-4 bg-primary-blue/10 rounded-full">
-                    <Icon className="text-primary-blue" size={28} />
+                  <div className="inline-flex items-center justify-center w-10 h-10 mb-4 bg-primary-blue/10 rounded-lg">
+                    <Icon className="text-primary-blue" size={20} />
                   </div>
                   <h3 className="text-xl font-heading font-bold mb-3 text-text-dark">
                     {value.title}
@@ -127,38 +122,33 @@ const About = () => {
       </section>
 
       {/* Guarantee Section */}
-      <section className="section-padding bg-accent-dark text-white">
+      <section className="py-16 md:py-20 bg-accent-dark text-white">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center justify-center w-20 h-20 mb-6 bg-accent-red rounded-full">
-              <Shield size={40} />
-            </div>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-              Our Lifetime Guarantee
+            <p className="section-label text-accent-red mb-3">Our Promise</p>
+            <h2 className="text-2xl md:text-3xl font-heading mb-6 tracking-[0.02em]">
+              Lifetime Guarantee
             </h2>
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              We stand behind every project with a lifetime guarantee on workmanship. If something isn't right, we'll make it right—no questions asked. That's our commitment to you.
+            <p className="text-base text-white/50 mb-8 leading-relaxed">
+              We stand behind every project with a lifetime guarantee on workmanship. If something isn't right, we'll make it right — no questions asked.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button 
-                variant="secondary" 
+                variant="primary" 
                 size="lg"
                 onClick={() => setIsBidModalOpen(true)}
-                className="group"
               >
                 Work With Us
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                <ArrowRight size={14} />
               </Button>
-              
               <Button 
                 variant="outline" 
                 size="lg"
                 as={Link}
                 to="/careers"
-                className="border-white text-white hover:bg-white hover:text-accent-dark group"
               >
                 Join Our Team
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                <ArrowRight size={14} />
               </Button>
             </div>
           </div>

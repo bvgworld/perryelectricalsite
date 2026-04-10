@@ -1,33 +1,28 @@
 import { Phone, Calendar } from 'lucide-react';
-import Button from '../ui/Button';
 
 const StickyMobileCTA = ({ onScheduleClick, onCallClick }) => {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 shadow-lg md:hidden">
-      <div className="flex">
-        <Button
-          variant="outline"
-          size="sm"
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 shadow-[0_-4px_12px_rgba(0,0,0,0.08)] md:hidden pb-[env(safe-area-inset-bottom)]">
+      <div className="flex h-14">
+        <button
+          type="button"
           onClick={onCallClick}
-          className="flex-1 rounded-none border-0 border-r border-gray-200 py-4 text-primary-blue hover:bg-primary-blue/5"
+          className="flex-1 flex items-center justify-center gap-2 text-sm font-medium text-primary-blue border-r border-gray-200 active:bg-gray-50 transition-colors"
         >
-          <Phone className="h-5 w-5 mr-2" />
+          <Phone size={16} />
           Call Now
-        </Button>
-        <Button
-          variant="primary"
-          size="sm"
+        </button>
+        <button
+          type="button"
           onClick={onScheduleClick}
-          className="flex-1 rounded-none py-4"
+          className="flex-1 flex items-center justify-center gap-2 text-sm font-medium text-white bg-accent-red active:bg-red-800 transition-colors"
         >
-          <Calendar className="h-5 w-5 mr-2" />
-          Schedule Service
-        </Button>
+          <Calendar size={16} />
+          Book Service
+        </button>
       </div>
     </div>
   );
 };
 
 export default StickyMobileCTA;
-
-

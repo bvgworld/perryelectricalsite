@@ -174,7 +174,7 @@ const FeaturedProjectsSelector = () => {
 
       <div className="flex items-center justify-between pt-4 border-t">
         <Button
-          variant="outline"
+          variant="outline-blue"
           onClick={handleClear}
           disabled={selectedIds.length === 0 || saving}
         >

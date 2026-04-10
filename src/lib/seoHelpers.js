@@ -5,23 +5,23 @@ export const generateLocalBusinessSchema = () => {
     "@context": "https://schema.org",
     "@type": "ElectricalContractor",
     "name": "Perry Electrical",
-    "image": "https://perryelec.com/logo.png",
+    "image": "https://perryelec.com/og-image.png",
     "@id": "https://perryelec.com",
     "url": "https://perryelec.com",
-    "telephone": "+1-123-456-7890",
+    "telephone": "+1-785-539-4723",
     "email": "info@perryelec.com",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "",
-      "addressLocality": "Kansas",
+      "streetAddress": "116 N 6th St",
+      "addressLocality": "St. Marys",
       "addressRegion": "KS",
-      "postalCode": "",
+      "postalCode": "66536",
       "addressCountry": "US"
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 39.1942,
+      "longitude": -96.0711
     },
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
@@ -35,19 +35,21 @@ export const generateLocalBusinessSchema = () => {
       "opens": "07:00",
       "closes": "17:00"
     },
-    "sameAs": [
-      "https://www.facebook.com/perryelec",
-      "https://www.linkedin.com/company/perryelec"
-    ],
     "priceRange": "$$",
-    "areaServed": {
-      "@type": "State",
-      "name": "Kansas"
-    },
+    "areaServed": [
+      { "@type": "State", "name": "Kansas" },
+      { "@type": "City", "name": "Manhattan", "containedInPlace": { "@type": "State", "name": "Kansas" } },
+      { "@type": "City", "name": "Topeka", "containedInPlace": { "@type": "State", "name": "Kansas" } },
+      { "@type": "City", "name": "St. Marys", "containedInPlace": { "@type": "State", "name": "Kansas" } },
+      { "@type": "City", "name": "Junction City", "containedInPlace": { "@type": "State", "name": "Kansas" } },
+      { "@type": "City", "name": "Wamego", "containedInPlace": { "@type": "State", "name": "Kansas" } }
+    ],
     "serviceType": [
       "Commercial Electrical Contracting",
       "Industrial Electrical Systems",
       "Institutional Electrical Installation",
+      "Residential Electrical Service",
+      "Electrical Repair",
       "Electrical Panel Upgrades",
       "EV Charger Installation",
       "Lighting Installation",

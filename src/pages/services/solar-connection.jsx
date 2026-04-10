@@ -1,15 +1,12 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { Sun, CheckCircle, ArrowLeft, Phone, Calendar } from 'lucide-react';
+import { Sun, CheckCircle, ArrowLeft } from 'lucide-react';
 import Container from '../../components/ui/Container';
-import Button from '../../components/ui/Button';
-import Card from '../../components/ui/Card';
-import ScheduleServiceModal from '../../components/modals/ScheduleServiceModal';
-import { useState } from 'react';
+import ServiceDetailCTA from '../../components/sections/ServiceDetailCTA';
+import ServiceAreas from '../../components/sections/ServiceAreas';
 import solarConnectionImage from '../../assets/solar connection.jpeg';
 
 const SolarConnection = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const benefits = [
     'Proper grid-tie connection',
@@ -30,15 +27,15 @@ const SolarConnection = () => {
   return (
     <>
       <Helmet>
-        <title>Solar Panel Connection | Perry Electrical - Kansas</title>
+        <title>Solar Connection in Manhattan & Topeka KS | Perry Electrical</title>
         <meta 
           name="description" 
-          content="Professional solar panel electrical connection and inverter installation in Kansas. Safe, code-compliant solar system wiring and grid-tie connections." 
+          content="Professional solar connection services in Manhattan, Topeka, St. Marys & across Kansas. Same-day service available. Licensed & insured. Call (785) 539-4723." 
         />
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative text-white py-20 overflow-hidden">
+      <section className="relative text-white pt-[72px] py-20 overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={solarConnectionImage}
@@ -121,39 +118,8 @@ const SolarConnection = () => {
         </Container>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-padding bg-accent-medium">
-        <Container>
-          <Card className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl font-heading font-bold mb-4 text-text-dark">
-              Ready to Connect Your Solar System?
-            </h2>
-            <p className="text-lg text-gray-600 mb-6">
-              Ensure safe, professional electrical connection for your solar panel installation.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                variant="primary" 
-                size="lg"
-                onClick={() => setIsModalOpen(true)}
-              >
-                <Calendar className="mr-2 h-5 w-5" />
-                Schedule Service
-              </Button>
-              <Button variant="outline" size="lg" as="a" href="tel:7855394723">
-                <Phone className="mr-2 h-5 w-5" />
-                Call Now
-              </Button>
-            </div>
-          </Card>
-        </Container>
-      </section>
-
-      <ScheduleServiceModal 
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        serviceType="Solar Connection"
-      />
+      <ServiceAreas serviceName="Solar Connection" />
+      <ServiceDetailCTA serviceName="Solar Connection" />
     </>
   );
 };

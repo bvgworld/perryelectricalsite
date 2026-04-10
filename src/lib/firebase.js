@@ -12,13 +12,20 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+let app = null;
+let db = null;
+let auth = null;
+let storage = null;
 
-// Initialize Firestore, Auth, and Storage
-export const db = getFirestore(app);
-export const auth = getAuth(app);
-export const storage = getStorage(app);
+try {
+  app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+  auth = getAuth(app);
+  storage = getStorage(app);
+} catch (error) {
+  console.warn('Firebase initialization failed. Admin/data features will be disabled.', error);
+}
 
+export { app, db, auth, storage };
 export default app;
 

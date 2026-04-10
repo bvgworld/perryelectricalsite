@@ -1,49 +1,44 @@
 import { ArrowRight } from 'lucide-react';
+import Container from '../ui/Container';
+import Button from '../ui/Button';
 
-const CTABanner = ({ 
-  title, 
-  subtitle, 
-  buttonText = "Get Started", 
-  variant = "blue", 
-  onButtonClick,
-  className = "" 
-}) => {
+const CTABanner = ({ title, subtitle, buttonText = 'Get Started', variant = 'blue', onButtonClick }) => {
   const variants = {
-    blue: {
-      container: "bg-primary-blue",
-      text: "text-white",
-      button: "bg-accent-red text-white hover:bg-red-800"
-    },
-    dark: {
-      container: "bg-accent-dark",
-      text: "text-white", 
-      button: "bg-accent-red text-white hover:bg-red-800"
-    }
+    blue: 'bg-primary-blue',
+    dark: 'bg-accent-dark',
+    silver: 'bg-accent-medium',
   };
 
-  const currentVariant = variants[variant] || variants.blue;
+  const bgClass = variants[variant] || variants.blue;
+  
+  const textColor = variant === 'silver' ? 'text-accent-dark' : 'text-white';
+  const subtitleColor = variant === 'silver' ? 'text-accent-dark/70' : 'text-white/70';
 
   return (
-    <section className={`py-4 ${currentVariant.container} ${className}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className={`text-3xl md:text-4xl font-heading font-bold mb-4 ${currentVariant.text}`}>
-            {title}
-          </h2>
-          {subtitle && (
-            <p className={`text-lg md:text-xl mb-6 max-w-3xl mx-auto ${currentVariant.text} opacity-90`}>
-              {subtitle}
-            </p>
-          )}
-          <button
+    <section className={`py-12 md:py-14 ${bgClass}`}>
+      <Container>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <h2 className={`text-2xl md:text-3xl font-heading ${textColor}`} style={{ letterSpacing: '0.02em', marginBottom: subtitle ? 6 : 0 }}>
+              {title}
+            </h2>
+            {subtitle && (
+              <p className={`text-base ${subtitleColor}`}>
+                {subtitle}
+              </p>
+            )}
+          </div>
+          <Button 
+            variant="secondary"
+            size="lg"
             onClick={onButtonClick}
-            className={`inline-flex items-center justify-center font-semibold rounded transition-all duration-300 cursor-pointer px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-200 ${currentVariant.button}`}
+            className="whitespace-nowrap bg-white text-accent-dark border-0 hover:bg-gray-100 shrink-0"
           >
             {buttonText}
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </button>
+            <ArrowRight size={14} />
+          </Button>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

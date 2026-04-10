@@ -4,8 +4,8 @@ import Hero from '../components/sections/Hero';
 import Differentiators from '../components/sections/Differentiators';
 import ProcessTimeline from '../components/sections/ProcessTimeline';
 import FeaturedProjects from '../components/sections/FeaturedProjects';
+import GoogleReviewsCarousel from '../components/sections/GoogleReviewsCarousel';
 import CoreValues from '../components/sections/CoreValues';
-import CustomerLogos from '../components/sections/CustomerLogos';
 import CTABanner from '../components/sections/CTABanner';
 import ProjectBidModal from '../components/modals/ProjectBidModal';
 import { generateLocalBusinessSchema, injectSchema } from '../lib/seoHelpers';
@@ -18,6 +18,9 @@ const Home = () => {
     const cleanup = injectSchema(schema);
     return cleanup;
   }, []);
+
+  const openBidModal = () => setIsBidModalOpen(true);
+  const closeBidModal = () => setIsBidModalOpen(false);
 
   return (
     <>
@@ -37,34 +40,26 @@ const Home = () => {
         <meta name="twitter:description" content="Expert electrical contracting for commercial, industrial, and institutional builds across Kansas." />
       </Helmet>
 
-      <Hero />
+      <Hero onOpenBidModal={openBidModal} />
       <Differentiators />
-      
-      {/* CTA Banner 1: Between Who We Are and How We Work */}
       <CTABanner 
         title="Ready to Start Your Project?"
-        subtitle="Request a competitive estimate for your commercial, industrial, or institutional build"
+        subtitle="Get a competitive estimate for your next build"
         buttonText="Talk to an Estimator"
         variant="blue"
-        onButtonClick={() => setIsBidModalOpen(true)}
+        onButtonClick={openBidModal}
       />
-      
       <ProcessTimeline />
-      
-      {/* Customer Logos Section */}
-      <CustomerLogos />
-      
       <FeaturedProjects />
-      <CoreValues />
-      
-      {/* Project Bid Modal */}
+      <GoogleReviewsCarousel />
+      <CoreValues onOpenBidModal={openBidModal} />
+
       <ProjectBidModal 
         isOpen={isBidModalOpen} 
-        onClose={() => setIsBidModalOpen(false)} 
+        onClose={closeBidModal} 
       />
     </>
   );
 };
 
 export default Home;
-

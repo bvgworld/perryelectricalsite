@@ -6,6 +6,9 @@ import { db } from '../../lib/firebase';
 import Modal from '../ui/Modal';
 import Button from '../ui/Button';
 
+const fieldClass =
+  'w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-blue/20 focus:border-primary-blue transition-colors';
+
 const ProjectManagerModal = ({ isOpen, onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -24,7 +27,6 @@ const ProjectManagerModal = ({ isOpen, onClose }) => {
     setError('');
 
     try {
-      // Submit to Firebase with different collection path for tracking
       await addDoc(collection(db, 'leads', 'projectManagerRequests'), {
         companyName: data.companyName.trim(),
         name: data.name.trim(),
@@ -36,16 +38,13 @@ const ProjectManagerModal = ({ isOpen, onClose }) => {
         status: 'new'
       });
 
-      // Show success state
       setIsSuccess(true);
-      
-      // Auto close after 2 seconds
+
       setTimeout(() => {
         setIsSuccess(false);
         reset();
         onClose();
       }, 2000);
-
     } catch (err) {
       console.error('Error submitting project manager request:', err);
       setError('There was an error submitting your request. Please try again.');
@@ -63,7 +62,6 @@ const ProjectManagerModal = ({ isOpen, onClose }) => {
     }
   };
 
-  // Phone number validation
   const validatePhone = (value) => {
     const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
     return phoneRegex.test(value) || 'Please enter a valid phone number';
@@ -78,7 +76,7 @@ const ProjectManagerModal = ({ isOpen, onClose }) => {
             Thank You!
           </h3>
           <p className="text-gray-600">
-            We'll be in touch soon to discuss your project.
+            We&apos;ll be in touch soon to discuss your project.
           </p>
         </div>
       </Modal>
@@ -87,17 +85,16 @@ const ProjectManagerModal = ({ isOpen, onClose }) => {
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose} title="Talk to a Project Manager" size="lg">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-md p-4">
             <p className="text-red-700 text-sm">{error}</p>
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Company Name */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 mb-1">
               Company Name *
             </label>
             <input
@@ -113,7 +110,7 @@ const ProjectManagerModal = ({ isOpen, onClose }) => {
                 }
               })}
               type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+              className={fieldClass}
               placeholder="Your company name"
             />
             {errors.companyName && (
@@ -121,9 +118,8 @@ const ProjectManagerModal = ({ isOpen, onClose }) => {
             )}
           </div>
 
-          {/* Name */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
               Your Name *
             </label>
             <input
@@ -139,7 +135,7 @@ const ProjectManagerModal = ({ isOpen, onClose }) => {
                 }
               })}
               type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+              className={fieldClass}
               placeholder="Your full name"
             />
             {errors.name && (
@@ -148,10 +144,9 @@ const ProjectManagerModal = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Phone Number */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1">
               Phone Number *
             </label>
             <input
@@ -160,7 +155,7 @@ const ProjectManagerModal = ({ isOpen, onClose }) => {
                 validate: validatePhone
               })}
               type="tel"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+              className={fieldClass}
               placeholder="(785) 555-0123"
             />
             {errors.phoneNumber && (
@@ -168,9 +163,8 @@ const ProjectManagerModal = ({ isOpen, onClose }) => {
             )}
           </div>
 
-          {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
               Email Address *
             </label>
             <input
@@ -182,7 +176,7 @@ const ProjectManagerModal = ({ isOpen, onClose }) => {
                 }
               })}
               type="email"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+              className={fieldClass}
               placeholder="your@email.com"
             />
             {errors.email && (
@@ -191,9 +185,8 @@ const ProjectManagerModal = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Project Description */}
         <div>
-          <label htmlFor="projectDescription" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="projectDescription" className="block text-sm font-medium text-gray-700 mb-1">
             Project Description *
           </label>
           <textarea
@@ -209,24 +202,23 @@ const ProjectManagerModal = ({ isOpen, onClose }) => {
               }
             })}
             rows={5}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+            className={fieldClass}
             placeholder="Please describe your project in detail..."
           />
           <div className="flex justify-between items-center mt-1">
             {errors.projectDescription && (
               <p className="text-sm text-red-600">{errors.projectDescription.message}</p>
             )}
-            <p className="text-sm text-gray-500 ml-auto">
+            <p className="text-xs text-gray-500 ml-auto">
               {watch('projectDescription')?.length || 0}/1000 characters
             </p>
           </div>
         </div>
 
-        {/* Submit Button */}
-        <div className="flex justify-end space-x-4 pt-4">
+        <div className="flex justify-end gap-3 pt-3">
           <Button
             type="button"
-            variant="outline"
+            variant="ghost"
             onClick={handleClose}
             disabled={isSubmitting}
           >
@@ -239,7 +231,7 @@ const ProjectManagerModal = ({ isOpen, onClose }) => {
           >
             {isSubmitting ? (
               <>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                <Loader2 className="h-4 w-4 animate-spin" />
                 Submitting...
               </>
             ) : (
@@ -253,5 +245,3 @@ const ProjectManagerModal = ({ isOpen, onClose }) => {
 };
 
 export default ProjectManagerModal;
-
-

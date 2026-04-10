@@ -2,18 +2,19 @@ const SectionHeader = ({
   title, 
   subtitle, 
   centered = true,
-  className = '' 
+  className = '',
+  titleClassName = 'text-text-dark',
 }) => {
   const alignClass = centered ? 'text-center' : '';
   
   return (
     <div className={`mb-12 ${alignClass} ${className}`}>
       {subtitle && (
-        <p className="text-primary-blue font-semibold tracking-wider text-sm mb-2">
+        <p className="section-label">
           {subtitle}
         </p>
       )}
-      <h2 className="text-text-dark font-heading font-bold">
+      <h2 className={`text-2xl md:text-3xl font-heading ${titleClassName}`} style={{ letterSpacing: '0.02em' }}>
         {title}
       </h2>
     </div>
@@ -21,4 +22,3 @@ const SectionHeader = ({
 };
 
 export default SectionHeader;
-

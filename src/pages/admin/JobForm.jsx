@@ -220,7 +220,7 @@ const JobForm = () => {
           <div className="flex justify-end space-x-4 pt-6">
             <Button
               type="button"
-              variant="outline"
+              variant="outline-blue"
               onClick={() => navigate('/admin/jobs')}
             >
               Cancel

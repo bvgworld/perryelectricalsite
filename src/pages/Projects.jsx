@@ -5,37 +5,27 @@ import Container from '../components/ui/Container';
 import Button from '../components/ui/Button';
 import ProjectsHeroCarousel from '../components/sections/ProjectsHeroCarousel';
 import ProjectShowcase from '../components/projects/ProjectShowcase';
-import Differentiators from '../components/sections/Differentiators';
-import VendorsLogos from '../components/sections/VendorsLogos';
 import ProjectBidModal from '../components/modals/ProjectBidModal';
 import ProjectManagerModal from '../components/modals/ProjectManagerModal';
 import indianHillsImage from '../assets/Indian Hills Topeka.avif';
 import meadowlarkImage from '../assets/Meadowlark Monarch 1.avif';
-import plazaImage from '../assets/Plaza Of The Flint Hills 2.avif';
 import ptmwImage from '../assets/PTMW Topeka.avif';
 import rileyCountyImage from '../assets/riley county grade school.png';
 import ultaImage from '../assets/Ulta Manhattan.JPG';
-import bhsLogo from '../assets/BHS.png';
-import iconStructuresLogo from '../assets/Icon Structures.png';
-import loydBuildersLogo from '../assets/Loyd Builders.png';
-import mccowanGordonLogo from '../assets/McCowan Gordon.png';
-import rileyConstructionsLogo from '../assets/Riley Constructions.png';
 
 const Projects = () => {
   const [isBidModalOpen, setIsBidModalOpen] = useState(false);
   const [isPMModalOpen, setIsPMModalOpen] = useState(false);
 
-  // Capabilities list
   const capabilities = [
     'Design-Build Electrical',
     'Full-Service Contracting',
     'Detailed Estimating',
     'Bondable + Insured',
     'Schedule-Driven Execution',
-    'Office Support + Admin Systems'
+    'Dedicated Project Management'
   ];
 
-  // Hardcoded project showcases
   const showcaseProjects = [
     {
       id: 1,
@@ -44,7 +34,8 @@ const Projects = () => {
       buildingType: 'Education',
       description: 'Electrical and fire alarm renovation and addition project for elementary school facility.',
       image: indianHillsImage,
-      scope: 'Electrical & Fire Alarm Renovation and Addition'
+      scope: 'Electrical & Fire Alarm Renovation and Addition',
+      detailedScope: 'Complete electrical renovation including new 800A service, 120+ circuits, fire alarm system with 60+ devices, emergency egress lighting, and data/communication infrastructure for classrooms.'
     },
     {
       id: 2,
@@ -53,67 +44,38 @@ const Projects = () => {
       buildingType: 'Senior Multi-Family',
       description: 'Complete electrical and fire alarm systems for new senior multi-family residential construction.',
       image: meadowlarkImage,
-      scope: 'Electrical & Fire Alarm New Construction'
+      scope: 'Electrical & Fire Alarm New Construction',
+      detailedScope: 'New construction electrical for 60+ unit senior living facility including individual unit panels, common area power and lighting, fire alarm throughout, generator backup, and site lighting.'
     },
     {
       id: 3,
-      name: 'Plaza of the Flint Hills',
-      location: 'Manhattan, KS',
-      buildingType: 'Entertainment',
-      description: 'Exterior lighting installation for public entertainment plaza, creating an inviting and safe environment.',
-      image: plazaImage,
-      scope: 'Exterior Lighting'
-    },
-    {
-      id: 4,
       name: 'PTMW Manhattan',
       location: 'Manhattan, KS',
       buildingType: 'Office / Manufacturing',
       description: 'Comprehensive electrical and fire alarm systems for office and manufacturing facility.',
       image: ptmwImage,
-      scope: 'Electrical & Fire Alarm'
+      scope: 'Electrical & Fire Alarm',
+      detailedScope: 'Full electrical fit-out for mixed-use office and manufacturing space including 3-phase power distribution, production floor circuits, office lighting and power, and integrated fire alarm system.'
     },
     {
-      id: 5,
+      id: 4,
       name: 'Riley County Grade School',
       location: 'Manhattan, KS',
       buildingType: 'Education',
       description: 'Electrical and fire alarm installation for grade school facility, ensuring safety and modern functionality.',
       image: rileyCountyImage,
-      scope: 'Electrical & Fire Alarm'
+      scope: 'Electrical & Fire Alarm',
+      detailedScope: 'Ground-up electrical construction for new K-5 facility including full power distribution, classroom technology infrastructure, gymnasium and cafeteria systems, fire alarm, and emergency backup.'
     },
     {
-      id: 6,
+      id: 5,
       name: 'Ulta Manhattan',
       location: 'Manhattan, KS',
       buildingType: 'Retail',
-      description: 'Complete electrical and fire alarm systems for retail store, including lighting, power distribution, and safety systems.',
+      description: 'Complete electrical and fire alarm systems for retail store.',
       image: ultaImage,
-      scope: 'Electrical & Fire Alarm'
-    }
-  ];
-
-  // General Contractors data (same as CustomerLogos on home page)
-  const contractors = [
-    {
-      name: 'BHS Construction',
-      logo: bhsLogo,
-    },
-    {
-      name: 'Icon Structures',
-      logo: iconStructuresLogo,
-    },
-    {
-      name: 'Loyd Builders',
-      logo: loydBuildersLogo,
-    },
-    {
-      name: 'McCowan Gordon',
-      logo: mccowanGordonLogo,
-    },
-    {
-      name: 'Riley Constructions',
-      logo: rileyConstructionsLogo,
+      scope: 'Electrical & Fire Alarm',
+      detailedScope: 'Retail tenant improvement including storefront lighting, point-of-sale power, back-of-house electrical, display lighting circuits, and fire alarm tie-in to base building system.'
     }
   ];
 
@@ -121,52 +83,56 @@ const Projects = () => {
     <>
       <Helmet>
         <title>Past Projects | Perry Electrical</title>
-        <meta 
-          name="description" 
-          content="Explore Perry Electrical's portfolio of completed commercial, industrial, and institutional projects across Kansas." 
+        <meta
+          name="description"
+          content="Explore Perry Electrical's portfolio of completed commercial, industrial, and institutional projects across Kansas."
         />
       </Helmet>
 
-      {/* Hero Carousel */}
       <ProjectsHeroCarousel />
 
       {/* CTA Banner: Talk to an Estimator */}
-      <section className="py-4 bg-accent-medium">
+      <section className="py-10 bg-accent-medium">
         <Container>
-          <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-accent-dark">
-              Ready to Start Your Next Project?
-            </h2>
-            <p className="text-lg md:text-xl mb-6 max-w-3xl mx-auto text-accent-dark opacity-90">
-              Get a competitive estimate for your commercial, industrial, or institutional build
-            </p>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-heading text-accent-dark tracking-[0.02em] mb-1">
+                Ready to Start Your Next Project?
+              </h2>
+              <p className="text-sm text-accent-dark/70">
+                Get a competitive estimate for your commercial, industrial, or institutional build
+              </p>
+            </div>
             <Button
               variant="primary"
               size="lg"
               onClick={() => setIsBidModalOpen(true)}
-              className="shadow-lg hover:shadow-xl transition-all duration-200"
+              className="whitespace-nowrap shrink-0"
             >
               Talk to an Estimator
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight size={14} />
             </Button>
           </div>
         </Container>
       </section>
 
-      {/* Capabilities Section */}
-      <section className="py-16 bg-white">
+      {/* Capabilities */}
+      <section className="py-14 bg-white">
         <Container>
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-center text-text-dark mb-12">
-            Our Capabilities
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <p className="section-label">What We Deliver</p>
+            <h2 className="text-2xl md:text-3xl font-heading text-text-dark tracking-[0.02em]">
+              Our Capabilities
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
             {capabilities.map((capability, index) => (
               <div
                 key={index}
-                className="flex items-center gap-3 p-4 bg-accent-light rounded-lg hover:shadow-md transition-shadow duration-300"
+                className="flex items-center gap-3 py-3 px-4"
               >
-                <CheckCircle className="h-6 w-6 text-primary-blue flex-shrink-0" />
-                <span className="text-lg text-text-dark font-medium">{capability}</span>
+                <CheckCircle className="h-5 w-5 text-primary-blue flex-shrink-0" />
+                <span className="text-sm text-text-dark font-medium">{capability}</span>
               </div>
             ))}
           </div>
@@ -174,7 +140,13 @@ const Projects = () => {
       </section>
 
       {/* Project Showcases */}
-      <div className="bg-white">
+      <section className="bg-white">
+        <Container className="pt-14 pb-4">
+          <p className="section-label">Portfolio</p>
+          <h2 className="text-2xl md:text-3xl font-heading text-text-dark tracking-[0.02em]">
+            Completed Projects
+          </h2>
+        </Container>
         {showcaseProjects.map((project, index) => (
           <ProjectShowcase
             key={project.id}
@@ -182,102 +154,65 @@ const Projects = () => {
             imageOnLeft={index % 2 === 0}
           />
         ))}
-      </div>
+      </section>
 
       {/* CTA Banner: Talk to a Project Manager */}
-      <section className="py-4 bg-accent-medium">
+      <section className="py-10 bg-primary-blue">
         <Container>
-          <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-accent-dark">
-              Have Questions About a Project?
-            </h2>
-            <p className="text-lg md:text-xl mb-6 max-w-3xl mx-auto text-accent-dark opacity-90">
-              Connect with our project management team to discuss your specific needs
-            </p>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-heading text-white tracking-[0.02em] mb-1">
+                Have Questions About a Project?
+              </h2>
+              <p className="text-sm text-white/70">
+                Connect with our project management team to discuss your specific needs
+              </p>
+            </div>
             <Button
-              variant="primary"
+              variant="secondary"
               size="lg"
               onClick={() => setIsPMModalOpen(true)}
-              className="shadow-lg hover:shadow-xl transition-all duration-200"
+              className="whitespace-nowrap shrink-0 bg-white text-accent-dark border-0 hover:bg-gray-100"
             >
               Talk to a Project Manager
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight size={14} />
             </Button>
           </div>
         </Container>
       </section>
 
-      {/* Partners Section: Contractors & Vendors */}
-      <section className="py-16 bg-gray-50">
+      {/* Bottom CTA */}
+      <section className="py-10 bg-accent-dark">
         <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* General Contractors */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-white">
             <div>
-              <h2 className="text-2xl md:text-3xl font-heading font-bold text-text-dark mb-8">
-                General Contractors We Work With
+              <h2 className="text-2xl md:text-3xl font-heading tracking-[0.02em] mb-1">
+                Let&apos;s Build Something Great Together
               </h2>
-              <div className="grid grid-cols-2 gap-6 items-center">
-                {contractors.map((contractor, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
-                  >
-                    <img
-                      src={contractor.logo}
-                      alt={`${contractor.name} logo`}
-                      className="max-h-24 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-                      loading="lazy"
-                    />
-                  </div>
-                ))}
-              </div>
+              <p className="text-sm text-white/50">
+                Partner with Perry Electrical for your next project
+              </p>
             </div>
-
-            {/* Vendors */}
-            <div>
-              <h2 className="text-2xl md:text-3xl font-heading font-bold text-text-dark mb-8">
-                Vendors We Work With
-              </h2>
-              <VendorsLogos />
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Differentiators Section */}
-      <Differentiators />
-
-      {/* Bottom CTA Banner: Talk to an Estimator */}
-      <section className="py-4 bg-accent-dark text-white">
-        <Container>
-          <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-              Let's Build Something Great Together
-            </h2>
-            <p className="text-lg md:text-xl mb-6 max-w-3xl mx-auto text-gray-300">
-              Partner with Perry Electrical for your next commercial, industrial, or institutional project
-            </p>
             <Button
               variant="primary"
               size="lg"
               onClick={() => setIsBidModalOpen(true)}
-              className="shadow-lg hover:shadow-xl transition-all duration-200"
+              className="whitespace-nowrap shrink-0"
             >
               Talk to an Estimator
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight size={14} />
             </Button>
           </div>
         </Container>
       </section>
 
-      {/* Modals */}
-      <ProjectBidModal 
-        isOpen={isBidModalOpen} 
-        onClose={() => setIsBidModalOpen(false)} 
+      <ProjectBidModal
+        isOpen={isBidModalOpen}
+        onClose={() => setIsBidModalOpen(false)}
       />
-      <ProjectManagerModal 
-        isOpen={isPMModalOpen} 
-        onClose={() => setIsPMModalOpen(false)} 
+      <ProjectManagerModal
+        isOpen={isPMModalOpen}
+        onClose={() => setIsPMModalOpen(false)}
       />
     </>
   );

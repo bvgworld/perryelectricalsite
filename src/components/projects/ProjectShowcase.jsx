@@ -23,7 +23,7 @@ const ProjectShowcase = ({ project, imageOnLeft = true }) => {
       {/* Callout Box */}
       <div className="w-full md:w-[35%] bg-white flex items-center justify-center p-8 md:p-12">
         <div className="max-w-md">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-text-dark mb-4">
+          <h2 className="text-2xl md:text-3xl font-heading text-text-dark mb-4 tracking-[0.02em]">
             {project.name}
           </h2>
           
@@ -51,6 +51,13 @@ const ProjectShowcase = ({ project, imageOnLeft = true }) => {
             <div>
               <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Scope</span>
               <p className="text-lg text-gray-700">{project.scope}</p>
+            </div>
+          )}
+
+          {project.detailedScope && (
+            <div className="mt-4">
+              <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Detailed Scope</span>
+              <p className="text-gray-600 text-sm leading-relaxed mt-1">{project.detailedScope}</p>
             </div>
           )}
         </div>

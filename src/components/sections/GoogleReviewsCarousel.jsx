@@ -65,7 +65,7 @@ const GoogleReviewsCarousel = () => {
 
   if (loading) {
     return (
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-accent-light">
         <Container>
           <div className="text-center py-12">
             <div className="animate-pulse">
@@ -83,13 +83,13 @@ const GoogleReviewsCarousel = () => {
   }
 
   return (
-    <section className="py-12 bg-white">
+    <section className="py-10 bg-accent-light">
       <Container>
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-text-dark mb-4">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-heading text-text-dark mb-3 tracking-[0.02em]">
             What Our Customers Say
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="section-label text-gray-400 mb-0">
             Real reviews from satisfied customers
           </p>
         </div>
@@ -107,7 +107,7 @@ const GoogleReviewsCarousel = () => {
                   key={review.id || index}
                   className="min-w-full px-3"
                 >
-                  <div className="bg-accent-light rounded-lg p-5 md:p-6 shadow-md h-full flex flex-col">
+                  <div className="bg-accent-light rounded-lg p-5 shadow-md h-full flex flex-col">
                     {/* Star Rating */}
                     <div className="flex justify-center mb-3">
                       {renderStars(review.rating || 5)}
@@ -170,7 +170,7 @@ const GoogleReviewsCarousel = () => {
 
           {/* Dots Indicator */}
           {displayReviews.length > 1 && (
-            <div className="flex justify-center gap-2 mt-6">
+            <div className="flex justify-center gap-2 mt-4">
               {displayReviews.map((_, index) => (
                 <button
                   key={index}

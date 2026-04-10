@@ -1,15 +1,12 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { Fan, CheckCircle, ArrowLeft, Phone, Calendar } from 'lucide-react';
+import { Fan, CheckCircle, ArrowLeft } from 'lucide-react';
 import Container from '../../components/ui/Container';
-import Button from '../../components/ui/Button';
-import Card from '../../components/ui/Card';
-import ScheduleServiceModal from '../../components/modals/ScheduleServiceModal';
-import { useState } from 'react';
+import ServiceDetailCTA from '../../components/sections/ServiceDetailCTA';
+import ServiceAreas from '../../components/sections/ServiceAreas';
 import bathExhaustFansImage from '../../assets/Bath Exhaust Fans.jpeg';
 
 const BathExhaustFans = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const benefits = [
     'Prevents mold and mildew growth',
@@ -30,15 +27,15 @@ const BathExhaustFans = () => {
   return (
     <>
       <Helmet>
-        <title>Bath Exhaust Fan Installation | Perry Electrical - Kansas</title>
+        <title>Bath Exhaust Fans in Manhattan & Topeka KS | Perry Electrical</title>
         <meta 
           name="description" 
-          content="Professional bathroom exhaust fan installation and replacement in Kansas. Prevent mold, remove moisture, and improve air quality with proper ventilation." 
+          content="Professional bath exhaust fans services in Manhattan, Topeka, St. Marys & across Kansas. Same-day service available. Licensed & insured. Call (785) 539-4723." 
         />
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative text-white py-20 overflow-hidden">
+      <section className="relative text-white pt-[72px] py-20 overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={bathExhaustFansImage}
@@ -121,39 +118,8 @@ const BathExhaustFans = () => {
         </Container>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-padding bg-accent-medium">
-        <Container>
-          <Card className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl font-heading font-bold mb-4 text-text-dark">
-              Ready to Install or Replace Your Bath Exhaust Fan?
-            </h2>
-            <p className="text-lg text-gray-600 mb-6">
-              Protect your home from moisture damage with professional bathroom ventilation installation.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                variant="primary" 
-                size="lg"
-                onClick={() => setIsModalOpen(true)}
-              >
-                <Calendar className="mr-2 h-5 w-5" />
-                Schedule Service
-              </Button>
-              <Button variant="outline" size="lg" as="a" href="tel:7855394723">
-                <Phone className="mr-2 h-5 w-5" />
-                Call Now
-              </Button>
-            </div>
-          </Card>
-        </Container>
-      </section>
-
-      <ScheduleServiceModal 
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        serviceType="Bath Exhaust Fans"
-      />
+      <ServiceAreas serviceName="Bath Exhaust Fans" />
+      <ServiceDetailCTA serviceName="Bath Exhaust Fans" />
     </>
   );
 };

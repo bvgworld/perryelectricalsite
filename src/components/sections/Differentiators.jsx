@@ -1,52 +1,41 @@
-import { ThumbsUp, ShieldCheck, Handshake } from 'lucide-react';
 import Container from '../ui/Container';
-import Card from '../ui/Card';
 import SectionHeader from '../ui/SectionHeader';
 
 const Differentiators = () => {
   const values = [
     {
       title: 'Likeable',
-      icon: ThumbsUp,
-      description: 'We build lasting relationships through genuine care, clear communication, and a commitment to making every project a positive experience.',
+      description: 'We build lasting relationships through genuine care and clear communication.',
     },
     {
       title: 'Ethical',
-      icon: ShieldCheck,
-      description: 'Integrity drives everything we do. From fair pricing to transparent practices, we do what\'s right — every time, no exceptions.',
+      description: 'Integrity drives everything we do. Fair pricing, transparent practices, every time.',
     },
     {
       title: 'Helpful',
-      icon: Handshake,
-      description: 'We\'re problem-solvers at heart. Whether it\'s a complex build or a simple question, we\'re here to help you succeed.',
+      description: "We're problem-solvers at heart. Complex build or simple question — we're here.",
     },
   ];
 
   return (
-    <section className="section-padding bg-accent-medium">
+    <section className="py-16 md:py-20 bg-white">
       <Container>
-        <SectionHeader
-          subtitle="Who We Are"
-          title="The Perry Electrical Difference"
-        />
+        <SectionHeader subtitle="Who We Are" title="The Perry Electrical Difference" />
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-          {values.map((value, index) => {
-            const Icon = value.icon;
-            return (
-              <Card key={index} className="text-center bg-accent-light">
-                <div className="flex flex-col items-center mb-4">
-                  <Icon className="text-primary-blue mb-3" size={48} />
-                  <span className="text-primary-blue font-heading font-bold text-lg">
-                    {value.title}
-                  </span>
-                </div>
-                <p className="text-gray-600 leading-relaxed">
-                  {value.description}
-                </p>
-              </Card>
-            );
-          })}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {values.map((value) => (
+            <div 
+              key={value.title} 
+              className="px-8 py-9 rounded-xl bg-accent-light border-l-[3px] border-primary-blue"
+            >
+              <h3 className="text-xl font-heading mb-2 text-text-dark tracking-[0.02em]">
+                {value.title}
+              </h3>
+              <p className="text-sm text-gray-500 leading-relaxed">
+                {value.description}
+              </p>
+            </div>
+          ))}
         </div>
       </Container>
     </section>
@@ -54,4 +43,3 @@ const Differentiators = () => {
 };
 
 export default Differentiators;
-

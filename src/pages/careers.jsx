@@ -1,6 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { useState } from 'react';
-import { UserPlus, FileText, Users as UsersIcon, Briefcase, GraduationCap, Heart, DollarSign } from 'lucide-react';
+import { UserPlus, FileText, Users as UsersIcon, Briefcase, GraduationCap, Heart, DollarSign, CheckCircle, Loader2 } from 'lucide-react';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../lib/firebase';
 import Container from '../components/ui/Container';
 import SectionHeader from '../components/ui/SectionHeader';
 import Card from '../components/ui/Card';
@@ -16,11 +18,11 @@ const Careers = () => {
     experience: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const { jobs, loading: jobsLoading, error: jobsError } = useJobs('open');
-
-  // Debug logging
-  console.log('Careers page - Jobs data:', { jobs, jobsLoading, jobsError });
 
   const hiringProcess = [
     {
@@ -74,16 +76,49 @@ const Careers = () => {
   });
 
   const openPositions = jobs.map(formatJobForDisplay);
+  const fallbackPositionOptions = [
+    'Licensed Journeyman Electrician',
+    'Electrical Apprentice',
+    'Project Manager',
+    'Other'
+  ];
+  const dynamicPositionOptions = openPositions
+    .map((position) => position.title)
+    .filter((title) => title && !fallbackPositionOptions.includes(title));
+  const positionOptions = [...fallbackPositionOptions, ...dynamicPositionOptions, 'General Application'];
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Form submission will be connected to Firebase later
-    console.log('Form submitted:', formData);
-    alert('Thank you for your application! We\'ll be in touch soon.');
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    try {
+      await addDoc(collection(db, 'applications'), {
+        name: formData.name.trim(),
+        email: formData.email.trim().toLowerCase(),
+        phone: formData.phone.trim(),
+        position: formData.position,
+        experience: formData.experience.trim(),
+        message: formData.message.trim(),
+        createdAt: serverTimestamp(),
+        status: 'new',
+        source: 'careers_page'
+      });
+
+      setIsSuccess(true);
+      setFormData({ name: '', email: '', phone: '', position: '', experience: '', message: '' });
+
+      setTimeout(() => setIsSuccess(false), 5000);
+    } catch (err) {
+      console.error('Error submitting application:', err);
+      setSubmitError('There was an error submitting your application. Please try again or call us at (785) 539-4723.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -147,8 +182,8 @@ const Careers = () => {
               const Icon = step.icon;
               return (
                 <div key={index} className="text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-primary-blue rounded-full">
-                    <Icon className="text-white" size={28} />
+                  <div className="inline-flex items-center justify-center w-12 h-12 mb-4 bg-primary-blue/10 rounded-lg">
+                    <Icon className="text-primary-blue" size={22} />
                   </div>
                   <h3 className="text-xl font-heading font-bold mb-3 text-text-dark">
                     {step.title}
@@ -176,8 +211,8 @@ const Careers = () => {
               const Icon = benefit.icon;
               return (
                 <Card key={index} className="text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-accent-red/10 rounded-full">
-                    <Icon className="text-accent-red" size={32} />
+                  <div className="inline-flex items-center justify-center w-12 h-12 mb-4 bg-accent-red/10 rounded-lg">
+                    <Icon className="text-accent-red" size={22} />
                   </div>
                   <h3 className="text-xl font-heading font-bold mb-3 text-text-dark">
                     {benefit.title}
@@ -188,6 +223,55 @@ const Careers = () => {
                 </Card>
               );
             })}
+          </div>
+        </Container>
+      </section>
+
+      {/* Kaw Valley Trade School */}
+      <section className="section-padding" style={{ backgroundColor: '#1A3A08' }}>
+        <Container>
+          <div className="max-w-4xl mx-auto text-center">
+            <span
+              className="inline-block text-sm font-semibold uppercase tracking-wider mb-4"
+              style={{ color: '#F0D27A' }}
+            >
+              Start Your Career in the Trades
+            </span>
+            <h2
+              className="text-2xl md:text-3xl font-bold mb-6"
+              style={{ color: '#F5F3EE', fontFamily: 'Oswald, system-ui, sans-serif' }}
+            >
+              Kaw Valley Trade School
+            </h2>
+            <p className="text-lg mb-8 leading-relaxed" style={{ color: '#F5F3EE', opacity: 0.9 }}>
+              New to the electrical trade? Kaw Valley Trade School offers hands-on training
+              in electrical fundamentals, code, safety, and real-world job skills. Graduates
+              are prepared for apprentice positions at Perry Electrical and other contractors
+              across Kansas.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="https://kawvalleytradeschool.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-8 py-3 rounded font-semibold text-lg transition-all duration-300"
+                style={{ backgroundColor: '#F0D27A', color: '#1A3A08' }}
+              >
+                Learn About the Program
+              </a>
+              <a
+                href="https://kawvalleytradeschool.com/apply"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-8 py-3 rounded font-semibold text-lg border transition-all duration-300"
+                style={{ borderColor: '#F0D27A', color: '#F0D27A' }}
+              >
+                Apply to Trade School
+              </a>
+            </div>
+            <p className="mt-6 text-sm" style={{ color: '#F5F3EE', opacity: 0.7 }}>
+              Located at 116 N 6th St, St. Marys, KS 66536 · Director: Dave Perry
+            </p>
           </div>
         </Container>
       </section>
@@ -225,7 +309,15 @@ const Careers = () => {
                         {position.payRange && <span>💰 {position.payRange}</span>}
                       </div>
                     </div>
-                    <Button variant="primary" size="md" className="whitespace-nowrap">
+                    <Button
+                      variant="primary"
+                      size="md"
+                      className="whitespace-nowrap"
+                      onClick={() => {
+                        setFormData(prev => ({ ...prev, position: position.title }));
+                        document.getElementById('application-form')?.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                    >
                       Apply Now
                     </Button>
                   </div>
@@ -251,16 +343,37 @@ const Careers = () => {
       </section>
 
       {/* Application Form */}
-      <section className="section-padding bg-accent-dark text-white">
+      <section id="application-form" className="section-padding bg-accent-dark text-white">
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeader
-              subtitle="Get Started"
+              subtitle="Ready to Join Us?"
               title="Apply Today"
               className="text-white"
+              titleClassName="text-white"
             />
+            <p className="text-gray-400 text-center mb-8 max-w-xl mx-auto">
+              Takes less than 2 minutes. We review every application personally.
+            </p>
             
+            {isSuccess && (
+              <div className="bg-green-50 border border-green-200 rounded-md p-4 mb-6">
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+                  <p className="text-green-800 text-sm font-medium">
+                    Application Submitted! We&apos;ll review your information and be in touch soon.
+                  </p>
+                </div>
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-6">
+              {submitError && (
+                <div className="bg-red-50 border border-red-200 rounded-md p-4">
+                  <p className="text-red-700 text-sm">{submitError}</p>
+                </div>
+              )}
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-semibold mb-2">Full Name *</label>
@@ -308,10 +421,11 @@ const Careers = () => {
                     className="w-full px-4 py-3 rounded bg-white text-text-dark focus:outline-none focus:ring-2 focus:ring-accent-red"
                   >
                     <option value="">Select a position</option>
-                    <option value="journeyman">Licensed Journeyman Electrician</option>
-                    <option value="apprentice">Electrical Apprentice</option>
-                    <option value="project-manager">Project Manager</option>
-                    <option value="other">Other</option>
+                    {positionOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -339,8 +453,15 @@ const Careers = () => {
                 />
               </div>
 
-              <Button type="submit" variant="secondary" size="lg" className="w-full">
-                Submit Application
+              <Button type="submit" variant="primary" size="lg" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                    Submitting...
+                  </>
+                ) : (
+                  'Submit Application'
+                )}
               </Button>
             </form>
           </div>
